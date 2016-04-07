@@ -33,3 +33,7 @@ user_guide_src/cilexer/pycilexer.egg-info/*
 */cache/*
 !*/cache/index.html
 !*/cache/.htaccess
+
+#ignore sql files
+db/*.sqlite
+db/*.sqlite-journal
