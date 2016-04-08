@@ -6,3 +6,15 @@ function asset_url()
     $baseProtocolNeutral = str_replace(['http:', 'https:'], '', base_url());
     return $baseProtocolNeutral . 'assets/';
 }
+
+/**
+ * Return var_dump van $var
+ * @param $var mixed var to dump
+ * @return string output of var dump
+ */
+function var_dump_to_string($var) {
+    ob_start();
+    var_dump($var);
+    $result = ob_get_clean();
+    return $result;
+}
