@@ -12,9 +12,25 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |
 */
 $hook['post_controller_constructor'] = array(
-    'class'    => 'DatabaseHook',
-    'function' => 'create_if_not_exists',
-    'filename' => 'DatabaseHook.php',
-    'filepath' => 'hooks',
-    'params'   => array()
+  'class'    => 'DatabaseHook',
+  'function' => 'create_if_not_exists',
+  'filename' => 'DatabaseHook.php',
+  'filepath' => 'hooks',
+  'params'   => array()
+);
+
+$hook['post_controller_constructor'] = array(
+  'class'    => 'ViewHook',
+  'function' => 'before',
+  'filename' => 'ViewHook.php',
+  'filepath' => 'hooks',
+  'params'   => array()
+);
+
+$hook['post_controller'] = array(
+  'class'    => 'ViewHook',
+  'function' => 'after',
+  'filename' => 'ViewHook.php',
+  'filepath' => 'hooks',
+  'params'   => array()
 );
