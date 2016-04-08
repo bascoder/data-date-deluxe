@@ -11,4 +11,6 @@
     <link rel="stylesheet" type="text/css" href="<?php echo asset_url() . 'js/jquery-ui-1.11.4/jquery-ui.min.css' ?>"/>
 </head>
 <body>
-<nav><a id="loginLink" href="login.php">Login</a></nav>
+<nav>
+    <div id="Login"><a href="<?php echo base_url() . "index.php/login/"?>">Login</a> </div>
+</nav>
