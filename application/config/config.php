@@ -24,13 +24,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |
 */
 $config['base_url'] = '';
-if(stristr($_SERVER['SERVER_NAME'], 'science.uu.nl')) {
+if (stristr($_SERVER['SERVER_NAME'], 'science.uu.nl')) {
     $GLOBALS['productie'] = TRUE;
-    $config['base_url'] = 'http://www.students.science.uu.nl/~5836530/data-date-deluxe/';
+    $config['base_url'] = 'https://www.students.science.uu.nl/~5836530/data-date-deluxe/';
 } else {
     $GLOBALS['bas'] = TRUE;
     $config['base_url'] = 'http://localhost/data-date-deluxe/';
-} 
+}
 
 /*
 |--------------------------------------------------------------------------
