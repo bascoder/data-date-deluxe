@@ -1,17 +1,47 @@
-
-#Login {
-float: right;
-top: 5px;
-right: 5px;
-border: 3px solid blue;
-padding: 5px;
+body {
+    font-family: Verdana, sans-serif;
+    margin: 0;
 }
 
-#LoginForm{
+#LoginForm {
     border-radius: 12px;
     margin: auto;
     width: 200px;
     border: 10px solid #77C1E6;
     background: #77C1E6;
     vertical-align: middle;
+}
+
+.content {
+    width: 90%;
+    margin: auto;
+}
+
+/* Navbar */
+ul.nav {
+    list-style-type: none;
+    margin: 0 0 1em;
+    padding: 0;
+    overflow: hidden;
+    background-color: #eee;
+}
+
+ul.nav li {
+    float: left;
+}
+
+ul.nav li a {
+    display: block;
+    text-align: center;
+    padding: 1em;
+    color: #1a4749;
+    text-decoration: none;
+}
+
+ul.nav li a:hover {
+    background-color: #bbb;
+}
+
+ul.nav .right {
+    float: right;
 }

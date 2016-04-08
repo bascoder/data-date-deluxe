@@ -12,5 +12,9 @@
 </head>
 <body>
 <nav>
-    <div id="Login"><a href="<?php echo base_url() . "index.php/login/"?>">Login</a> </div>
+    <ul class="nav">
+        <li><a href="<?php echo base_url() ?>">Home</a></li>
+        <li id="Login" class="right"><a href="<?php echo base_url() . "index.php/login/" ?>">Login</a></li>
+    </ul>
 </nav>
+<div class="content">
