@@ -26,10 +26,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $config['base_url'] = '';
 if (stristr($_SERVER['DOCUMENT_ROOT'], 'C:/xampp/htdocs')) {
     $GLOBALS['bas'] = TRUE;
-    $config['base_url'] = 'http://localhost/data-date-deluxe/';
+    $config['base_url'] = 'https://localhost/data-date-deluxe/';
 } else if(stristr($_SERVER['SERVER_NAME'], 'science.uu.nl')) {
     $GLOBALS['productie'] = TRUE;
-    $config['base_url'] = 'http://www.students.science.uu.nl/~5836530/data-date-deluxe/';
+    $config['base_url'] = 'https://www.students.science.uu.nl/~5836530/data-date-deluxe/';
 }
 
 /*
