@@ -8,7 +8,7 @@ CREATE TABLE Profiel (
   email                 VARCHAR(255) NOT NULL,
   password              VARCHAR(255) NOT NULL,
   is_admin              BOOLEAN      NOT NULL DEFAULT 0,
-  nickname              VARCHAR(255) NOT NULL,
+  nickname              VARCHAR(255) NOT NULL UNIQUE,
   beschrijving          TEXT         NOT NULL DEFAULT '',
   geboorte_datum        DATE         NOT NULL,
   leeftijd_voorkeur_min INTEGER      NOT NULL,
