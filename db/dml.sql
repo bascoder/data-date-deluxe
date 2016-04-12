@@ -5,7 +5,7 @@ CREATE TABLE Profiel (
   pid                   INTEGER PRIMARY KEY   AUTOINCREMENT,
   voornaam              VARCHAR(255) NOT NULL,
   achternaam            VARCHAR(255) NOT NULL,
-  email                 VARCHAR(255) NOT NULL,
+  email                 VARCHAR(255) NOT NULL UNIQUE,
   password              VARCHAR(255) NOT NULL,
   is_admin              BOOLEAN      NOT NULL DEFAULT 0,
   nickname              VARCHAR(255) NOT NULL UNIQUE,
