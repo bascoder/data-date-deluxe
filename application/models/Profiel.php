@@ -1,16 +1,23 @@
 <?php
 
+/**
+ * @property CI_DB_query_builder|CI_DB_pdo_driver db
+ */
 class Profiel extends CI_Model
 {
     const GESLACHT_ID_MAN = 1;
     const GESLACHT_ID_VROUW = 2;
 
+    /**
+     * @param $fields array met post data, eerst filteren met make_fields method
+     * @return bool|int Return inserted row ID if success, else FALSE
+     */
     public function insert_entry($fields)
     {
         $sql = "INSERT INTO Profiel(voornaam, achternaam, email, password, is_admin, nickname, beschrijving,
                                     geboorte_datum, leeftijd_voorkeur_min, leeftijd_voorkeur_max, valt_op_man, valt_op_vrouw, geslacht_id, profiel_foto_id) 
                 VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-        return $this->db->query($sql,
+        $result = $this->db->query($sql,
             array(
                 $fields['voornaam'], $fields['achternaam'], $fields['email'], $fields['password'],
                 $fields['is_admin'], $fields['nickname'], $fields['beschrijving'], $fields['geboorte_datum'],
@@ -18,6 +25,52 @@ class Profiel extends CI_Model
                 $fields['valt_op_man'], $fields['valt_op_vrouw'],
                 $fields['geslacht_id'], $fields['profiel_foto_id']
             ));
+
+        if ($result === FALSE) {
+            return FALSE;
+        }
+        return $this->db->insert_id();
+    }
+
+    /**
+     * Query Profiel by profiel_id, return NULL if not found.
+     * @param $profiel_id integer
+     * @return mixed|null Profiel of NULL
+     */
+    public function query_by_id($profiel_id)
+    {
+        if(!is_numeric($profiel_id)) {
+            throw new InvalidArgumentException('Profiel ID moet numeriek zijn');
+        }
+        return $this->query_by('pid', intval($profiel_id));
+    }
+
+    /**
+     * @param $nickname string
+     * @return mixed|null NULL on failure anders een Profiel
+     */
+    public function query_by_nickname($nickname)
+    {
+        if(!is_string($nickname) || strlen($nickname) === 0) {
+            throw new InvalidArgumentException('Nickname moet een string zijn');
+        }
+        return $this->query_by('nickname', $nickname);
+    }
+
+    /**
+     * Query by een field
+     * @param $field
+     * @param $value
+     * @return mixed|null
+     */
+    private function query_by($field, $value)
+    {
+        $query = $this->db->get_where('Profiel', array($field => $value));
+        $row = $query->row();
+        if (isset($row)) {
+            return $row;
+        }
+        return NULL;
     }
 
     /**

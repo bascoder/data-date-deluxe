@@ -4,6 +4,7 @@
  * Controller om profile aan te maken na het registreren
  * @property CI_Upload upload
  * @property  Foto foto
+ * @property Authentication authentication
  */
 class Create extends CI_Controller
 {
@@ -12,6 +13,11 @@ class Create extends CI_Controller
     {
         $data['message'] = '';
         $this->load->view('profile/create', $data);
+
+        $profiel = $this->authentication->get_current_profiel();
+        if ($profiel === NULL) {
+            show_error('Uw sessie is verlopen, log opnieuw in', 401);
+        }
     }
 
     public function profiel_foto()
@@ -26,17 +32,13 @@ class Create extends CI_Controller
             $data = array('profile/create' => $this->upload->data());
 
             $this->load->model('foto');
-            $profielId = 1; // TODO stub
-            try {
-                $this->foto->insert_profiel_foto($data['profile/create'], $profielId);
-
-                $message = array('message' => 'Upload succesvol');
-                $this->load->view('profile/create', $message);
-            } catch (InvalidArgumentException $e) {
-                show_error($e->getMessage(), 500);
-            } catch (Exception $ex) {
-                show_error('Er ging iets mis met het verwerken van uw profiel foto', 500);
+            $profiel = $this->authentication->get_current_profiel();
+            if ($profiel === NULL) {
+                show_error('Uw sessie is verlopen, log opnieuw in', 401);
+                return;
             }
+            $profiel_id = $profiel->pid;
+            $this->process_foto($data, $profiel_id);
         }
     }
 
@@ -49,5 +51,23 @@ class Create extends CI_Controller
         $config['max_height'] = 5000;
 
         $this->upload->initialize($config);
+    }
+
+    /**
+     * @param $data
+     * @param $profiel_id
+     */
+    private function process_foto($data, $profiel_id)
+    {
+        try {
+            $this->foto->insert_profiel_foto($data['profile/create'], $profiel_id);
+
+            $message = array('message' => 'Upload succesvol');
+            $this->load->view('profile/create', $message);
+        } catch (InvalidArgumentException $e) {
+            show_error($e->getMessage(), 500);
+        } catch (Exception $ex) {
+            show_error('Er ging iets mis met het verwerken van uw profiel foto', 500);
+        }
     }
 }
