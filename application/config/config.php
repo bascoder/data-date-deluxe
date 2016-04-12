@@ -384,6 +384,9 @@ $config['sess_save_path'] = NULL;
 $config['sess_match_ip'] = FALSE;
 $config['sess_time_to_update'] = 300;
 $config['sess_regenerate_destroy'] = FALSE;
+if(isset($GLOBALS['productie'])) {
+    $config['sess_save_path'] = '/home/students/5836530/sessions';
+}
 
 /*
 |--------------------------------------------------------------------------
