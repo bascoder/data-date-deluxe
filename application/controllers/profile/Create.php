@@ -59,8 +59,10 @@ class Create extends CI_Controller
         try {
             $this->foto->insert_profiel_foto($data['profile/create'], $profiel_id);
 
-            $message = array('message' => 'Upload succesvol');
-            $this->load->view('profile/create', $message);
+            $this->session->set_flashdata('message',
+                array('message' => 'Uw foto is succesvol geüpload',
+                    'level' => 'success'));
+            redirect('home');
         } catch (InvalidArgumentException $e) {
             show_error($e->getMessage(), 500);
         } catch (Exception $ex) {

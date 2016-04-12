@@ -18,8 +18,13 @@ class Display extends CI_Controller
      */
     public function mijn()
     {
-        $this->load->view('profile/display',
-            array('profiel' => $this->authentication->get_current_profiel()));
+        $profiel = $this->authentication->get_current_profiel();
+        if ($profiel === NULL) {
+            sessie_verlopen_redirect();
+        } else {
+            $this->load->view('profile/display',
+                array('profiel' => $profiel));
+        }
     }
 
     /**

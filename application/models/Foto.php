@@ -23,7 +23,7 @@ class Foto extends CI_Model
             // alles in 1 transactie
             $this->db->trans_start();
 
-            $url = asset_url() . 'img/profiel_fotos/' . $new_file;
+            $url = 'assets/img/profiel_fotos/' . $new_file;
 
             $insert_foto_sql = 'INSERT INTO Foto(url, titel, beschrijving, profiel_id) VALUES(?,?,?,?)';
             $update_profiel_sql = 'UPDATE Profiel SET profiel_foto_id = ? WHERE pid = ?';

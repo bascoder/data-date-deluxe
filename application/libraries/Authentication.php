@@ -19,6 +19,7 @@ class Authentication
     public function __construct()
     {
         $this->ci =& get_instance();
+        $this->ci->load->model('profiel');
     }
 
     /**
@@ -62,11 +63,17 @@ class Authentication
     }
 
     /**
+     * @param bool $refresh refreshes data if true
      * @return null|stdClass Profiel als ingelogd anders NULL
      */
-    public function get_current_profiel()
+    public function get_current_profiel($refresh = TRUE)
     {
         if ($this->ci->session->has_userdata(self::KEY)) {
+            if($refresh) {
+                $pid = $this->ci->session->{self::KEY}->pid;
+                $profiel = $this->ci->profiel->query_by_id($pid);
+                $this->login($profiel);
+            }
             return $this->ci->session->{self::KEY};
         }
         return NULL;
