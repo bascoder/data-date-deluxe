@@ -44,3 +44,6 @@ assets/img/profiel_fotos
 !assets/img/profiel_fotos/*.svg
 upload/*
 !/upload/index.html
+
+# ignore user guide
+/user_guide
