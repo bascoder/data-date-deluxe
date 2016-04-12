@@ -72,4 +72,8 @@ class Authentication
         }
         return NULL;
     }
+    
+    public function is_authenticated() {
+        return $this->get_current_profiel() !== NULL; 
+    }
 }

@@ -17,7 +17,12 @@
 <nav>
     <ul class="nav">
         <li><a href="<?php echo base_url() ?>">Home</a></li>
-        <li id="Login" class="right"><a href="<?php echo base_url() . "index.php/login/" ?>">Login</a></li>
+        <?php // conditioneel login/log uit knopje ?>
+        <?php if ($is_auth): ?>
+            <li id="logout" class="right"><a href="<?php echo base_url() . "index.php/login/logout" ?>">Log uit</a></li>
+        <?php else: ?>
+            <li id="login" class="right"><a href="<?php echo base_url() . "index.php/login/" ?>">Log in</a></li>
+        <?php endif; ?>
     </ul>
 </nav>
 <div class="content">
