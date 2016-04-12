@@ -42,3 +42,5 @@ db/*.sqlite-journal
 assets/img/profiel_fotos
 #maar houdt de placeholders
 !assets/img/profiel_fotos/*.svg
+upload/*
+!/upload/index.html

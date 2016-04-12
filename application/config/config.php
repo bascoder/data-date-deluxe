@@ -27,8 +27,11 @@ $config['base_url'] = '';
 if (stristr($_SERVER['SERVER_NAME'], 'science.uu.nl')) {
     $GLOBALS['productie'] = TRUE;
     $config['base_url'] = 'https://www.students.science.uu.nl/~5836530/data-date-deluxe/';
-} else {
+} elseif(stristr($_SERVER['DOCUMENT_ROOT'], '/xampp/htdocs')) {
     $GLOBALS['bas'] = TRUE;
+    $config['base_url'] = 'https://localhost/data-date-deluxe/';
+} else {
+    $GLOBALS['ander'] = TRUE;
     $config['base_url'] = 'http://localhost/data-date-deluxe/';
 }
 

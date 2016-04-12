@@ -64,3 +64,19 @@ input.short-field {
 input, label {
     margin: 0.5em;
 }
+
+/* Messages */
+.message {
+    margin: 1em 0;
+    padding: 1em;
+
+    font-weight: bold;
+}
+
+.message.message-success {
+    border: thick solid green;
+}
+
+.message.message-error {
+    border: thick solid darkred;
+}
