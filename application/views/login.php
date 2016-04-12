@@ -1,5 +1,5 @@
 <div id="LoginForm" class="auth-container center">
-    <form class="auth" action="submit" method="post">
+    <form class="auth" action="login/submit" method="post">
         <label for="nickname">Nickname</label> <br>
         <input id="nickname" type="text" required name="nickname"> <br>
         <label for="password">Password</label> <br>

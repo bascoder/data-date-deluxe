@@ -1,9 +1,5 @@
 <h1>Creëer uw profiel</h1>
 <div class="center">
-    <div class="message message-success">
-        <?php echo $message; ?>
-    </div>
-
     <?php echo form_open_multipart('profile/create/profiel_foto'); ?>
 
     <label for="profiel_foto">Kies een profiel foto</label>

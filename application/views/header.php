@@ -21,7 +21,7 @@
         <?php if ($is_auth): ?>
             <li id="logout" class="right"><a href="<?php echo base_url() . "index.php/login/logout" ?>">Log uit</a></li>
         <?php else: ?>
-            <li id="login" class="right"><a href="<?php echo base_url() . "index.php/login/" ?>">Log in</a></li>
+            <li id="login" class="right"><a href="<?php echo base_url() . "index.php/login" ?>">Log in</a></li>
         <?php endif; ?>
     </ul>
 </nav>

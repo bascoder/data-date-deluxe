@@ -11,12 +11,11 @@ class Create extends CI_Controller
 
     public function index()
     {
-        $data['message'] = '';
-        $this->load->view('profile/create', $data);
+        $this->load->view('profile/create');
 
         $profiel = $this->authentication->get_current_profiel();
         if ($profiel === NULL) {
-            show_error('Uw sessie is verlopen, log opnieuw in', 401);
+            $this->sessie_verlopen();
         }
     }
 
@@ -25,17 +24,15 @@ class Create extends CI_Controller
         $this->init_upload_settings();
 
         if (!$this->upload->do_upload('profiel_foto')) {
-            $message = array('message' => '');
             show_error($this->upload->display_errors(), 500);
-            $this->load->view('profile/create', $message);
+            $this->load->view('profile/create');
         } else {
             $data = array('profile/create' => $this->upload->data());
 
             $this->load->model('foto');
             $profiel = $this->authentication->get_current_profiel();
             if ($profiel === NULL) {
-                show_error('Uw sessie is verlopen, log opnieuw in', 401);
-                return;
+                $this->sessie_verlopen();
             }
             $profiel_id = $profiel->pid;
             $this->process_foto($data, $profiel_id);
@@ -69,5 +66,10 @@ class Create extends CI_Controller
         } catch (Exception $ex) {
             show_error('Er ging iets mis met het verwerken van uw profiel foto', 500);
         }
+    }
+
+    private function sessie_verlopen()
+    {
+        sessie_verlopen_redirect();
     }
 }

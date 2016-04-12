@@ -16,18 +16,23 @@ class Login extends CI_Controller
         $nickname = $this->input->post('nickname');
         $password = $this->input->post('password');
         if ($this->authentication->authenticate($nickname, $password)) {
-            $this->load->view('partial/message/success',
-                array('message' => 'Succesvol ingelogd!'));
+            $this->session->set_flashdata('message',
+                array('message' => 'Succesvol ingelogd!',
+                    'level' => 'success'));
             redirect('home');
         } else {
-            $this->load->view('partial/message/error',
-                array('message' => 'De gebruikersnaam en/of wachtwoord komen niet overeen.'));
-            $this->load->view('login');
+            $this->session->set_flashdata('message',
+                array('message' => 'De gebruikersnaam en/of wachtwoord komen niet overeen.',
+                    'level' => 'error'));
+            redirect('login');
         }
     }
 
     public function logout()
     {
+        $this->session->set_flashdata('message',
+            array('message' => 'Succesvol uitgelogd!',
+                'level' => 'success'));
         $this->authentication->logout();
         redirect('home');
     }
