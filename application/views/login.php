@@ -1,12 +1,12 @@
-<div id="LoginForm">
-    <form>
-        Username: <br>
-         <input type="text" required="True" name="username"> <br>
-        Pasword: <br>
-         <input type="password" required="True" name="password"> <br>
-         <input type="submit">
+<div id="LoginForm" class="auth-container center">
+    <form class="auth" action="submit" method="post">
+        <label for="nickname">Nickname</label> <br>
+        <input id="nickname" type="text" required name="nickname"> <br>
+        <label for="password">Password</label> <br>
+        <input id="password" type="password" required name="password"> <br>
+        <input type="submit">
     </form>
-    <a href= "<?php echo base_url() . "index.php/register"?>">Nog geen lid? Klik hier.</a>
+    <a href="<?php echo base_url() . "index.php/register" ?>">Nog geen lid? Klik hier.</a>
 </div>
 <script src="<?php echo asset_url() . 'js/sha1.js' ?>"></script>
-<script src="<?php echo asset_url() . 'js/login.js' ?>"></script>
+<script src="<?php echo asset_url() . 'js/auth.js' ?>"></script>

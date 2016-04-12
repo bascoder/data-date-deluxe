@@ -48,8 +48,11 @@ class Authentication
      */
     public function authenticate($nickname, $password)
     {
-        $this->ci->load->model('Profiel');
+        $this->ci->load->model('profiel');
         $profiel = $this->ci->profiel->query_by_nickname($nickname);
+        if($profiel === NULL) {
+            return FALSE;
+        }
 
         $hash = $profiel->password;
         if (password_verify($password, $hash)) {

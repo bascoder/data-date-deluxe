@@ -3,13 +3,10 @@ body {
     margin: 0;
 }
 
-#LoginForm {
+.auth-container {
     border-radius: 12px;
-    margin: auto;
-    width: 200px;
     border: 10px solid #77C1E6;
     background: #77C1E6;
-    vertical-align: middle;
 }
 
 .center {

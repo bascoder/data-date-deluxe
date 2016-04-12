@@ -1,4 +1,4 @@
-<form id="register-form" class="center" action="register/submit" method="post">
+<form id="register-form" class="center auth auth-container" action="register/submit" method="post">
     <label for="voornaam">Voornaam</label><br/>
     <input required id="voornaam" name="voornaam" placeholder="Jan" type="text"/><br/>
     <label for="achternaam">Achternaam</label><br/>
@@ -36,3 +36,5 @@
     <input type="password" name="password" id="password" placeholder="S3rKW@cHTW0oRD" minlength="8" required/><br/>
     <input type="submit" value="Registreer"/>
 </form>
+<script src="<?php echo asset_url() . 'js/sha1.js' ?>"></script>
+<script src="<?php echo asset_url() . 'js/auth.js' ?>"></script>
