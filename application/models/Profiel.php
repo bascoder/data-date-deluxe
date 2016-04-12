@@ -39,7 +39,7 @@ class Profiel extends CI_Model
      */
     public function query_by_id($profiel_id)
     {
-        if(!is_numeric($profiel_id)) {
+        if (!is_numeric($profiel_id)) {
             throw new InvalidArgumentException('Profiel ID moet numeriek zijn');
         }
         return $this->query_by('pid', intval($profiel_id));
@@ -51,7 +51,7 @@ class Profiel extends CI_Model
      */
     public function query_by_nickname($nickname)
     {
-        if(!is_string($nickname) || strlen($nickname) === 0) {
+        if (!is_string($nickname) || strlen($nickname) === 0) {
             throw new InvalidArgumentException('Nickname moet een string zijn');
         }
         return $this->query_by('nickname', $nickname);
@@ -68,7 +68,12 @@ class Profiel extends CI_Model
         $query = $this->db->get_where('Profiel', array($field => $value));
         $row = $query->row();
         if (isset($row)) {
-            return $row;
+            $profiel = $row;
+            $this->add_profiel_foto($profiel);
+            $this->add_foto_array($profiel);
+            $this->add_geslacht($profiel);
+
+            return $profiel;
         }
         return NULL;
     }
@@ -224,5 +229,40 @@ class Profiel extends CI_Model
         $jonger_dan_99 = $post['leeftijd_voorkeur_max'] <= 99;
         $max_groter_min = $post['leeftijd_voorkeur_max'] >= $post['leeftijd_voorkeur_min'];
         return isset($post['leeftijd_voorkeur_max']) && $is_numeric && $jonger_dan_99 && $max_groter_min;
+    }
+
+    /**
+     * @param $profiel
+     */
+    private function add_profiel_foto($profiel)
+    {
+        $query = $this->db->get_where('Foto', array('fid' => $profiel->profiel_foto_id));
+        $foto = $query->row();
+        if (isset($foto)) {
+            $profiel->profiel_foto = $foto;
+        }
+    }
+
+    private function add_foto_array($profiel)
+    {
+        $profiel->fotos = [];
+
+        $query = $this->db->get_where('Foto', array('profiel_id' => $profiel->pid));
+        $foto = $query->first_row();
+        while ($foto !== NULL) {
+            if (isset($foto)) {
+                array_push($profiel->fotos, $foto);
+            }
+            $foto = $query->next_row();
+        }
+    }
+
+    private function add_geslacht($profiel)
+    {
+        $query = $this->db->get_where('Geslacht', array('gid' => $profiel->geslacht_id));
+        $geslacht = $query->row();
+        if (isset($geslacht)) {
+            $profiel->geslacht = $geslacht;
+        }
     }
 }

@@ -20,8 +20,12 @@
         <?php // conditioneel login/log uit knopje ?>
         <?php if ($is_auth): ?>
             <li id="logout" class="right"><a href="<?php echo base_url() . "index.php/login/logout" ?>">Log uit</a></li>
+            <li id="my-profile" class="right">
+                <?php echo anchor('profile/display/mijn', 'Mijn Profiel') ?>
+            </li>
         <?php else: ?>
             <li id="login" class="right"><a href="<?php echo base_url() . "index.php/login" ?>">Log in</a></li>
+            <li id="registreren" class="right"><?php echo anchor('register', 'Registreren') ?></li>
         <?php endif; ?>
     </ul>
 </nav>
