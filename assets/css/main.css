@@ -12,6 +12,12 @@ body {
     vertical-align: middle;
 }
 
+.center {
+    vertical-align: middle;
+    margin: auto;
+    width: 60%;
+}
+
 .content {
     width: 90%;
     margin: auto;
@@ -44,4 +50,17 @@ ul.nav li a:hover {
 
 ul.nav .right {
     float: right;
+}
+
+/* Register */
+#register-form input[type='submit'] {
+    margin-top: 1em;
+}
+
+input.short-field {
+    max-width: 5em;
+}
+
+input, label {
+    margin: 0.5em;
 }

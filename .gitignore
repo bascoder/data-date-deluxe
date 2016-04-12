@@ -37,3 +37,8 @@ user_guide_src/cilexer/pycilexer.egg-info/*
 #ignore sql files
 db/*.sqlite
 db/*.sqlite-journal
+
+#ignore uploaded profiel foto's
+assets/img/profiel_fotos
+#maar houdt de placeholders
+!assets/img/profiel_fotos/*.svg

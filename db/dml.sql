@@ -19,7 +19,9 @@ CREATE TABLE Profiel (
   CONSTRAINT chk_ouder_dan_18
   CHECK (geboorte_datum <= (strftime('%s', 'now') - 568024668)),
   CONSTRAINT chk_valt_op
-  CHECK (valt_op_man = 1 OR valt_op_vrouw = 1)
+  CHECK (valt_op_man = 1 OR valt_op_vrouw = 1),
+  CONSTRAINT chk_leeftijd_voorkeur
+  CHECK (leeftijd_voorkeur_min >= 18 AND leeftijd_voorkeur_max >= leeftijd_voorkeur_min)
 );
 
 CREATE TABLE Merk (
@@ -76,5 +78,21 @@ ADD COLUMN geslacht_id INTEGER REFERENCES Geslacht (gid);
 
 ALTER TABLE Profiel
 ADD COLUMN profiel_foto_id INTEGER REFERENCES Foto (fid);
+
+-- triggers
+CREATE TRIGGER IF NOT EXISTS assign_profile_picture
+AFTER INSERT ON `Profiel`
+FOR EACH ROW
+BEGIN
+  -- geslacht id 1 is man, foto id 1 is man placeholder
+  UPDATE Profiel
+  SET profiel_foto_id = 1
+  WHERE profiel_foto_id IS NULL AND geslacht_id = 1;
+
+  -- geslacht id 2 is vrouw, foto id 2 is vrouw placeholder
+  UPDATE Profiel
+  SET profiel_foto_id = 2
+  WHERE profiel_foto_id IS NULL AND geslacht_id = 2;
+END;
 
 COMMIT;
