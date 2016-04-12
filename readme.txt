@@ -14,8 +14,9 @@ Firefox 45
 - Laadt header en footer automatisch voor elke controller met ViewHook.php hook
 
 # Structuur
-assets/ map bevat javascript en css sources.
-db/ map bevat de database en het script om de database te genereren.
+assets/ bevat javascript en css sources.
+db/ bevat de database en het script om de database te genereren.
+upload/ bevat tijdelijke foto's die verwerkt worden door de Foto class.
 
 # Login
 
