@@ -33,6 +33,7 @@ class Display extends CI_Controller
      */
     public function van($profiel_identificatie)
     {
+        $profiel_identificatie = urldecode($profiel_identificatie);
         $profiel = $this->lookup_profiel($profiel_identificatie);
         if ($profiel === NULL) {
             show_404();
