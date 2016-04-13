@@ -11,3 +11,11 @@
         </p>
     <?php endif; ?>
 </article>
+
+<?php if (!is_ingelogd()): ?>
+    <div id="random-profielen">
+
+    </div>
+<?php endif; ?>
+
+<script src="<?php echo asset_url() . 'js/home.js'?>"></script>
