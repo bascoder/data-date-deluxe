@@ -3,13 +3,23 @@ body {
     margin: 0;
     background-image: url(/data-date-deluxe/assets/img/SiteImages/BackGroundM.jpg);
     background-size: 100%;
-    background-color: #b36b00; 
+    background-color: #b36b00;
+}
+
+div {
+    overflow: hidden;
 }
 
 /* Responsive images */
 img.responsive {
     width: 100%;
     height: auto;
+}
+
+.auth-container {
+    border-radius: 12px;
+    border: 10px solid #77C1E6;
+    background: #77C1E6;
 }
 
 .center {
@@ -19,8 +29,8 @@ img.responsive {
 }
 
 .content {
-    max-width: 800px;
-    margin: auto;
+    max-width: 70%;
+    margin: auto auto 2em;
     border-radius: 12px;
     border: 10px solid #77C1E6;
     background: #77C1E6;
@@ -32,7 +42,7 @@ ul.nav {
     margin: 0 0 1em;
     padding: 0;
     overflow: hidden;
-    background-color: #eee;
+    background-color: #ff626c;
 }
 
 ul.nav li {
@@ -43,12 +53,12 @@ ul.nav li a {
     display: block;
     text-align: center;
     padding: 1em;
-    color: #1a4749;
+    color: #e8e8e8;
     text-decoration: none;
 }
 
 ul.nav li a:hover {
-    background-color: #bbb;
+    background-color: #d25b65;
 }
 
 ul.nav .right {
@@ -97,4 +107,23 @@ table.table-profiel th {
 /* home */
 article.readable {
     max-width: 50em;
+}
+
+#random-profielen {
+
+}
+
+.profiel {
+    width: 40%;
+    float: left;
+
+    margin: 2%;
+    background-color: #ff626c;
+    border: 1px solid black;
+    border-radius: 12px;
+    height: 20em;
+}
+
+.profiel table {
+    margin-left: 2em;
 }

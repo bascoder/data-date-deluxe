@@ -295,6 +295,23 @@ class Profiel extends CI_Model
         }
     }
 
+    private function add_merk_array($profiel)
+    {
+        $profiel->fotos = [];
+
+        $query = $this->db->select('merk.*')
+            ->from('Merk')
+            ->join('Merk_voorkeur', array('profiel_id' => $profiel->pid))
+            ->get();
+        $merk = $query->first_row();
+        while ($merk !== NULL) {
+            if (isset($merk)) {
+                array_push($profiel->merken, $merk);
+            }
+            $merk = $query->next_row();
+        }
+    }
+
     private function add_geslacht($profiel)
     {
         $query = $this->db->get_where('Geslacht', array('gid' => $profiel->geslacht_id));
