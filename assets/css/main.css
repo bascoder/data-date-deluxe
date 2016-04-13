@@ -1,6 +1,9 @@
 body {
     font-family: Verdana, sans-serif;
     margin: 0;
+    background-image: url(/data-date-deluxe/assets/img/SiteImages/BackGround.jpg);
+    background-size: 100%;
+    background-color: darkorange; 
 }
 
 /* Responsive images */
