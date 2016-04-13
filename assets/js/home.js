@@ -2,15 +2,12 @@
     "use strict";
 
     var randomProfielen = {
-        url: "profile/lookup/random",
+        url: base_url + "index.php/profile/lookup/random",
         element: '',
         init: function (element) {
             randomProfielen.element = $(element);
         },
         load: function () {
-            $.getJSON(randomProfielen.url, null, function (data) {
-
-            });
             $.ajax({
                 url: randomProfielen.url,
                 type: 'GET',
@@ -34,6 +31,8 @@
                 var profiel = new Profiel(this);
                 var container = $('<div class="profiel"></div>');
                 var table = $('<table></table>');
+
+                $('<img src="' + base_url + profiel.profiel_foto + '" alt="placeholder profiel foto, login om meer te zien" />').appendTo(container);
                 $('<tr><td>Nickname</td><td>' + profiel.nickname + '</td></tr>').appendTo(table);
                 $('<tr><td>Geslacht</td><td>' + profiel.geslacht + '</td></tr>').appendTo(table);
                 $('<tr><td>Leeftijd</td><td>' + profiel.age() + '</td></tr>').appendTo(table);

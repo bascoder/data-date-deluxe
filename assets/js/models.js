@@ -34,7 +34,7 @@ var Profiel = function (profiel) {
         if (merkenString.charAt(merkenString.length) === ',') {
             merkenString.slice(0, -1);
         }
-        if(merkenString === '') {
+        if (merkenString === '') {
             return 'geen';
         }
         return merkenString;
@@ -57,4 +57,7 @@ var Profiel = function (profiel) {
         this.beschrijving = 'Geen beschrijving';
     }
 
+    if (!this.profiel_foto) {
+        this.profiel_foto = base_url + 'assets/img/profiel_fotos/placeholder' + this.geslacht === 'man' ? 'male' : 'female';
+    }
 };
