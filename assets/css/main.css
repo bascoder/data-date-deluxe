@@ -3,19 +3,13 @@ body {
     margin: 0;
     background-image: url(/data-date-deluxe/assets/img/SiteImages/BackGround.jpg);
     background-size: 100%;
-    background-color: darkorange; 
+    background-color: #b36b00; 
 }
 
 /* Responsive images */
 img.responsive {
     width: 100%;
     height: auto;
-}
-
-.auth-container {
-    border-radius: 12px;
-    border: 10px solid #77C1E6;
-    background: #77C1E6;
 }
 
 .center {
@@ -25,8 +19,11 @@ img.responsive {
 }
 
 .content {
-    width: 90%;
+    max-width: 800px;
     margin: auto;
+    border-radius: 12px;
+    border: 10px solid #77C1E6;
+    background: #77C1E6;
 }
 
 /* Navbar */
