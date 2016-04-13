@@ -12,6 +12,7 @@
                 <strong>daten</strong>
                 beginnen!
             </p>
+            <img class="responsive" src="<?php echo asset_url() . 'img/SiteImages/happy.jpg'?>"
         <?php endif; ?>
     </article>
 </div>
