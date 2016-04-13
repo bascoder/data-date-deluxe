@@ -3,7 +3,7 @@ body {
     margin: 0;
     background-image: url(/data-date-deluxe/assets/img/SiteImages/BackGround.jpg);
     background-size: 100%;
-    background-color: darkorange; 
+    background-color: darkorange;
 }
 
 /* Responsive images */
@@ -100,4 +100,18 @@ table.table-profiel th {
 /* home */
 article.readable {
     max-width: 50em;
+}
+
+#random-profielen {
+
+}
+
+.profiel {
+    width: 30%;
+    float: left;
+
+    margin: 2%;
+    background-color: #ff626c;
+    border: 1px solid black;
+    border-radius: 12px;
 }

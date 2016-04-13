@@ -30,6 +30,14 @@ var Profiel = function (profiel) {
         for (i = 0; i < merken.length || i === length; i++) {
             merkenString = merkenString + merken[i] + ',';
         }
+
+        if (merkenString.charAt(merkenString.length) === ',') {
+            merkenString.slice(0, -1);
+        }
+        if(merkenString === '') {
+            return 'geen';
+        }
+        return merkenString;
     };
 
     // normaliseer attributen
