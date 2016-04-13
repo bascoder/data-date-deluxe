@@ -93,3 +93,8 @@ table.table-profiel th {
     text-align: left;
     width: 15em;
 }
+
+/* home */
+article.readable {
+    max-width: 50em;
+}
