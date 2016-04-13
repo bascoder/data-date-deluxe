@@ -79,6 +79,9 @@ ADD COLUMN geslacht_id INTEGER REFERENCES Geslacht (gid);
 ALTER TABLE Profiel
 ADD COLUMN profiel_foto_id INTEGER REFERENCES Foto (fid);
 
+ALTER TABLE Profiel
+ADD COLUMN persoonlijkheids_type_id INTEGER REFERENCES Persoonlijkheids_type (ptid);
+
 -- triggers
 CREATE TRIGGER IF NOT EXISTS assign_profile_picture
 AFTER INSERT ON `Profiel`
