@@ -9,5 +9,6 @@
             Zodra een wederzijdse like geeft kunt u elkaars contact informatie zien, en kan het <strong>daten</strong>
             beginnen!
         </p>
+        <img class="responsive" src="<?php echo asset_url() . 'img/SiteImages/happy.jpg'?>"
     <?php endif; ?>
 </article>
