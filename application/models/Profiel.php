@@ -64,7 +64,7 @@ class Profiel extends CI_Model
      */
     public function query_random_profielen($aantal = 6)
     {
-        $aantal = intval($aantal);
+        $aantal = intval($aantal) + 1;
         if ($aantal == 0) {
             throw new InvalidArgumentException('Aantal moet meer zijn dan 0');
         }
