@@ -7,6 +7,8 @@
 
     <title>Data Date Deluxe</title>
 
+    <link rel="shortcut icon" type="image/x-icon" href="<?php echo base_url() . 'favicon.ico' ?>">
+
     <link rel="stylesheet" type="text/css" href="<?php echo asset_url() . 'css/main.css' ?>"/>
     <link rel="stylesheet" type="text/css" href="<?php echo asset_url() . 'js/jquery-ui-1.11.4/jquery-ui.min.css' ?>"/>
     <script src="<?php echo asset_url() . 'js/jquery-2.2.3.min.js' ?>"></script>

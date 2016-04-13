@@ -34,9 +34,11 @@ class Register extends CI_Controller
             }
         } catch (InvalidArgumentException $e) {
             // input error, laat de gebruiker weten hoe te corrigeren
-            show_error($e->getMessage(), 500);
+            $this->session->set_flashdata('message',
+                array('message' => $e->getMessage(),
+                    'level' => 'error'));
+            redirect($_SERVER['HTTP_REFERER'], 'refresh');
         }
-
     }
 
     /**

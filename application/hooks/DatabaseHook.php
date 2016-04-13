@@ -38,16 +38,32 @@ class DatabaseHook extends CI_Hooks
      */
     private function create_tables()
     {
+        $return_var = $this->execute_sql_file('dml.sql');
+        // 0 is success status
+        if ($return_var !== 0) {
+            show_error('Could not init database tables');
+        } else {
+            $return_var = $this->execute_sql_file('seed.sql');
+            if ($return_var === 0) {
+                log_message('info', 'dml.sql en seed.sql executed successfully');
+            } else {
+                show_error('Could not seed database');
+            }
+        }
+    }
+
+    private function execute_sql_file($file)
+    {
         // command = sqlite3 database.sqlite < dml.sql
-        $command = 'sqlite3 ' . FCPATH . '/db/database.sqlite < ' . FCPATH . '/db/dml.sql';
+        $command = 'sqlite3 ' . FCPATH . '/db/database.sqlite < ' . FCPATH . '/db/' . $file;
         $output = array();
         $return_var = null;
         exec($command, $output, $return_var);
 
-        // 0 is success status
-        if($return_var !== 0) {
-            show_error('Could not init database tables');
+        if ($return_var !== 0) {
             log_message('error', var_dump_to_string($output));
         }
+
+        return $return_var;
     }
 }
