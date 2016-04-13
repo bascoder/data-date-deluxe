@@ -108,6 +108,9 @@ class Profiel extends CI_Model
             $this->add_profiel_foto($profiel);
             $this->add_foto_array($profiel);
             $this->add_geslacht($profiel);
+            $this->add_persoonlijkheids_type($profiel);
+            $this->add_merk_array($profiel);
+            $this->add_persoonlijkheids_voorkeuren($profiel);
 
             return $profiel;
         }
@@ -297,11 +300,11 @@ class Profiel extends CI_Model
 
     private function add_merk_array($profiel)
     {
-        $profiel->fotos = [];
+        $profiel->merken = [];
 
         $query = $this->db->select('merk.*')
             ->from('Merk')
-            ->join('Merk_voorkeur', array('profiel_id' => $profiel->pid))
+            ->join('Merk_voorkeur', 'profiel_id = ' . $profiel->pid)
             ->get();
         $merk = $query->first_row();
         while ($merk !== NULL) {
@@ -327,6 +330,23 @@ class Profiel extends CI_Model
         $type = $query->row();
         if (isset($type)) {
             $profiel->persoonlijkheids_type = $type;
+        }
+    }
+
+    private function add_persoonlijkheids_voorkeuren($profiel)
+    {
+        $profiel->persoonlijkheids_voorkeuren = [];
+
+        $query = $this->db->select('persoonlijkheids_type.*')
+            ->from('persoonlijkheids_type')
+            ->join('persoonlijkheids_type_voorkeur', 'profiel_id = ' . $profiel->pid)
+            ->get();
+        $p_voorkeur = $query->first_row();
+        while ($p_voorkeur !== NULL) {
+            if (isset($p_voorkeur)) {
+                array_push($profiel->persoonlijkheids_voorkeuren, $p_voorkeur);
+            }
+            $p_voorkeur = $query->next_row();
         }
     }
 

@@ -42,8 +42,37 @@
             <td><?php echo $pref ?></td>
         </tr>
         <tr>
-            <th>Leeftijd voorkeur</th>
-            <td><?php echo $profiel->leeftijd_voorkeur_min . ' - ' . $profiel->leeftijd_voorkeur_max; ?></td>
+            <th>Persoonlijkheids type</th>
+            <td>
+                <?php
+                if (isset($profiel->persoonlijkheids_type))
+                    echo $profiel->persoonlijkheids_type->type
+                ?>
+            </td>
+        </tr>
+        <tr>
+            <th>Persoonlijkheids voorkeuren</th>
+            <td>
+                <?php
+                if (isset($profiel->persoonlijks_voorkeuren)):
+                    foreach ($profiel->persoonlijks_voorkeuren as $voorkeur):
+                        echo ' ' . $voorkeur->type;
+                    endforeach;
+                endif;
+                ?>
+            </td>
+        </tr>
+        <tr>
+            <th>Merk voorkeuren</th>
+            <td>
+                <?php
+                if (isset($profiel->merken)):
+                    foreach ($profiel->merken as $merk):
+                        echo ' ' . $merk->naam;
+                    endforeach;
+                endif;
+                ?>
+            </td>
         </tr>
         </tbody>
     </table>
