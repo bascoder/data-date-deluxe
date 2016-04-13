@@ -3,7 +3,11 @@ body {
     margin: 0;
     background-image: url(/data-date-deluxe/assets/img/SiteImages/BackGround.jpg);
     background-size: 100%;
-    background-color: darkorange;
+    background-color: #b36b00;
+}
+
+div {
+    overflow: hidden;
 }
 
 /* Responsive images */
@@ -25,8 +29,11 @@ img.responsive {
 }
 
 .content {
-    width: 90%;
+    max-width: 70%;
     margin: auto;
+    border-radius: 12px;
+    border: 10px solid #77C1E6;
+    background: #77C1E6;
 }
 
 /* Navbar */
