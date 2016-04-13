@@ -110,6 +110,9 @@ class Profiel extends CI_Model
         $fields['geslacht_id'] = $geslachtId;
         if (isset($post['geboorte_datum'])) {
             $fields['geboorte_datum'] = strtotime($post['geboorte_datum']);
+            if(!$this->is_ouder_dan_18($fields['geboorte_datum'])) {
+                throw new InvalidArgumentException('Je moet ouder dan 18 zijn om deze website te gebruiken.');
+            }
             if ($fields['geboorte_datum'] === FALSE) {
                 throw new InvalidArgumentException('Geboortedatum heeft geen geldig format');
             }
@@ -152,7 +155,6 @@ class Profiel extends CI_Model
         }
         $fields['is_admin'] = FALSE;
         if (isset($post['profiel_foto_url'])) {
-            //TODO lookup ID
             $fields['profiel_foto_id'] = $geslachtId;
         } else {
             $fields['profiel_foto_id'] = $geslachtId;
@@ -264,5 +266,15 @@ class Profiel extends CI_Model
         if (isset($geslacht)) {
             $profiel->geslacht = $geslacht;
         }
+    }
+
+    /**
+     * @param $geboorte_datum_ts integer geboorte datum als unix timestamp
+     * @return bool
+     */
+    private function is_ouder_dan_18($geboorte_datum_ts)
+    {
+        $jaar_in_seconden_18 = 568024668;
+        return $geboorte_datum_ts <= (time() - $jaar_in_seconden_18);
     }
 }
