@@ -32,7 +32,7 @@
             randomProfielen.element.empty();
             $.each(profielen, function () {
                 var profiel = new Profiel(this);
-                var container = $('<div class="profiel"></div>');
+                var container = $('<div class="profiel clickable" data-pid="' + profiel.pid + '"></div>');
                 var table = $('<table></table>');
 
                 $('<img src="' + base_url + profiel.profiel_foto + '" alt="placeholder profiel foto, login om meer te zien" />').appendTo(container);
@@ -44,6 +44,13 @@
                 $('<tr><td>Merken</td><td>' + profiel.merkenToString(5) + '</td></tr>').appendTo(table);
                 table.appendTo(container);
                 container.appendTo(randomProfielen.element);
+            });
+            randomProfielen.attachProfielClick();
+        },
+        attachProfielClick: function () {
+            $('.profiel').click(function () {
+                var pid = $(this).data('pid');
+                window.location.href = base_url + 'index.php/profile/display/van/' + pid;
             });
         }
     };
