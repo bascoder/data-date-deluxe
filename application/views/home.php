@@ -16,6 +16,8 @@
     </article>
 </div>
 <?php if (!is_ingelogd()): ?>
+    <h2>Profielen</h2>
+    <button id="meer-random-profielen">Meer profielen</button>
     <div id="random-profielen">
 
     </div>

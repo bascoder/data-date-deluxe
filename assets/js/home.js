@@ -6,6 +6,7 @@
         element: '',
         init: function (element) {
             randomProfielen.element = $(element);
+            $('#meer-random-profielen').click(randomProfielen.load);
         },
         load: function () {
             $.ajax({
@@ -19,6 +20,7 @@
             }).fail(function (xhr, status) {
                 console.error(xhr);
                 if (status === 404) {
+                    randomProfielen.element.empty();
                     randomProfielen.display404();
                 }
             });
@@ -27,6 +29,7 @@
             $('<div class="message message-error">Er zijn nog geen profielen</div>').appendTo(randomProfielen.element);
         },
         appendProfielen: function (profielen) {
+            randomProfielen.element.empty();
             $.each(profielen, function () {
                 var profiel = new Profiel(this);
                 var container = $('<div class="profiel"></div>');
