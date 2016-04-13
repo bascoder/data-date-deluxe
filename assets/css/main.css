@@ -1,7 +1,7 @@
 body {
     font-family: Verdana, sans-serif;
     margin: 0;
-    background-image: url(/data-date-deluxe/assets/img/SiteImages/BackGroundM.jpg);
+    background-image: url(../img/SiteImages/BackGroundM.jpg);
     background-size: 100%;
     background-color: #b36b00;
 }
