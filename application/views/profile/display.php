@@ -10,19 +10,14 @@
     else:
         // placeholder foto van bijhorend geslacht
         echo img(array(
-            'src' => 'assets/img/profiel_fotos/placeholder_' . (strtolower($geslacht) === 'man' ? 'male' : 'female') . '.svg',
+            'src' => placeholder_url($geslacht),
             'alt' => 'Placeholder profiel foto, log in om meer te zien',
             'class' => 'profiel-foto responsive'
         ));
     endif;
     ?>
     <?php
-    $pref = '';
-    if ($profiel->valt_op_man && $profiel->valt_op_vrouw) {
-        $pref = 'biseksueel';
-    } else {
-        $pref = $profiel->valt_op_man ? 'mannen' : 'vrouwen';
-    }
+    $pref = seksuele_voorkeur_display($profiel->valt_op_man, $profiel->valt_op_vrouw);
     ?>
     <table class="table-profiel">
         <tbody>

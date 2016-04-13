@@ -58,6 +58,42 @@ class Profiel extends CI_Model
     }
 
     /**
+     * 6 random profielen voor home page
+     * @param int $aantal default 6
+     * @return array met profielen
+     */
+    public function query_random_profielen($aantal = 6)
+    {
+        $aantal = intval($aantal);
+        if ($aantal == 0) {
+            throw new InvalidArgumentException('Aantal moet meer zijn dan 0');
+        }
+
+        // query benodigde attributen
+        $query = $this->db
+            ->select('pid, nickname, geslacht_id, geboorte_datum, beschrijving, persoonlijkheids_type_id')
+            ->from('Profiel')
+            ->order_by('RANDOM()')
+            ->limit($aantal)
+            ->get();
+
+        // voeg extra attributen toe, en append aan array
+        $profielen = [];
+        while ($row = $query->next_row()) {
+            $this->add_geslacht($row);
+            $this->add_persoonlijkheids_type($row);
+            $row->profiel_foto = placeholder_url($row->geslacht->geslacht);
+
+            $beschrijving = $row->beschrijving;
+            $row->beschrijving = $this->eerste_zin($beschrijving);
+
+            array_push($profielen, $row);
+        }
+
+        return $profielen;
+    }
+
+    /**
      * Query by een field
      * @param $field
      * @param $value
@@ -110,7 +146,7 @@ class Profiel extends CI_Model
         $fields['geslacht_id'] = $geslachtId;
         if (isset($post['geboorte_datum'])) {
             $fields['geboorte_datum'] = strtotime($post['geboorte_datum']);
-            if(!$this->is_ouder_dan_18($fields['geboorte_datum'])) {
+            if (!$this->is_ouder_dan_18($fields['geboorte_datum'])) {
                 throw new InvalidArgumentException('Je moet ouder dan 18 zijn om deze website te gebruiken.');
             }
             if ($fields['geboorte_datum'] === FALSE) {
@@ -268,6 +304,15 @@ class Profiel extends CI_Model
         }
     }
 
+    private function add_persoonlijkheids_type($profiel)
+    {
+        $query = $this->db->get_where('Persoonlijkheids_type', array('ptid' => $profiel->persoonlijkheids_type_id));
+        $type = $query->row();
+        if (isset($type)) {
+            $profiel->persoonlijkheids_type = $type;
+        }
+    }
+
     /**
      * @param $geboorte_datum_ts integer geboorte datum als unix timestamp
      * @return bool
@@ -276,5 +321,21 @@ class Profiel extends CI_Model
     {
         $jaar_in_seconden_18 = 568024668;
         return $geboorte_datum_ts <= (time() - $jaar_in_seconden_18);
+    }
+
+    /**
+     * @param $beschrijving
+     * @return string
+     */
+    private function eerste_zin($beschrijving)
+    {
+        $zinnen = explode('.', $beschrijving);
+        if (!empty($zinnen)) {
+            $eerste_zin = $zinnen[0];
+            return $eerste_zin;
+        } else {
+            $eerste_zin = substr($beschrijving, 15);
+            return $eerste_zin;
+        }
     }
 }

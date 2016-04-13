@@ -9,15 +9,18 @@ class ViewHook extends CI_Hooks
     public function before()
     {
         $ci =& get_instance();
-        $this->include_header($ci);
-        $this->include_message($ci);
-
+        if ($this->is_html_output($ci)) {
+            $this->include_header($ci);
+            $this->include_message($ci);
+        }
     }
 
     public function after()
     {
         $ci =& get_instance();
-        $ci->load->view('footer');
+        if ($this->is_html_output($ci)) {
+            $ci->load->view('footer');
+        }
     }
 
     /**
@@ -44,5 +47,15 @@ class ViewHook extends CI_Hooks
         $is_auth = $ci->authentication->is_authenticated();
         $ci->load->view('header', array('is_auth' => $is_auth));
         return $ci;
+    }
+
+    /**
+     * Voor compatibiliteit met json controllers
+     * @param $ci
+     * @return bool TRUE if output type is html
+     */
+    private function is_html_output($ci)
+    {
+        return $ci->output->get_content_type() === 'text/html';
     }
 }
