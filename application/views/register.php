@@ -11,7 +11,7 @@
     </label>
     <br/>
     <label for="geboorte-datum">Geboortedatum</label>
-    <input type="date" id="geboorte-datum" name="geboorte_datum" aria-valuemin="De gebruiker moet ouder zijn dan 18"/>
+    <input type="date" value="<?php echo date("Y") - 17; ?>-01-01" id="geboorte-datum" name="geboorte_datum" aria-valuemin="De gebruiker moet ouder zijn dan 18"/>
     <br/>
     <hr/>
     <label>
@@ -33,7 +33,7 @@
     <label for="nickname">Nickname</label><br/>
     <input type="text" name="nickname" id="nickname" placeholder="Make it sexy..." required/><br/>
     <label for="password">Wachtwoord</label><br/>
-    <input type="password" name="password" id="password" placeholder="S3rKW@cHTW0oRD" minlength="8" required/><br/>
+    <input type="password" name="password" id="password" placeholder="St3rKW@cHTW0oRD" minlength="8" required/><br/>
     <input type="submit" value="Registreer"/>
 </form>
 <script src="<?php echo asset_url() . 'js/sha1.js' ?>"></script>
