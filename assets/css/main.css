@@ -137,6 +137,6 @@ article.readable {
     margin-left: 2em;
 }
 
-.profiel:active, .profiel:target {
+.profiel.clickable:active, .profiel.clickable:target {
     background-color: rgba(255, 98, 108, 0.5);
 }
