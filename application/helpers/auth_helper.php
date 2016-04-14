@@ -13,3 +13,12 @@ function is_ingelogd()
     $ci =& get_instance();
     return $ci->authentication->is_authenticated();
 }
+
+/**
+ * @return int constant die aangeeft wat de privileges van de huidige gebruiker zijn
+ */
+function current_privileges()
+{
+    $ci =& get_instance();
+    return $ci->authentication->get_privileges();
+}

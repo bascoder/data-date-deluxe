@@ -64,7 +64,7 @@ class Profiel extends CI_Model
      */
     public function query_random_profielen($aantal = 6)
     {
-        $aantal = intval($aantal);
+        $aantal = intval($aantal) + 1;
         if ($aantal == 0) {
             throw new InvalidArgumentException('Aantal moet meer zijn dan 0');
         }
@@ -91,6 +91,41 @@ class Profiel extends CI_Model
         }
 
         return $profielen;
+    }
+
+    /**
+     * Query met bepaalde where clauses
+     * $where clauses moet een array zijn met daarin een assoc array met twee keys: field en value
+     * @param $where_clauses array
+     * @return array|null array met profielen
+     */
+    public function query_by_extra($where_clauses)
+    {
+        foreach ($where_clauses as $where) {
+            $this->db->where($where['field'], $where['value']);
+        }
+
+        $query = $this->db->get('Profiel');
+        $row = $query->row();
+        $profielen = [];
+        do {
+            if (isset($row)) {
+                $profiel = $row;
+                $this->add_profiel_foto($profiel);
+                $this->add_foto_array($profiel);
+                $this->add_geslacht($profiel);
+                $this->add_persoonlijkheids_type($profiel);
+                $this->add_merk_array($profiel);
+                $this->add_persoonlijkheids_voorkeuren($profiel);
+
+                array_push($profielen, $profiel);
+            }
+        } while ($row = $query->next_row());
+        if (count($profielen) === 0)
+            return NULL;
+        else {
+            return $profielen;
+        }
     }
 
     /**
