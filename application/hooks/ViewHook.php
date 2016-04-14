@@ -9,7 +9,8 @@ class ViewHook extends CI_Hooks
     public function before()
     {
         $ci =& get_instance();
-        if ($this->is_html_output($ci)) {
+
+        if ($this->is_html_output($ci) && !$this->isPlain($ci)) {
             $this->include_header($ci);
             $this->include_message($ci);
         }
@@ -18,7 +19,7 @@ class ViewHook extends CI_Hooks
     public function after()
     {
         $ci =& get_instance();
-        if ($this->is_html_output($ci)) {
+        if ($this->is_html_output($ci) && !$this->isPlain($ci)) {
             $ci->load->view('footer');
         }
     }
@@ -57,5 +58,11 @@ class ViewHook extends CI_Hooks
     private function is_html_output($ci)
     {
         return $ci->output->get_content_type() === 'text/html';
+    }
+
+    private function isPlain($ci){
+        if($ci->input->post('plain') != NULL){
+            return $ci->input->post('plain') == 1;
+        }
     }
 }

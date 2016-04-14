@@ -202,6 +202,7 @@ class Profiel extends CI_Model
         return $fields;
     }
 
+
     /**
      * @param $pref string
      * @param $geslachtId integer
@@ -209,8 +210,8 @@ class Profiel extends CI_Model
      */
     private function valt_op_man($pref, $geslachtId)
     {
-        $hetero_vrouw = $pref == 'hetero' && $geslachtId == self::GESLACHT_ID_VROUW;
-        $homo_man = $pref == 'homo' && $geslachtId == self::GESLACHT_ID_MAN;
+        $hetero_vrouw = $pref == 'm' && $geslachtId == self::GESLACHT_ID_VROUW;
+        $homo_man = $pref == 'm' && $geslachtId == self::GESLACHT_ID_MAN;
         return $pref == 'bi' || $hetero_vrouw || $homo_man;
     }
 
@@ -221,8 +222,8 @@ class Profiel extends CI_Model
      */
     private function valt_op_vrouw($pref, $geslachtId)
     {
-        $hetero_man = $pref == 'hetero' && $geslachtId == self::GESLACHT_ID_MAN;
-        $homo_vrouw = $pref == 'homo' && $geslachtId == self::GESLACHT_ID_VROUW;
+        $hetero_man = $pref == 'v' && $geslachtId == self::GESLACHT_ID_MAN;
+        $homo_vrouw = $pref == 'v' && $geslachtId == self::GESLACHT_ID_VROUW;
         return $pref == 'bi' || $hetero_man || $homo_vrouw;
     }
 

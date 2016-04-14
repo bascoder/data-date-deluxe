@@ -22,11 +22,11 @@
                max="99" class="short-field" placeholder="max" required/>
     </label>
     <br/>
-    <label for="sex-preference">Seksuele voorkeur</label>
+    <label for="sex-preference">Geintreseerd in</label>
     <select id="sex-preference" name="sex_preference" required>
-        <option>Hetero</option>
-        <option>Homo</option>
-        <option>Bi</option>
+        <option value ="m">mannen</option>
+        <option value ="v">vrouwen</option>
+        <option value ="bi">mannen en vrouwen</option>
     </select>
     <br />
     <hr/>
