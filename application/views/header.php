@@ -24,6 +24,13 @@
 <nav>
     <ul class="nav">
         <li><a href="<?php echo base_url() ?>">Home</a></li>
+        <li>
+            <a href="<?php echo base_url() . 'index.php/profile/lookup/page' ?>">
+                <img class="svg-nav responsive" src="<?php echo asset_url() . 'img/site_images/search.svg' ?>"
+                     alt="zoek profielen"/>
+                &nbsp;Profielen
+            </a>
+        </li>
         <?php // conditioneel login/log uit knopje ?>
         <?php if ($is_auth): ?>
             <li id="logout" class="right"><a href="<?php echo base_url() . "index.php/login/logout" ?>">Log uit</a></li>

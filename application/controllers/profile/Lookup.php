@@ -4,6 +4,7 @@
  *
  * @property Profiel profiel
  * @property CI_Output output
+ * @property CI_Input input
  */
 class Lookup extends CI_Controller
 {
@@ -36,6 +37,36 @@ class Lookup extends CI_Controller
         }
     }
 
+    public function page()
+    {
+        if (current_privileges() === Authentication::ANONYMOUS) {
+            $this->load->view('profile/search');
+        }
+    }
+
+    public function search()
+    {
+        $this->load->model('profiel');
+
+        $geslacht_voorkeur = strtolower($this->input->post('geslacht_voorkeur'));
+
+        $where_clauses = $this->populate_where_geslacht($geslacht_voorkeur);
+        $leeftijd_min = intval($this->input->post('leeftijd_min'));
+        $leeftijd_max = intval($this->input->post('leeftijd_max'));
+        if (($leeftijd_min) >= 18 && ($leeftijd_max) >= $leeftijd_min) {
+            array_push($where_clauses, array('field' => 'leeftijd_voorkeur_min >=', 'value' => $leeftijd_min));
+            array_push($where_clauses, array('field' => 'leeftijd_voorkeur_max <=', 'value' => $leeftijd_max));
+        }
+        $merken_string = $this->input->post('merken');
+        if ($merken_string !== NULL && !empty($merken_string)) {
+            $merken = explode('|', $merken_string);
+            // check merken
+        }
+
+        $profielen = $this->profiel->query_by_extra($where_clauses);
+        $this->load->view('profile/result', array('profielen' => $profielen));
+    }
+
     /**
      * @param Exception $e
      */
@@ -52,5 +83,25 @@ class Lookup extends CI_Controller
         $this->output
             ->set_status_header(404)
             ->set_output(json_encode(array('error' => 'geen profielen gevonden')));
+    }
+
+    /**
+     * @param $geslacht_voorkeur
+     * @return mixed
+     */
+    private function populate_where_geslacht($geslacht_voorkeur)
+    {
+        $where_clauses = [];
+        if ($geslacht_voorkeur === 'mannen') {
+            array_push($where_clauses, array('field' => 'valt_op_man', 'value' => TRUE));
+            return $where_clauses;
+        } elseif ($geslacht_voorkeur === 'vrouwen') {
+            array_push($where_clauses, array('field' => 'valt_op_vrouw', 'value' => TRUE));
+            return $where_clauses;
+        } elseif ($geslacht_voorkeur !== 'beiden') {
+            show_error('Geslacht voorkeur is verplicht', 400);
+            return [];
+        }
+        return [];
     }
 }

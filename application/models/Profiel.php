@@ -94,6 +94,41 @@ class Profiel extends CI_Model
     }
 
     /**
+     * Query met bepaalde where clauses
+     * $where clauses moet een array zijn met daarin een assoc array met twee keys: field en value
+     * @param $where_clauses array
+     * @return array|null array met profielen
+     */
+    public function query_by_extra($where_clauses)
+    {
+        foreach ($where_clauses as $where) {
+            $this->db->where($where['field'], $where['value']);
+        }
+
+        $query = $this->db->get('Profiel');
+        $row = $query->row();
+        $profielen = [];
+        do {
+            if (isset($row)) {
+                $profiel = $row;
+                $this->add_profiel_foto($profiel);
+                $this->add_foto_array($profiel);
+                $this->add_geslacht($profiel);
+                $this->add_persoonlijkheids_type($profiel);
+                $this->add_merk_array($profiel);
+                $this->add_persoonlijkheids_voorkeuren($profiel);
+
+                array_push($profielen, $profiel);
+            }
+        } while ($row = $query->next_row());
+        if (count($profielen) === 0)
+            return NULL;
+        else {
+            return $profielen;
+        }
+    }
+
+    /**
      * Query by een field
      * @param $field
      * @param $value

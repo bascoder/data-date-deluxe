@@ -8,6 +8,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Authentication
 {
     const KEY = 'current_profiel';
+
+    // privilege levels
+    const ANONYMOUS = 1;
+    const USER = 2;
+    const ADMIN = 3;
+
     /**
      * @var CI_Controller|null
      */
@@ -50,7 +56,7 @@ class Authentication
     {
         $this->ci->load->model('profiel');
         $profiel = $this->ci->profiel->query_by_nickname($nickname);
-        if($profiel === NULL) {
+        if ($profiel === NULL) {
             return FALSE;
         }
 
@@ -69,7 +75,7 @@ class Authentication
     public function get_current_profiel($refresh = TRUE)
     {
         if ($this->ci->session->has_userdata(self::KEY)) {
-            if($refresh) {
+            if ($refresh) {
                 $pid = $this->ci->session->{self::KEY}->pid;
                 $profiel = $this->ci->profiel->query_by_id($pid);
                 $this->login($profiel);
@@ -78,8 +84,25 @@ class Authentication
         }
         return NULL;
     }
-    
-    public function is_authenticated() {
-        return $this->get_current_profiel() !== NULL; 
+
+    public function is_authenticated()
+    {
+        $profiel = $this->get_current_profiel();
+        return $profiel !== NULL && is_object($profiel) === TRUE;
+    }
+
+    /**
+     * @return int constant die aangeeft wat de privileges van de huidige gebruiker zijn
+     */
+    public function get_privileges()
+    {
+        $profiel = $this->get_current_profiel(TRUE);
+        if (!$this->is_authenticated()) {
+            return self::ANONYMOUS;
+        }
+        if ($profiel->is_admin === TRUE) {
+            return self::ADMIN;
+        }
+        return self::USER;
     }
 }
