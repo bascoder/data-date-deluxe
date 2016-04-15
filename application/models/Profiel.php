@@ -395,7 +395,7 @@ class Profiel extends CI_Model
         $query = $this->db->get_where('Persoonlijkheids_type', array('ptid' => $profiel->persoonlijkheids_type_voorkeur_id));
         $type = $query->row();
         if (isset($type)) {
-            $profiel->persoonlijkheids_type = $type;
+            $profiel->persoonlijkheids_type_voorkeur = $type;
         }
     }
 
