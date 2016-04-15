@@ -154,6 +154,9 @@ VALUES (4, 5), (1, 5),
   (ABS(RANDOM() % 49) + 1, ABS(RANDOM() % 18) + 1);
 
 UPDATE Profiel
-SET persoonlijkheids_type_id = ABS(RANDOM() % 16);
+SET persoonlijkheids_type_id = ABS(RANDOM() % 15) + 1;
+
+UPDATE Profiel
+SET persoonlijkheids_type_voorkeur_id = ABS(RANDOM() % 15) + 1;
 
 COMMIT;
