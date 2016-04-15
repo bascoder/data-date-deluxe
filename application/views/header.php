@@ -14,6 +14,8 @@
     <script>
         // base url ook handig in JavaScript
         var base_url = "<?php echo base_url(); ?>";
+        // is ingelogd, natuurlijk niet als om gevoelige informatie te tonen maar om overbodige ui elementen te hiden
+        var is_ingelogd = "<?php echo is_ingelogd() ? 'true' : 'false'; ?>";
     </script>
     <script src="<?php echo asset_url() . 'js/jquery-2.2.3.min.js' ?>"></script>
     <script src="<?php echo asset_url() . 'js/jquery-ui-1.11.4/jquery-ui.min.js' ?>"></script>

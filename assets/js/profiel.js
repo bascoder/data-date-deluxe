@@ -2,10 +2,14 @@
     "use strict";
 
 function bindEditFunctions(){
-    $('button').click(buttonHandler);
+    if(!is_ingelogd) {
+        $('button.edit-button').hide();
+    } else {
+        $('button.edit-button').click(buttonHandler);
+    }
 }
 
-function buttonHandler(){
+    function buttonHandler(){
     if(this.value === "editing") {
         this.value = "static";
         this.innerHTML = "Edit";
@@ -48,7 +52,7 @@ function finalize(that){
         .always(function() {
             console.log("complete");
         });
-        
+
     }
 }
 

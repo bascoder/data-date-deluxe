@@ -4,6 +4,7 @@
  *
  * @property Authentication authentication
  * @property Profiel profiel
+ * @property Like like
  */
 class Display extends CI_Controller
 {
@@ -22,8 +23,7 @@ class Display extends CI_Controller
         if ($profiel === NULL) {
             sessie_verlopen_redirect();
         } else {
-            $this->load->view('profile/display',
-                array('profiel' => $profiel));
+            $this->load_view($profiel);
         }
     }
 
@@ -38,7 +38,7 @@ class Display extends CI_Controller
         if ($profiel === NULL) {
             show_404();
         } else {
-            $this->load->view('profile/display', array('profiel' => $profiel));
+            $this->load_view($profiel);
         }
     }
 
@@ -61,5 +61,32 @@ class Display extends CI_Controller
         }
         // anders return NULL (kan niet voorkomen)
         return NULL;
+    }
+
+    /**
+     * @param $profiel
+     */
+    private function load_view($profiel)
+    {
+        $this->load->view('profile/display', array(
+            'profiel' => $profiel,
+            'mag_liken' => $this->mag_liken($profiel)));
+    }
+
+    private function mag_liken($profiel)
+    {
+        $logged_in_profiel = current_profiel();
+        if ($logged_in_profiel === NULL || $profiel->pid === $logged_in_profiel->pid) {
+            return FALSE;
+        }
+        $this->load->model('like');
+        $likes = $this->like->query_mijn_gegeven_likes();
+        foreach ($likes as $like) {
+            if ($like->pid === $profiel->pid) {
+                return FALSE;
+            }
+        }
+
+        return TRUE;
     }
 }
