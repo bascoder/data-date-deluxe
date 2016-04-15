@@ -2,10 +2,8 @@
     <?php
     /** @var array $profielen */
     /** @var string $page_links */
-    
-    if (!is_array($profielen) || empty($profielen)):
-        echo '<p>Er konden geen profielen gevonden worden met uw zoek criteria</p>';
-    else:
+
+    if (isset($profielen) && is_array($profielen) && !empty($profielen)):
         foreach ($profielen as $profiel):
             echo "<div class='profiel'>";
             $geslacht = $profiel->geslacht->geslacht;

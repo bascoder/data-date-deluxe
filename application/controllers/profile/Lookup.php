@@ -58,17 +58,25 @@ class Lookup extends CI_Controller
 
         $where_clauses = $this->make_where_clause();
 
-        $count = $this->profiel->count_where($where_clauses);
-        $profielen = $this->profiel->query_by_extra($where_clauses, self::PER_PAGE, $page);
+        $view_params = [];
+        if ($where_clauses) {
 
-        if (!is_array($profielen)) {
-            $profielen = [];
+            $count = $this->profiel->count_where($where_clauses);
+            $profielen = $this->profiel->query_by_extra($where_clauses, self::PER_PAGE, $page);
+
+            if (!is_array($profielen)) {
+                $profielen = [];
+                $this->load->view('partial/message',
+                    array('message' => '<p>Er konden geen profielen gevonden worden met uw zoek criteria.</p>',
+                        'level' => 'error'));
+            }
+
+            $page_links = $this->calc_page_links($count);
+
+            $view_params = array(
+                'profielen' => $profielen,
+                'page_links' => $page_links);
         }
-
-        $page_links = $this->calc_page_links($count);
-
-        $view_params = array('profielen' => $profielen,
-            'page_links' => $page_links);
         $this->load->view('profile/result', $view_params);
     }
 
@@ -104,8 +112,10 @@ class Lookup extends CI_Controller
             array_push($where_clauses, array('field' => 'valt_op_vrouw', 'value' => TRUE));
             return $where_clauses;
         } elseif ($geslacht_voorkeur !== 'beiden') {
-            show_error('Geslacht voorkeur is verplicht', 400);
-            return [];
+            $this->load->view('partial/message',
+                array('message' => '<p>Het is verplicht om een geslacht mee te geven</p>',
+                    'level' => 'error'));
+            return FALSE;
         }
         return [];
     }
@@ -117,20 +127,21 @@ class Lookup extends CI_Controller
     {
         $geslacht_voorkeur = strtolower($this->input->get('geslacht_voorkeur'));
 
-        $where_clauses = $this->populate_where_geslacht($geslacht_voorkeur);
-        $leeftijd_min = intval($this->input->get('leeftijd_min'));
-        $leeftijd_max = intval($this->input->get('leeftijd_max'));
-        if (($leeftijd_min) >= 18 && ($leeftijd_max) >= $leeftijd_min) {
-            array_push($where_clauses, array('field' => 'leeftijd_voorkeur_min >=', 'value' => $leeftijd_min));
-            array_push($where_clauses, array('field' => 'leeftijd_voorkeur_max <=', 'value' => $leeftijd_max));
-        }
-        $merken_string = $this->input->get('merken');
-        if ($merken_string !== NULL && !empty($merken_string)) {
-            $merken = explode('|', $merken_string);
+        if ($where_clauses = $this->populate_where_geslacht($geslacht_voorkeur)) {
+            $leeftijd_min = intval($this->input->get('leeftijd_min'));
+            $leeftijd_max = intval($this->input->get('leeftijd_max'));
+            if (($leeftijd_min) >= 18 && ($leeftijd_max) >= $leeftijd_min) {
+                array_push($where_clauses, array('field' => 'leeftijd_voorkeur_min >=', 'value' => $leeftijd_min));
+                array_push($where_clauses, array('field' => 'leeftijd_voorkeur_max <=', 'value' => $leeftijd_max));
+            }
+            $merken_string = $this->input->get('merken');
+            if ($merken_string !== NULL && !empty($merken_string)) {
+                $merken = explode('|', $merken_string);
+                return $where_clauses;
+                // check merken
+            }
             return $where_clauses;
-            // check merken
-        }
-        return $where_clauses;
+        } else return FALSE;
     }
 
     /**
