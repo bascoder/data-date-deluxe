@@ -355,7 +355,7 @@ class Profiel extends CI_Model
 
         $query = $this->db->select('merk.*')
             ->from('Merk')
-            ->join('Merk_voorkeur', 'profiel_id = ' . $profiel->pid)
+            ->join('Merk_voorkeur', 'profiel_id = ' . intval($profiel->pid) . ' AND merk_id = mid')
             ->get();
         $merk = $query->first_row();
         while ($merk !== NULL) {
