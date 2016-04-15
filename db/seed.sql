@@ -48,38 +48,38 @@ VALUES (1, 'Bas', 'van Marwijk', 'bas@example.com', '$2y$10$LyzwMXTyXdRO7.9jTOlc
   (9, 'Ton', 'uit Soest', 'tonsoest@hotmail.com', '$2y$10$LyzwMXTyXdRO7.9jTOlcaegIlZQuN5pqrAn4X9oNi4mV8rn0NauMq', 0,
       'tonnie', '<3', 752694000, 18, 30, 1, 1, 1),
   (10, 'Timmie', 'Hengel', 'timmie@hotmail.com', '$2y$10$LyzwMXTyXdRO7.9jTOlcaegIlZQuN5pqrAn4X9oNi4mV8rn0NauMq', 0,
-       'tim3', '<3', 732694000, ABS(RANDOM() % 5) + 18, ABS(RANDOM() % 5) + 27, ABS(RANDOM() % 1), 1, ABS(
-       RANDOM() % 1)),
+       'tim3', '<3', 732694000, ABS(RANDOM() % 5) + 18, ABS(RANDOM() % 5) + 27, ABS(RANDOM() % 1), 1, ABS(random() % 2)
+                                                                                                      + 1),
   (11, 'Tijs', 'Hengel', 'tijs@hotmail.com', '$2y$10$LyzwMXTyXdRO7.9jTOlcaegIlZQuN5pqrAn4X9oNi4mV8rn0NauMq', 0,
-       'tisjeboy', '<3', 732694000, ABS(RANDOM() % 5) + 18, ABS(RANDOM() % 5) + 27, ABS(RANDOM() % 1), 1, ABS(
-       RANDOM() % 1)),
+       'tisjeboy', '<3', 732694000, ABS(RANDOM() % 5) + 18, ABS(RANDOM() % 5) + 27, ABS(RANDOM() % 1), 1,
+   ABS(random() % 2) + 1),
   (12, 'Eva', 'Hengel', 'eva@hotmail.com', '$2y$10$LyzwMXTyXdRO7.9jTOlcaegIlZQuN5pqrAn4X9oNi4mV8rn0NauMq', 0,
        'evie', '<3', 732694000, ABS(RANDOM() % 5) + 18, ABS(RANDOM() % 5) + 27, ABS(RANDOM() % 1), 1,
-   ABS(RANDOM() % 1)),
+   ABS(random() % 2) + 1),
   (13, 'Jarry', 'De Jong', 'jarry@hotmail.com', '$2y$10$LyzwMXTyXdRO7.9jTOlcaegIlZQuN5pqrAn4X9oNi4mV8rn0NauMq', 0,
        'jarryjong', '<3', 732694000, ABS(RANDOM() % 5) + 18, ABS(RANDOM() % 5) + 27, 1,
    1,
-   ABS(RANDOM() % 1)),
+   ABS(random() % 2) + 1),
   (14, 'Rosanna', 'Hengel', 'rosanna@hotmail.com', '$2y$10$LyzwMXTyXdRO7.9jTOlcaegIlZQuN5pqrAn4X9oNi4mV8rn0NauMq', 0,
        'roos<3', '<3', 732694000, ABS(RANDOM() % 5) + 18, ABS(RANDOM() % 5) + 27, 1, 1,
-   ABS(RANDOM() % 1)),
+   ABS(random() % 2) + 1),
   (15, 'Loes', 'de Poes', 'loes@hotmail.com', '$2y$10$LyzwMXTyXdRO7.9jTOlcaegIlZQuN5pqrAn4X9oNi4mV8rn0NauMq', 0,
        'LoesPoes', '<3', 732694000, ABS(RANDOM() % 5) + 18, ABS(RANDOM() % 5) + 27, 1,
    ABS(RANDOM() % 1),
-   ABS(RANDOM() % 1)),
+   ABS(random() % 2) + 1),
   (16, 'Minoes', 'het Hengel', 'minoes@hotmail.com', '$2y$10$LyzwMXTyXdRO7.9jTOlcaegIlZQuN5pqrAn4X9oNi4mV8rn0NauMq', 0,
        'freddie', '<3', 732694000, ABS(RANDOM() % 5) + 18, ABS(RANDOM() % 5) + 27, 1, ABS(RANDOM() % 1),
-   ABS(RANDOM() % 1)),
+   ABS(random() % 2) + 1),
   (17, 'Anna', 'uit Hogeveen', 'anna@hotmail.com', '$2y$10$LyzwMXTyXdRO7.9jTOlcaegIlZQuN5pqrAn4X9oNi4mV8rn0NauMq', 0,
        'an', '<3', 732694000, ABS(RANDOM() % 5) + 18, ABS(RANDOM() % 5) + 27, ABS(RANDOM() % 1), 1,
-   ABS(RANDOM() % 1)),
+   ABS(random() % 2) + 1),
   (18, 'Tim', 'Hengel', 'tim@gmail.com', '$2y$10$LyzwMXTyXdRO7.9jTOlcaegIlZQuN5pqrAn4X9oNi4mV8rn0NauMq', 0,
        'timmetje', '<3', 732694000, ABS(RANDOM() % 5) + 18, ABS(RANDOM() % 5) + 27, 1,
    ABS(RANDOM() % 1),
-   ABS(RANDOM() % 1)),
+   ABS(random() % 2) + 1),
   (19, 'Nadia', 'Iets', 'nadia@hotmail.com', '$2y$10$LyzwMXTyXdRO7.9jTOlcaegIlZQuN5pqrAn4X9oNi4mV8rn0NauMq', 0,
        'nadia', '<3', 732694000, ABS(RANDOM() % 5) + 18, ABS(RANDOM() % 5) + 27, 1, ABS(RANDOM() % 1),
-   ABS(RANDOM() % 1));
+   ABS(random() % 2) + 1);
 
 INSERT INTO `Merk` (naam)
 VALUES
@@ -137,7 +137,21 @@ VALUES
 INSERT INTO Merk_voorkeur (merk_id, profiel_id)
 VALUES (4, 5), (1, 5),
   (1, 6), (2, 6),
-  (ABS(RANDOM() % 50), ABS(RANDOM() % 7));
+  (ABS(RANDOM() % 49) + 1, ABS(RANDOM() % 18) + 1),
+  (ABS(RANDOM() % 49) + 1, ABS(RANDOM() % 18) + 1),
+  (ABS(RANDOM() % 49) + 1, ABS(RANDOM() % 18) + 1),
+  (ABS(RANDOM() % 49) + 1, ABS(RANDOM() % 18) + 1),
+  (ABS(RANDOM() % 49) + 1, ABS(RANDOM() % 18) + 1),
+  (ABS(RANDOM() % 49) + 1, ABS(RANDOM() % 18) + 1),
+  (ABS(RANDOM() % 49) + 1, ABS(RANDOM() % 18) + 1),
+  (ABS(RANDOM() % 49) + 1, ABS(RANDOM() % 18) + 1),
+  (ABS(RANDOM() % 49) + 1, ABS(RANDOM() % 18) + 1),
+  (ABS(RANDOM() % 49) + 1, ABS(RANDOM() % 18) + 1),
+  (ABS(RANDOM() % 49) + 1, ABS(RANDOM() % 18) + 1),
+  (ABS(RANDOM() % 49) + 1, ABS(RANDOM() % 18) + 1),
+  (ABS(RANDOM() % 49) + 1, ABS(RANDOM() % 18) + 1),
+  (ABS(RANDOM() % 49) + 1, ABS(RANDOM() % 18) + 1),
+  (ABS(RANDOM() % 49) + 1, ABS(RANDOM() % 18) + 1);
 
 UPDATE Profiel
 SET persoonlijkheids_type_id = ABS(RANDOM() % 16);
