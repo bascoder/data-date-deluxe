@@ -22,3 +22,9 @@ function current_privileges()
     $ci =& get_instance();
     return $ci->authentication->get_privileges();
 }
+
+function current_profiel()
+{
+    $ci =& get_instance();
+    return $ci->authentication->get_current_profiel();
+}

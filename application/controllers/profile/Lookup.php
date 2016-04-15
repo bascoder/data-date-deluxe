@@ -60,7 +60,7 @@ class Lookup extends CI_Controller
         $view_params = [];
         if ($where_clauses) {
 
-            $count = $this->profiel->count_where($where_clauses);
+            $count = $this->profiel->count_where($where_clauses, $joins);
             $profielen = $this->profiel->query_by_extra($where_clauses, $joins, self::PER_PAGE, $page);
 
             if (!is_array($profielen)) {

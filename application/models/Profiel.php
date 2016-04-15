@@ -142,10 +142,13 @@ class Profiel extends CI_Model
         }
     }
 
-    public function count_where($where_clauses)
+    public function count_where($where_clauses, $joins)
     {
         foreach ($where_clauses as $where) {
             $this->db->where($where['field'], $where['value']);
+        }
+        foreach ($joins as $join) {
+            $this->db->join($join['table'], $join['condition']);
         }
 
         return $this->db->count_all_results('Profiel');

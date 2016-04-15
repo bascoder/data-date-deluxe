@@ -35,7 +35,7 @@
         <?php if ($is_auth): ?>
             <li id="logout" class="right"><a href="<?php echo base_url() . "index.php/login/logout" ?>">Log uit</a></li>
             <li id="my-profile" class="right">
-                <?php echo anchor('profile/display/mijn', 'Mijn Profiel') ?>
+                <?php echo anchor('profile/display/mijn', current_profiel()->voornaam) ?>
             </li>
         <?php else: ?>
             <li id="login" class="right"><a href="<?php echo base_url() . "index.php/login" ?>">Log in</a></li>
