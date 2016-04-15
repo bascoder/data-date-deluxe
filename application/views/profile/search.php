@@ -18,10 +18,10 @@ echo form_open(base_url() . 'index.php/profile/lookup/search', array(
 <br/>
 <label>
     Persoonlijkheids voorkeur
-    <select name="persoonlijkheids voorkeur" required>
-        <!--            TODO insert voorkeuren-->
-        <option>Geen</option>
-    </select>
+    <input type="text" id="persoonlijkheids-voorkeur"
+           name="persoonlijkheids_voorkeur"
+           placeholder="Architect"
+           required/>
 </label>
 <br/>
 <label id="merk-voorkeuren">

@@ -4,7 +4,7 @@
     <label for="achternaam">Achternaam</label><br/>
     <input required id="achternaam" name="achternaam" placeholder="De Jong" type="text"/><br/>
     <label for="mail">Email adres</label><br/>
-    <input required id="mail" name="mail" placeholder="jan@example.com" type="email"/><br/>
+    <input required id="mail" class="email" name="mail" placeholder="jan@example.com" type="email"/><br/>
     <label>Geslacht<br/>
         <input required type="radio" name="gender" value="1" title="man"/> Man
         <input required type="radio" name="gender" value="2" title="vrouw"/> Vrouw

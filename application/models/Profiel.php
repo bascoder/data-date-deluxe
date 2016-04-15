@@ -58,6 +58,18 @@ class Profiel extends CI_Model
     }
 
     /**
+     * @param $email string
+     * @return mixed|null NULL on failure anders een Profiel
+     */
+    public function query_by_email($email)
+    {
+        if (!is_string($email) || strlen($email) === 0) {
+            throw new InvalidArgumentException('Email moet een string zijn');
+        }
+        return $this->query_by('email', $email);
+    }
+
+    /**
      * 6 random profielen voor home page
      * @param int $aantal default 6
      * @return array met profielen
@@ -130,10 +142,13 @@ class Profiel extends CI_Model
         }
     }
 
-    public function count_where($where_clauses)
+    public function count_where($where_clauses, $joins)
     {
         foreach ($where_clauses as $where) {
             $this->db->where($where['field'], $where['value']);
+        }
+        foreach ($joins as $join) {
+            $this->db->join($join['table'], $join['condition']);
         }
 
         return $this->db->count_all_results('Profiel');

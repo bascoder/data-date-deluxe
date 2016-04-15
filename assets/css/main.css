@@ -122,19 +122,28 @@ article.readable {
 
 }
 
-.profiel {
-    width: 45%;
-    float: left;
+@media screen and (min-width: 800px) {
+    .profiel {
+        width: 45%;
+        float: left;
+    }
 
+    .profiel img {
+        float: left;
+
+        margin: 0 0.5em 0.5em 0;
+    }
+
+    .profiel table {
+        float: left;
+    }
+}
+
+.profiel {
     margin: 2%;
     background-color: #ff626c;
     border: 1px solid black;
     border-radius: 12px;
-    height: 20em;
-}
-
-.profiel table {
-    margin-left: 2em;
 }
 
 .profiel.clickable:active, .profiel.clickable:target {

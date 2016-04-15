@@ -48,14 +48,14 @@ class Authentication
 
     /**
      * Authenticates and logs in user
-     * @param $nickname string
+     * @param $email string
      * @param $password string wachtwoord input van user
      * @return bool TRUE als authenticate succesvol is anders FALSE
      */
-    public function authenticate($nickname, $password)
+    public function authenticate($email, $password)
     {
         $this->ci->load->model('profiel');
-        $profiel = $this->ci->profiel->query_by_nickname($nickname);
+        $profiel = $this->ci->profiel->query_by_email($email);
         if ($profiel === NULL) {
             return FALSE;
         }
