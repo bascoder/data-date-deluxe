@@ -97,15 +97,17 @@ class Profiel extends CI_Model
      * Query met bepaalde where clauses
      * $where clauses moet een array zijn met daarin een assoc array met twee keys: field en value
      * @param $where_clauses array
+     * @param int $limit
+     * @param int $offset
      * @return array|null array met profielen
      */
-    public function query_by_extra($where_clauses)
+    public function query_by_extra($where_clauses, $limit = 6, $offset = 0)
     {
         foreach ($where_clauses as $where) {
             $this->db->where($where['field'], $where['value']);
         }
 
-        $query = $this->db->get('Profiel');
+        $query = $this->db->limit($limit)->offset($offset)->get('Profiel');
         $row = $query->row();
         $profielen = [];
         do {
@@ -126,6 +128,15 @@ class Profiel extends CI_Model
         else {
             return $profielen;
         }
+    }
+
+    public function count_where($where_clauses)
+    {
+        foreach ($where_clauses as $where) {
+            $this->db->where($where['field'], $where['value']);
+        }
+
+        return $this->db->count_all_results('Profiel');
     }
 
     /**

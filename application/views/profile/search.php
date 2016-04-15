@@ -1,5 +1,7 @@
 <?php
-echo form_open(base_url() . 'index.php/profile/lookup/search');
+echo form_open(base_url() . 'index.php/profile/lookup/search', array(
+    'method' => 'get'
+));
 ?>
 <label for="geslacht-voorkeur">Geslacht voorkeur</label>
 <select id="geslacht-voorkeur" name="geslacht_voorkeur" required>

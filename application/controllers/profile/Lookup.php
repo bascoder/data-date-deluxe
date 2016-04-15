@@ -5,9 +5,12 @@
  * @property Profiel profiel
  * @property CI_Output output
  * @property CI_Input input
+ * @property CI_Pagination pagination
  */
 class Lookup extends CI_Controller
 {
+    const PER_PAGE = 4;
+
     public function index()
     {
         show_404();
@@ -44,27 +47,29 @@ class Lookup extends CI_Controller
         }
     }
 
-    public function search()
+    public function search($page = 0)
     {
         $this->load->model('profiel');
+        $this->load->library('pagination');
 
-        $geslacht_voorkeur = strtolower($this->input->post('geslacht_voorkeur'));
-
-        $where_clauses = $this->populate_where_geslacht($geslacht_voorkeur);
-        $leeftijd_min = intval($this->input->post('leeftijd_min'));
-        $leeftijd_max = intval($this->input->post('leeftijd_max'));
-        if (($leeftijd_min) >= 18 && ($leeftijd_max) >= $leeftijd_min) {
-            array_push($where_clauses, array('field' => 'leeftijd_voorkeur_min >=', 'value' => $leeftijd_min));
-            array_push($where_clauses, array('field' => 'leeftijd_voorkeur_max <=', 'value' => $leeftijd_max));
-        }
-        $merken_string = $this->input->post('merken');
-        if ($merken_string !== NULL && !empty($merken_string)) {
-            $merken = explode('|', $merken_string);
-            // check merken
+        if (!is_integer(intval($page))) {
+            $page = 0;
         }
 
-        $profielen = $this->profiel->query_by_extra($where_clauses);
-        $this->load->view('profile/result', array('profielen' => $profielen));
+        $where_clauses = $this->make_where_clause();
+
+        $count = $this->profiel->count_where($where_clauses);
+        $profielen = $this->profiel->query_by_extra($where_clauses, self::PER_PAGE, $page);
+
+        if (!is_array($profielen)) {
+            $profielen = [];
+        }
+
+        $page_links = $this->calc_page_links($count);
+
+        $view_params = array('profielen' => $profielen,
+            'page_links' => $page_links);
+        $this->load->view('profile/result', $view_params);
     }
 
     /**
@@ -103,5 +108,45 @@ class Lookup extends CI_Controller
             return [];
         }
         return [];
+    }
+
+    /**
+     * @return mixed
+     */
+    private function make_where_clause()
+    {
+        $geslacht_voorkeur = strtolower($this->input->get('geslacht_voorkeur'));
+
+        $where_clauses = $this->populate_where_geslacht($geslacht_voorkeur);
+        $leeftijd_min = intval($this->input->get('leeftijd_min'));
+        $leeftijd_max = intval($this->input->get('leeftijd_max'));
+        if (($leeftijd_min) >= 18 && ($leeftijd_max) >= $leeftijd_min) {
+            array_push($where_clauses, array('field' => 'leeftijd_voorkeur_min >=', 'value' => $leeftijd_min));
+            array_push($where_clauses, array('field' => 'leeftijd_voorkeur_max <=', 'value' => $leeftijd_max));
+        }
+        $merken_string = $this->input->get('merken');
+        if ($merken_string !== NULL && !empty($merken_string)) {
+            $merken = explode('|', $merken_string);
+            return $where_clauses;
+            // check merken
+        }
+        return $where_clauses;
+    }
+
+    /**
+     * @param $count
+     * @return string
+     */
+    private function calc_page_links($count)
+    {
+        $page_config['base_url'] = base_url() . 'index.php/profile/lookup/search/';
+        $page_config['per_page'] = self::PER_PAGE;
+        $page_config['total_rows'] = $count;
+        $page_config['reuse_query_string'] = TRUE;
+        $page_config['first_link'] = 'Eerste';
+        $page_config['last_link'] = 'Laatste';
+        $this->pagination->initialize($page_config);
+        $page_links = $this->pagination->create_links();
+        return $page_links;
     }
 }
