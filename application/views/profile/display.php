@@ -18,6 +18,7 @@
     ?>
     <?php
     $pref = seksuele_voorkeur_display($profiel->valt_op_man, $profiel->valt_op_vrouw);
+    $prefNum = $profiel->valt_op_man + (2* $profiel->valt_op_vrouw);
     ?>
     <table class="table-profiel">
         <tbody>
@@ -40,7 +41,7 @@
         </tr>
         <tr>
             <th>Seksuele voorkeur</th>
-            <td><?php echo $pref ?></td>
+            <td id="SexPref" editVal="<?php echo $prefNum;?>" ><?php echo $pref ?></td>
             <td><button id ="editSexPref">Edit</button></td>
         </tr>
         <tr>
