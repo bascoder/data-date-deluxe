@@ -35,11 +35,13 @@
         </tr>
         <tr>
             <th>Beschrijving</th>
-            <td><?php echo $profiel->beschrijving; ?></td>
+            <td id="Description"><?php echo $profiel->beschrijving; ?></td>
+            <td><button id="editDescription">Edit</button></td>
         </tr>
         <tr>
             <th>Seksuele voorkeur</th>
             <td><?php echo $pref ?></td>
+            <td><button id ="editSexPref">Edit</button></td>
         </tr>
         <tr>
             <th>Persoonlijkheids type</th>
@@ -73,7 +75,10 @@
                 endif;
                 ?>
             </td>
+            <td><button id="editBrands">Edit</button></td>
         </tr>
         </tbody>
     </table>
 </div>
+
+<script src="<?php echo asset_url() . 'js/profiel.js' ?>"></script>
