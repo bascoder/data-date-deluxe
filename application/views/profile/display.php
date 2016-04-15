@@ -28,7 +28,9 @@
     endif;
     ?>
     <?php
+    $isOwn = is_ingelogd() && $this->authentication->get_current_profiel()->pid == $profiel->pid;
     $pref = seksuele_voorkeur_display($profiel->valt_op_man, $profiel->valt_op_vrouw);
+    $prefNum = $profiel->valt_op_man + (2* $profiel->valt_op_vrouw);
     ?>
     <table class="table-profiel">
         <tbody>
@@ -47,16 +49,12 @@
         <tr>
             <th>Beschrijving</th>
             <td id="Description"><?php echo $profiel->beschrijving; ?></td>
-            <td>
-                <button class="edit-button" id="editDescription">Edit</button>
-            </td>
+            <?php if ($isOwn): ?><td><button class="edit-button"  id="editDescription">Edit</button></td><?php endif; ?>
         </tr>
         <tr>
             <th>Seksuele voorkeur</th>
-            <td><?php echo $pref ?></td>
-            <td>
-                <button class="edit-button" id="editSexPref">Edit</button>
-            </td>
+            <td id="SexPref" editVal="<?php echo $prefNum;?>" ><?php echo $pref ?></td>
+            <?php if ($isOwn): ?><td><button class="edit-button"  id ="editSexPref">Edit</button></td><?php endif; ?>
         </tr>
         <tr>
             <th>Persoonlijkheids type</th>
@@ -88,9 +86,7 @@
                 endif;
                 ?>
             </td>
-            <td>
-                <button class="edit-button" id="editBrands">Edit</button>
-            </td>
+            <?php if ($isOwn): ?><td><button class="edit-button"  id="editBrands">Edit</button></td><?php endif; ?>
         </tr>
         </tbody>
     </table>
