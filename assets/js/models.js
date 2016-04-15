@@ -25,14 +25,16 @@ var Profiel = function (profiel) {
      */
     this.merkenToString = function (length) {
         var merkenString = '';
-        var merken = this.merken;
+        var merken = this.merken.map(function (current) {
+            return current.naam;
+        });
         var i;
         for (i = 0; i < merken.length || i === length; i++) {
-            merkenString = merkenString + merken[i] + ',';
+            merkenString = merkenString + merken[i] + ', ';
         }
 
-        if (merkenString.charAt(merkenString.length) === ',') {
-            merkenString.slice(0, -1);
+        if (merkenString.charAt(merkenString.length - 2) === ',') {
+            merkenString = merkenString.slice(0, -2);
         }
         if (merkenString === '') {
             return 'geen';

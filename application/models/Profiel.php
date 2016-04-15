@@ -82,6 +82,7 @@ class Profiel extends CI_Model
         while ($row = $query->next_row()) {
             $this->add_geslacht($row);
             $this->add_persoonlijkheids_type($row);
+            $this->add_merk_array($row);
             $row->profiel_foto = placeholder_url($row->geslacht->geslacht);
 
             $beschrijving = $row->beschrijving;
