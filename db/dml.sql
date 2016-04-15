@@ -1,6 +1,7 @@
 BEGIN TRANSACTION;
 
 -- table definitions
+DROP TABLE IF EXISTS Profiel;
 CREATE TABLE Profiel (
   pid                   INTEGER PRIMARY KEY   AUTOINCREMENT,
   voornaam              VARCHAR(255) NOT NULL,
@@ -24,16 +25,20 @@ CREATE TABLE Profiel (
   CHECK (leeftijd_voorkeur_min >= 18 AND leeftijd_voorkeur_max >= leeftijd_voorkeur_min)
 );
 
+DROP TABLE IF EXISTS Merk;
 CREATE TABLE Merk (
   mid  INTEGER PRIMARY KEY AUTOINCREMENT,
   naam VARCHAR(255) NOT NULL UNIQUE
 );
 
+DROP TABLE IF EXISTS Persoonlijkheids_type;
 CREATE TABLE Persoonlijkheids_type (
   ptid INTEGER PRIMARY KEY AUTOINCREMENT,
-  type CHARACTER(4) NOT NULL UNIQUE
+  type CHARACTER(4) NOT NULL UNIQUE,
+  name VARCHAR(50)  NOT  NULL UNIQUE
 );
 
+DROP TABLE IF EXISTS Foto;
 CREATE TABLE Foto (
   fid          INTEGER PRIMARY KEY AUTOINCREMENT,
   url          VARCHAR(255) NOT NULL,
@@ -43,11 +48,13 @@ CREATE TABLE Foto (
   FOREIGN KEY (profiel_id) REFERENCES Profiel (pid)
 );
 
+DROP TABLE IF EXISTS Geslacht;
 CREATE TABLE Geslacht (
   gid      INTEGER PRIMARY KEY AUTOINCREMENT,
   geslacht CHARACTER(50) UNIQUE
 );
 
+DROP TABLE IF EXISTS `Like`;
 CREATE TABLE `Like` (
   liker_id INTEGER NOT NULL,
   liked_id INTEGER NOT NULL,
@@ -56,14 +63,7 @@ CREATE TABLE `Like` (
   FOREIGN KEY (liked_id) REFERENCES Profiel (pid)
 );
 
-CREATE TABLE Persoonlijkheids_type_voorkeur (
-  profiel_id               INTEGER NOT NULL,
-  persoonlijkheids_type_id INTEGER NOT NULL,
-  PRIMARY KEY (profiel_id, persoonlijkheids_type_id),
-  FOREIGN KEY (profiel_id) REFERENCES Profiel (profiel_id),
-  FOREIGN KEY (persoonlijkheids_type_id) REFERENCES Persoonlijkheids_type (ptid)
-);
-
+DROP TABLE IF EXISTS Merk_voorkeur;
 CREATE TABLE Merk_voorkeur (
   merk_id    INTEGER NOT NULL,
   profiel_id INTEGER NOT NULL,
@@ -82,7 +82,11 @@ ADD COLUMN profiel_foto_id INTEGER REFERENCES Foto (fid);
 ALTER TABLE Profiel
 ADD COLUMN persoonlijkheids_type_id INTEGER REFERENCES Persoonlijkheids_type (ptid);
 
+ALTER TABLE Profiel
+ADD COLUMN persoonlijkheids_type_voorkeur_id INTEGER REFERENCES Persoonlijkheids_type (ptid);
+
 -- triggers
+DROP TRIGGER IF EXISTS assign_profile_picture;
 CREATE TRIGGER IF NOT EXISTS assign_profile_picture
 AFTER INSERT ON `Profiel`
 FOR EACH ROW
