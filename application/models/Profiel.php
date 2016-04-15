@@ -97,14 +97,18 @@ class Profiel extends CI_Model
      * Query met bepaalde where clauses
      * $where clauses moet een array zijn met daarin een assoc array met twee keys: field en value
      * @param $where_clauses array
+     * @param $joins array met joins
      * @param int $limit
      * @param int $offset
      * @return array|null array met profielen
      */
-    public function query_by_extra($where_clauses, $limit = 6, $offset = 0)
+    public function query_by_extra($where_clauses, $joins, $limit = 6, $offset = 0)
     {
         foreach ($where_clauses as $where) {
             $this->db->where($where['field'], $where['value']);
+        }
+        foreach ($joins as $join) {
+            $this->db->join($join['table'], $join['condition']);
         }
 
         $query = $this->db->limit($limit)->offset($offset)->get('Profiel');

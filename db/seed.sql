@@ -97,4 +97,8 @@ VALUES
   ('Pampers'),
   ('Ebay');
 
+INSERT INTO Merk_voorkeur (merk_id, profiel_id)
+VALUES (4, 5), (1, 5),
+  (1, 6), (2, 6);
+
 COMMIT;

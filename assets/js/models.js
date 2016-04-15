@@ -61,3 +61,8 @@ var Profiel = function (profiel) {
         this.profiel_foto = base_url + 'assets/img/profiel_fotos/placeholder' + this.geslacht === 'man' ? 'male' : 'female';
     }
 };
+
+var Merk = function (mid, naam) {
+    this.naam = naam || null;
+    this.mid = mid || null;
+};

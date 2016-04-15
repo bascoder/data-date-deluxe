@@ -42,9 +42,7 @@ class Lookup extends CI_Controller
 
     public function page()
     {
-        if (current_privileges() === Authentication::ANONYMOUS) {
-            $this->load->view('profile/search');
-        }
+        $this->load->view('profile/search');
     }
 
     public function search($page = 0)
@@ -57,12 +55,13 @@ class Lookup extends CI_Controller
         }
 
         $where_clauses = $this->make_where_clause();
+        $joins = $this->make_joins();
 
         $view_params = [];
         if ($where_clauses) {
 
             $count = $this->profiel->count_where($where_clauses);
-            $profielen = $this->profiel->query_by_extra($where_clauses, self::PER_PAGE, $page);
+            $profielen = $this->profiel->query_by_extra($where_clauses, $joins, self::PER_PAGE, $page);
 
             if (!is_array($profielen)) {
                 $profielen = [];
@@ -134,14 +133,11 @@ class Lookup extends CI_Controller
                 array_push($where_clauses, array('field' => 'leeftijd_voorkeur_min >=', 'value' => $leeftijd_min));
                 array_push($where_clauses, array('field' => 'leeftijd_voorkeur_max <=', 'value' => $leeftijd_max));
             }
-            $merken_string = $this->input->get('merken');
-            if ($merken_string !== NULL && !empty($merken_string)) {
-                $merken = explode('|', $merken_string);
-                return $where_clauses;
-                // check merken
-            }
+
             return $where_clauses;
-        } else return FALSE;
+        } else {
+            return FALSE;
+        }
     }
 
     /**
@@ -159,5 +155,31 @@ class Lookup extends CI_Controller
         $this->pagination->initialize($page_config);
         $page_links = $this->pagination->create_links();
         return $page_links;
+    }
+
+    private function make_joins()
+    {
+        $joins = [];
+        $merken_string = $this->input->get('merken');
+        if ($merken_string !== NULL && !empty($merken_string)) {
+            $merken = json_decode($merken_string);
+
+            // check json parse error
+            if (json_last_error() !== JSON_ERROR_NONE) {
+                log_message('error', 'invalid json: ' . json_last_error_msg());
+                show_error('Invalid json passed voor merken parameter', 400);
+            }
+
+            foreach ($merken as $merk) {
+                $merk_naam = $this->db->escape_str($merk->naam);
+                array_push($joins,
+                    array('table' => 'merk_voorkeur as ' . $merk_naam,
+                        'condition' => "$merk_naam.profiel_id = pid AND $merk_naam.merk_id = " . intval($merk->mid)));
+            }
+        } else {
+            show_error('Merk voorkeuren zijn verplicht', 400);
+        }
+
+        return $joins;
     }
 }
