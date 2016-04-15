@@ -118,12 +118,7 @@ class Profiel extends CI_Model
         do {
             if (isset($row)) {
                 $profiel = $row;
-                $this->add_profiel_foto($profiel);
-                $this->add_foto_array($profiel);
-                $this->add_geslacht($profiel);
-                $this->add_persoonlijkheids_type($profiel);
-                $this->add_merk_array($profiel);
-                $this->add_persoonlijkheids_voorkeuren($profiel);
+                $this->add_alles($profiel);
 
                 array_push($profielen, $profiel);
             }
@@ -156,12 +151,7 @@ class Profiel extends CI_Model
         $row = $query->row();
         if (isset($row)) {
             $profiel = $row;
-            $this->add_profiel_foto($profiel);
-            $this->add_foto_array($profiel);
-            $this->add_geslacht($profiel);
-            $this->add_persoonlijkheids_type($profiel);
-            $this->add_merk_array($profiel);
-            $this->add_persoonlijkheids_voorkeuren($profiel);
+            $this->add_alles($profiel);
 
             return $profiel;
         }
@@ -385,20 +375,12 @@ class Profiel extends CI_Model
         }
     }
 
-    private function add_persoonlijkheids_voorkeuren($profiel)
+    private function add_persoonlijkheids_type_voorkeur($profiel)
     {
-        $profiel->persoonlijkheids_voorkeuren = [];
-
-        $query = $this->db->select('persoonlijkheids_type.*')
-            ->from('persoonlijkheids_type')
-            ->join('persoonlijkheids_type_voorkeur', 'profiel_id = ' . $profiel->pid)
-            ->get();
-        $p_voorkeur = $query->first_row();
-        while ($p_voorkeur !== NULL) {
-            if (isset($p_voorkeur)) {
-                array_push($profiel->persoonlijkheids_voorkeuren, $p_voorkeur);
-            }
-            $p_voorkeur = $query->next_row();
+        $query = $this->db->get_where('Persoonlijkheids_type', array('ptid' => $profiel->persoonlijkheids_type_voorkeur_id));
+        $type = $query->row();
+        if (isset($type)) {
+            $profiel->persoonlijkheids_type = $type;
         }
     }
 
@@ -426,5 +408,19 @@ class Profiel extends CI_Model
             $eerste_zin = substr($beschrijving, 15);
             return $eerste_zin;
         }
+    }
+
+    /**
+     * Join profiel met alle mogelijke tabellen
+     * @param $profiel
+     */
+    private function add_alles($profiel)
+    {
+        $this->add_profiel_foto($profiel);
+        $this->add_foto_array($profiel);
+        $this->add_geslacht($profiel);
+        $this->add_persoonlijkheids_type($profiel);
+        $this->add_merk_array($profiel);
+        $this->add_persoonlijkheids_type_voorkeur($profiel);
     }
 }
