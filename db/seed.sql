@@ -29,7 +29,7 @@ VALUES (1, 'ISTJ', 'Inspector'),
 -- test data
 INSERT INTO `Profiel` (pid, voornaam, achternaam, email, password, is_admin, nickname, beschrijving, geboorte_datum,
                        leeftijd_voorkeur_min, leeftijd_voorkeur_max, valt_op_man, valt_op_vrouw, geslacht_id)
-VALUES (1, 'Bas', 'van Marwijk', 'bas@example.com', '$2y$10$LyzwMXTyXdRO7.9jTOlcaegIlZQuN5pqrAn4X9oNi4mV8rn0NauMq', 1,
+VALUES (1, 'Bas', 'van Marwijk', 'bas@example.com', '$2y$10$hL0wVNcja/nS3us93I4fau/4RKiL6whA7P73Uny6HRNESEP3odRBK', 1,
            'bas1994', 'Pro admin', 782694000, 18, 25, 0, 1, 1),
   (2, 'Henk', 'de Jong', 'henk@example.com', '$2y$10$LyzwMXTyXdRO7.9jTOlcaegIlZQuN5pqrAn4X9oNi4mV8rn0NauMq', 0,
       'henkie', '', 792694000, 18, 25, 0, 1, 1),

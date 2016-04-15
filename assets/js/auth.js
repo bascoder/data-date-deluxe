@@ -12,7 +12,7 @@
     function hashAndSubmit() {
         var pwField = $("form input[name=password]");
         var originalPw = pwField.val();
-        var username = $("form input[name=nickname]").val();
+        var username = $("form .email").val();
         var hash = Sha1.hash(originalPw + username);
         pwField.val(hash);
     }

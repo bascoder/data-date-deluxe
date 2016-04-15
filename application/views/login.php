@@ -1,7 +1,7 @@
 <div id="LoginForm" class="auth-container center">
     <form class="auth" action="login/submit" method="post">
-        <label for="nickname">Nickname</label> <br>
-        <input id="nickname" type="text" required name="nickname"> <br>
+        <label for="email">Email adres</label> <br>
+        <input id="email" class="email" type="email" required name="email"> <br>
         <label for="password">Password</label> <br>
         <input id="password" type="password" required name="password"> <br>
         <input type="submit">

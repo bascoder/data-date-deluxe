@@ -13,9 +13,10 @@ class Login extends CI_Controller
 
     public function submit()
     {
-        $nickname = $this->input->post('nickname');
+        $this->output->enable_profiler(TRUE);
+        $email = $this->input->post('email');
         $password = $this->input->post('password');
-        if ($this->authentication->authenticate($nickname, $password)) {
+        if ($this->authentication->authenticate($email, $password)) {
             $this->session->set_flashdata('message',
                 array('message' => 'Succesvol ingelogd!',
                     'level' => 'success'));
@@ -24,7 +25,7 @@ class Login extends CI_Controller
             $this->session->set_flashdata('message',
                 array('message' => 'De gebruikersnaam en/of wachtwoord komen niet overeen.',
                     'level' => 'error'));
-            redirect('login');
+            //redirect('login');
         }
     }
 
