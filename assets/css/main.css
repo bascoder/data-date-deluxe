@@ -144,6 +144,8 @@ article.readable {
     background-color: #ff626c;
     border: 1px solid black;
     border-radius: 12px;
+
+    height: 20em;
 }
 
 .profiel.clickable:active, .profiel.clickable:target {
