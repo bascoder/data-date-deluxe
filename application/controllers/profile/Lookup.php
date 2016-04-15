@@ -180,6 +180,15 @@ class Lookup extends CI_Controller
             show_error('Merk voorkeuren zijn verplicht', 400);
         }
 
+        $persoonlijkheid_voorkeur = $this->input->get('persoonlijkheids_voorkeur');
+        if ($persoonlijkheid_voorkeur !== NULL && !empty($persoonlijkheid_voorkeur)) {
+            array_push($joins,
+                array('table' => 'Persoonlijkheids_type',
+                    'condition' => "ptid = persoonlijkheids_type_voorkeur_id AND name = $persoonlijkheid_voorkeur"));
+        } else {
+            show_error('Persoonlijkheid voorkeur is verplicht', 400);
+        }
+
         return $joins;
     }
 }
