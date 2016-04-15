@@ -14,20 +14,46 @@ class Edit extends CI_Controller
         show_404();
     }
 
-    public function update(){
+    public function update()
+    {
 
         $sql = "UPDATE Profiel SET ?=? WHERE pid=?";
         $fieldName = $this->input->post('field');
-        if($this->isAllowedField($fieldName)){
+        if ($this->isAllowedField($fieldName)) {
             $newVal = $this->input->post('value');
             $profiel = $this->authentication->get_current_profiel();
-            $this->db->query($sql,array($fieldName,$newVal,$profiel->pid));
-            echo $newVal; 
-        }
-        else{
+            $this->db->query($sql, array($fieldName, $newVal, $profiel->pid));
+            echo $newVal;
+        } else {
             echo "<marquee style='color:red' class='message-error'>Unexpected fieldName, please reload the page. If you were not actively breaking the site please contact support.</marquee>";
         }
 
+    }
+
+    public function update_beschrijving()
+    {
+        $sql = "UPDATE Profiel SET beschrijving=? WHERE pid=?";
+        $newVal = $this->input->post('value');
+        $profiel = $this->authentication->get_current_profiel();
+        $this->db->query($sql, array($newVal, $profiel->pid));
+        echo $newVal;
+    }
+
+    public function update_sex_preference()
+    {
+        $sql = "UPDATE Profiel SET valt_op_man=?, valt_op_vrouw=? WHERE pid=?";
+        $newVal = $this->input->post('value');
+        $profiel = $this->authentication->get_current_profiel();
+        $likesM = false;
+        $likesF = false;
+        if ($newVal == 'm' || $newVal == 'bi') {
+            $likesM = true;
+        }
+        if ($newVal == 'v' || $newVal == 'bi') {
+            $likesF = true;
+        }
+        $this->db->query($sql, array($likesM, $likesF, $profiel->pid));
+        echo seksuele_voorkeur_display($likesM, $likesF);
     }
 
     public function like($who)
@@ -82,29 +108,5 @@ class Edit extends CI_Controller
     {
         $allowedFieldnames = array('beschrijving' => null);
         return array_key_exists($fieldname, $allowedFieldnames);
-    }
-
-    public function update_beschrijving(){
-        $sql = "UPDATE Profiel SET beschrijving=? WHERE pid=?";
-        $newVal = $this->input->post('value');
-        $profiel = $this->authentication->get_current_profiel();
-        $this->db->query($sql,array($newVal,$profiel->pid));
-        echo $newVal;
-    }
-    
-    public function update_sex_preference(){
-        $sql = "UPDATE Profiel SET valt_op_man=?, valt_op_vrouw=? WHERE pid=?";
-        $newVal = $this->input->post('value');
-        $profiel = $this->authentication->get_current_profiel();
-        $likesM = false;
-        $likesF = false;
-        if($newVal == 'm' || $newVal == 'bi' ) {
-            $likesM = true;
-        }
-        if ($newVal == 'v' || $newVal == 'bi') {
-            $likesF = true;
-        }
-        $this->db->query($sql,array($likesM,$likesF,$profiel->pid));
-        echo seksuele_voorkeur_display($likesM, $likesF);
     }
 }
