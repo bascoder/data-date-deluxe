@@ -6,6 +6,7 @@
  * @property CI_Output output
  * @property CI_Session session
  * @property Like like_model
+ * @property Authentication authentication
  */
 class Edit extends CI_Controller
 {
@@ -104,9 +105,69 @@ class Edit extends CI_Controller
         }
     }
 
+    /**
+     * @param $profiel_id int ID van profiel wat verwijderd mag worden, dit mag alleen het eigen profiel zijn, tenzij de ingelogd gebruiker admin is
+     */
+    public function delete($profiel_id)
+    {
+        if (!is_numeric($profiel_id)) {
+            show_error('Een parameter met profiel_id is verplicht', 400);
+            return;
+        }
+
+        $profiel = current_profiel();
+        // moet ingelogd zijn
+        if (is_object($profiel) && isset($profiel->pid)) {
+            // eigen profiel of admin
+            if ($profiel->pid === $profiel_id || current_privileges() === Authentication::ADMIN) {
+                $this->do_delete($profiel_id);
+            } else {
+                $this->session->set_flashdata('message',
+                    array('message' => 'U kunt alleen uw eigen profiel verwijderen',
+                        'level' => 'error'));
+                redirect('home');
+            }
+        } else {
+            // anders inloggen
+            $this->session->set_flashdata('message',
+                array('message' => 'U moet ingelogd zijn om uw profiel te verwijderen',
+                    'level' => 'error'));
+            redirect('login');
+        }
+    }
+
+    private function do_delete($profiel_id)
+    {
+        $this->load->model('profiel');
+        if ($this->profiel->delete($profiel_id)) {
+            $this->delete_success();
+        } else {
+            $this->delete_fail();
+        }
+    }
+
     private function isAllowedField($fieldname)
     {
         $allowedFieldnames = array('beschrijving' => null);
         return array_key_exists($fieldname, $allowedFieldnames);
+    }
+
+    private function delete_success()
+    {
+        $this->authentication->logout();
+
+        $this->session->set_flashdata('message',
+            array('message' => 'Uw profiel is succesvol verwijderd',
+                'level' => 'success'));
+        redirect('home');
+    }
+
+    private function delete_fail()
+    {
+        log_message('error', $this->db->error());
+        $this->session->set_flashdata('message',
+            array('message' => 'Er ging iets mis met het verwijderen van uw profiel',
+                'level' => 'error'));
+        redirect('/profile/display/mijn');
     }
 }

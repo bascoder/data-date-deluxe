@@ -99,6 +99,12 @@
         </tr>
         </tbody>
     </table>
+    <?php if ($isOwn && is_ingelogd()):
+        echo form_open(base_url() . 'index.php/profile/edit/delete/' . $profiel->pid);
+        echo '<button type="submit" id="delete-profiel">Verwijder profiel</button>';
+        echo form_close();
+    endif;
+    ?>
 </div>
 
 <script src="<?php echo asset_url() . 'js/profiel.js' ?>"></script>

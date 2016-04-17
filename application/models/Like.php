@@ -42,11 +42,12 @@ class Like extends CI_Model
 
         $liked_profielen = [];
         $like = $query->row();
-        do {
-            $liked = $this->profiel->query_by_id($like->liked_id);
-            array_push($liked_profielen, $liked);
-        } while ($like = $query->next_row());
-
+        if (isset($like)) {
+            do {
+                $liked = $this->profiel->query_by_id($like->liked_id);
+                array_push($liked_profielen, $liked);
+            } while ($like = $query->next_row());
+        }
         return $liked_profielen;
     }
 }

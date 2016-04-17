@@ -155,6 +155,23 @@ class Profiel extends CI_Model
     }
 
     /**
+     * Delete profiel met $pid, alleen toegestaan voor huidig profiel of admin
+     * @param $pid int profiel id to delete
+     * @return bool result
+     * @throws Exception als $pid niet van de huidige gebruiker is of huidige gebruiker geen admin is
+     */
+    public function delete($pid)
+    {
+        if (current_profiel()->pid === $pid || current_privileges() === Authentication::ADMIN) {
+            $result = $this->db->delete('Profiel', array('pid' => $pid));
+            // safe cast het resultaat
+            return $result === FALSE ? FALSE : TRUE;
+        } else {
+            throw new Exception('Invalid credentials');
+        }
+    }
+
+    /**
      * Query by een field
      * @param $field
      * @param $value
