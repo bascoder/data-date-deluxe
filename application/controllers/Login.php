@@ -13,7 +13,6 @@ class Login extends CI_Controller
 
     public function submit()
     {
-        $this->output->enable_profiler(TRUE);
         $email = $this->input->post('email');
         $password = $this->input->post('password');
         if ($this->authentication->authenticate($email, $password)) {
