@@ -2,6 +2,7 @@
 
 /**
  * @property CI_DB_query_builder|CI_DB_pdo_driver db
+ * @property Foto foto
  */
 class Profiel extends CI_Model
 {
@@ -83,7 +84,7 @@ class Profiel extends CI_Model
 
         // query benodigde attributen
         $query = $this->db
-            ->select('pid, nickname, geslacht_id, geboorte_datum, beschrijving, persoonlijkheids_type_id')
+            ->select('pid, nickname, geslacht_id, geboorte_datum, beschrijving, persoonlijkheids_type_id, profiel_foto_id')
             ->from('Profiel')
             ->order_by('RANDOM()')
             ->limit($aantal)
@@ -95,7 +96,12 @@ class Profiel extends CI_Model
             $this->add_geslacht($row);
             $this->add_persoonlijkheids_type($row);
             $this->add_merk_array($row);
-            $row->profiel_foto = placeholder_url($row->geslacht->geslacht);
+            $this->add_profiel_foto($row);
+            if (current_privileges() === Authentication::ANONYMOUS) {
+                // replace foto met placeholder voor anoniem
+                $this->load->model('foto');
+                $row->profiel_foto = $this->foto->query_by_id($row->geslacht->gid);
+            }
 
             $beschrijving = $row->beschrijving;
             $row->beschrijving = $this->eerste_zin($beschrijving);

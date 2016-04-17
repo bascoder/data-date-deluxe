@@ -12,16 +12,13 @@
                 <strong>daten</strong>
                 beginnen!
             </p>
-            <img class="responsive" src="<?php echo asset_url() . 'img/site_images/happy.jpg'?>"
+            <img class="responsive" src="<?php echo asset_url() . 'img/site_images/happy.jpg' ?>"
         <?php endif; ?>
     </article>
 </div>
-<?php if (!is_ingelogd()): ?>
-    <h2>Profielen</h2>
-    <button id="meer-random-profielen">Meer profielen</button>
-    <div id="random-profielen">
 
-    </div>
-<?php endif; ?>
+<h2>Profielen</h2>
+<button id="meer-random-profielen">Meer profielen</button>
+<div id="random-profielen"></div>
 
 <script src="<?php echo asset_url() . 'js/home.js' ?>"></script>

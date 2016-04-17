@@ -1,7 +1,7 @@
 <?php
 
 /**
- *
+ * @property CI_DB_query_builder|CI_DB_pdo_driver db
  * @property CI_Image_lib image_lib
  */
 class Foto extends CI_Model
@@ -9,6 +9,18 @@ class Foto extends CI_Model
     public function insert_foto($url, $profielId)
     {
 
+    }
+
+    public function query_by_id($fid)
+    {
+        if (!is_numeric($fid)) {
+            throw new InvalidArgumentException('Fid moet nummer zijn');
+        }
+        $result = $this->db->get_where('foto', 'fid = ' . $fid)->first_row();
+        if (isset($result)) {
+            return $result;
+        }
+        return NULL;
     }
 
     public function insert_profiel_foto($file, $profiel_id)

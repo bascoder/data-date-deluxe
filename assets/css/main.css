@@ -148,6 +148,10 @@ article.readable {
     height: 20em;
 }
 
+.profiel .profiel-foto-home {
+    height: 40%;
+}
+
 .profiel.clickable:active, .profiel.clickable:target {
     background-color: rgba(255, 98, 108, 0.5);
 }
