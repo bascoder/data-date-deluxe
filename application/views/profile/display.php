@@ -107,4 +107,4 @@
     ?>
 </div>
 
-<script src="<?php echo asset_url() . 'js/profiel.js' ?>"></script>
+<?php if ($isOwn): ?><script src="<?php echo asset_url() . 'js/profiel.js' ?>"></script><?php endif; ?>
