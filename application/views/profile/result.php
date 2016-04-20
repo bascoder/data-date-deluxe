@@ -18,7 +18,11 @@
             $leeftijd = floor((time() - ($profiel->geboorte_datum)) / 31556926);
             echo "<tr><td>Leeftijd</td><td>$leeftijd</td></tr>";
             echo "<tr><td>Beschrijving</td><td>$profiel->beschrijving</td></tr>";
-            $type = $profiel->persoonlijkheids_type->name;
+            if (isset($profiel->perssonlijkheids_type)):
+                $type = $profiel->persoonlijkheids_type->name;
+            else:
+                $type = 'Niet bekend';
+            endif;
             echo "<tr><td>Persoonlijkheids type</td><td>$type</td></tr>";
             echo '</table>';
             echo '</div>';

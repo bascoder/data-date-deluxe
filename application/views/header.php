@@ -33,8 +33,20 @@
                 &nbsp;Profielen
             </a>
         </li>
-        <?php // conditioneel login/log uit knopje ?>
         <?php if ($is_auth): ?>
+            <li>
+                <?php echo anchor('/profile/lookup/like_relatie/0?like_relatie_type=' . Like::GEGEVEN_LIKE,
+                    'Crushes');?>
+            </li>
+            <li>
+                <?php echo anchor('/profile/lookup/like_relatie/0?like_relatie_type=' . Like::ONTVANGEN_LIKE,
+                    'Volgers');?>
+            </li>
+            <li>
+                <?php echo anchor('/profile/lookup/like_relatie/0?like_relatie_type=' . Like::WEDERZIJDSE_LIKE,
+                    'Matches');?>
+            </li>
+            <?php // conditioneel login/log uit knopje ?>
             <li id="logout" class="right"><a href="<?php echo base_url() . "index.php/login/logout" ?>">Log uit</a></li>
             <li id="my-profile" class="right">
                 <?php echo anchor('profile/display/mijn', current_profiel()->voornaam) ?>
