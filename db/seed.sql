@@ -48,8 +48,8 @@ VALUES (1, 'Bas', 'van Marwijk', 'bas@example.com', '$2y$10$hL0wVNcja/nS3us93I4f
   (9, 'Ton', 'uit Soest', 'tonsoest@hotmail.com', '$2y$10$LyzwMXTyXdRO7.9jTOlcaegIlZQuN5pqrAn4X9oNi4mV8rn0NauMq', 0,
       'tonnie', '<3', 752694000, 18, 30, 1, 1, 1),
   (10, 'Timmie', 'Hengel', 'timmie@hotmail.com', '$2y$10$LyzwMXTyXdRO7.9jTOlcaegIlZQuN5pqrAn4X9oNi4mV8rn0NauMq', 0,
-       'tim3', '<3', 732694000, ABS(RANDOM() % 5) + 18, ABS(RANDOM() % 5) + 27, ABS(RANDOM() % 1), 1, ABS(random() % 2)
-                                                                                                      + 1),
+       'tim3', '<3', 732694000, ABS(RANDOM() % 5) + 18, ABS(RANDOM() % 5) + 27, ABS(RANDOM() % 1), 1,
+    ABS(random() % 2) + 1),
   (11, 'Tijs', 'Hengel', 'tijs@hotmail.com', '$2y$10$LyzwMXTyXdRO7.9jTOlcaegIlZQuN5pqrAn4X9oNi4mV8rn0NauMq', 0,
        'tisjeboy', '<3', 732694000, ABS(RANDOM() % 5) + 18, ABS(RANDOM() % 5) + 27, ABS(RANDOM() % 1), 1,
    ABS(random() % 2) + 1),
@@ -134,7 +134,8 @@ VALUES
   ('Pampers'),
   ('Ebay');
 
-INSERT INTO Merk_voorkeur (merk_id, profiel_id)
+-- OR IGNORE clause zorgt ervoor dat rows die niet aan constraints voldoen (door random) overgeslagen worden
+INSERT OR IGNORE INTO Merk_voorkeur (merk_id, profiel_id)
 VALUES (4, 5), (1, 5),
   (1, 6), (2, 6),
   (ABS(RANDOM() % 49) + 1, ABS(RANDOM() % 18) + 1),
@@ -151,12 +152,36 @@ VALUES (4, 5), (1, 5),
   (ABS(RANDOM() % 49) + 1, ABS(RANDOM() % 18) + 1),
   (ABS(RANDOM() % 49) + 1, ABS(RANDOM() % 18) + 1),
   (ABS(RANDOM() % 49) + 1, ABS(RANDOM() % 18) + 1),
+  (ABS(RANDOM() % 49) + 1, ABS(RANDOM() % 18) + 1),
+  (ABS(RANDOM() % 49) + 1, ABS(RANDOM() % 18) + 1),
+  (ABS(RANDOM() % 49) + 1, ABS(RANDOM() % 18) + 1),
+  (ABS(RANDOM() % 49) + 1, ABS(RANDOM() % 18) + 1),
+  (ABS(RANDOM() % 49) + 1, ABS(RANDOM() % 18) + 1),
+  (ABS(RANDOM() % 49) + 1, ABS(RANDOM() % 18) + 1),
   (ABS(RANDOM() % 49) + 1, ABS(RANDOM() % 18) + 1);
 
-UPDATE Profiel
+-- OR IGNORE clause zorgt ervoor dat rows die niet aan constraints voldoen (door random) overgeslagen worden
+UPDATE OR IGNORE Profiel
 SET persoonlijkheids_type_id = ABS(RANDOM() % 15) + 1;
 
-UPDATE Profiel
+-- OR IGNORE clause zorgt ervoor dat rows die niet aan constraints voldoen (door random) overgeslagen worden
+UPDATE OR IGNORE Profiel
 SET persoonlijkheids_type_voorkeur_id = ABS(RANDOM() % 15) + 1;
+
+-- OR IGNORE clause zorgt ervoor dat rows die niet aan constraints voldoen (door random) overgeslagen worden
+INSERT OR IGNORE INTO Like(liker_id, liked_id)
+VALUES ((ABS(RANDOM() %18) + 1),(ABS(RANDOM() %18) + 1)),
+  ((ABS(RANDOM() %18) + 1),(ABS(RANDOM() %18) + 1)),
+  ((ABS(RANDOM() %18) + 1),(ABS(RANDOM() %18) + 1)),
+  ((ABS(RANDOM() %18) + 1),(ABS(RANDOM() %18) + 1)),
+  ((ABS(RANDOM() %18) + 1),(ABS(RANDOM() %18) + 1)),
+  ((ABS(RANDOM() %18) + 1),(ABS(RANDOM() %18) + 1)),
+  ((ABS(RANDOM() %18) + 1),(ABS(RANDOM() %18) + 1)),
+  ((ABS(RANDOM() %18) + 1),(ABS(RANDOM() %18) + 1)),
+  ((ABS(RANDOM() %18) + 1),(ABS(RANDOM() %18) + 1)),
+  ((ABS(RANDOM() %18) + 1),(ABS(RANDOM() %18) + 1)),
+  ((ABS(RANDOM() %18) + 1),(ABS(RANDOM() %18) + 1)),
+  ((ABS(RANDOM() %18) + 1),(ABS(RANDOM() %18) + 1)),
+  ((ABS(RANDOM() %18) + 1),(ABS(RANDOM() %18) + 1));
 
 COMMIT;
