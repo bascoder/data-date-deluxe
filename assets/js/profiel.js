@@ -1,11 +1,24 @@
 (function () {
     "use strict";
 
+    function deleteProfielConfirm() {
+        $('.form-delete').submit(function (e) {
+            var answer = window.confirm('Weet u zeker dat u uw profiel wilt verwijderen?');
+
+            if (answer === false) {
+                e.preventDefault();
+                e.stopPropagation();
+                return false;
+            }
+        });
+    }
+
     function bindEditFunctions() {
         if (!is_ingelogd) {
             $('button.edit-button').hide();
         } else {
             $('button.edit-button').click(buttonHandler);
+            deleteProfielConfirm();
         }
     }
 
@@ -68,7 +81,7 @@
                     newPref = 3
                     break;
             }
-            $('#SexPref').attr('editval',newPref);
+            $('#SexPref').attr('editval', newPref);
         } else {
         }
     }

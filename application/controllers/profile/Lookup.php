@@ -6,10 +6,12 @@
  * @property CI_Output output
  * @property CI_Input input
  * @property CI_Pagination pagination
+ * @property Like like
+ * @property CI_Session session
  */
 class Lookup extends CI_Controller
 {
-    const PER_PAGE = 4;
+    const PER_PAGE = 6;
 
     public function index()
     {
@@ -47,12 +49,7 @@ class Lookup extends CI_Controller
 
     public function search($page = 0)
     {
-        $this->load->model('profiel');
-        $this->load->library('pagination');
-
-        if (!is_integer(intval($page))) {
-            $page = 0;
-        }
+        $page = intval($page);
 
         $where_clauses = $this->make_where_clause();
         $joins = $this->make_joins();
@@ -70,12 +67,58 @@ class Lookup extends CI_Controller
                         'level' => 'error'));
             }
 
-            $page_links = $this->calc_page_links($count);
+            $page_links = $this->calc_page_links($count, 'search');
 
             $view_params = array(
                 'profielen' => $profielen,
                 'page_links' => $page_links);
         }
+        $this->load->view('profile/result', $view_params);
+    }
+
+    public function auto_match($page = 0)
+    {
+        $page = intval($page);
+
+        $profielen = $this->profiel->query_matches();
+        // moet de gehele array slicen want sorteren gebeurt niet in SQL (misschien cachen?)
+        $profielen = array_slice($profielen, $page, self::PER_PAGE);
+
+        $count = $this->profiel->count_matches();
+
+        $page_links = $this->calc_page_links($count, 'auto_match');
+
+        $view_params = array(
+            'profielen' => $profielen,
+            'page_links' => $page_links);
+        $this->load->view('profile/result', $view_params);
+    }
+
+    public function like_relatie($page = 0)
+    {
+        $like_relatie_type = $this->input->get('like_relatie_type', TRUE);
+        $page = intval($page);
+
+        if (!is_ingelogd()) {
+            $this->session->set_flashdata('message',
+                array('message' => 'Login om door te gaan',
+                    'level' => 'error'));
+            redirect('login');
+        }
+
+        // valideer of like_relatie type een valid string is
+        if (!$this->like->is_relatie_type_valid($like_relatie_type)) {
+            show_error('Invalid like relatie type', 400);
+        }
+
+        $profielen = $this->like->query_by_type($like_relatie_type, self::PER_PAGE, $page);
+        $count = count($this->like->query_by_type($like_relatie_type));
+
+        $page_links = $this->calc_page_links($count, 'like_relatie');
+
+        $view_params = array(
+            'profielen' => $profielen,
+            'page_links' => $page_links);
         $this->load->view('profile/result', $view_params);
     }
 
@@ -144,9 +187,9 @@ class Lookup extends CI_Controller
      * @param $count
      * @return string
      */
-    private function calc_page_links($count)
+    private function calc_page_links($count, $method)
     {
-        $page_config['base_url'] = base_url() . 'index.php/profile/lookup/search/';
+        $page_config['base_url'] = base_url() . "index.php/profile/lookup/$method/";
         $page_config['per_page'] = self::PER_PAGE;
         $page_config['total_rows'] = $count;
         $page_config['reuse_query_string'] = TRUE;

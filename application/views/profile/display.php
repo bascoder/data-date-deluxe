@@ -1,6 +1,6 @@
 <div>
     <?php /** @var stdClass $profiel */
-    /** @var bool $mag_liken */
+    /** @var string|bool $like_status */
     $geslacht = $profiel->geslacht->geslacht;
     if (is_ingelogd()):
         echo img(array(
@@ -8,7 +8,7 @@
             'alt' => 'Profiel foto: ' . $profiel->nickname . ' ' . $profiel->profiel_foto->titel,
             'class' => 'profiel-foto responsive'
         ));
-        if ($mag_liken):
+        if ($like_status === Like::GEEN_LIKE || $like_status === Like::ONTVANGEN_LIKE):
             echo form_open(base_url() . 'index.php/profile/edit/like/' . $profiel->pid, 'class="form-inline"');
             ?>
             <button type="submit" class="button-like">
@@ -34,6 +34,18 @@
     ?>
     <table class="table-profiel">
         <tbody>
+        <?php if ($like_status === Like::WEDERZIJDSE_LIKE): ?>
+            <tr>
+                <td>Naam</td>
+                <th><?php echo $profiel->voornaam . ' ' . $profiel->achternaam; ?></th>
+            </tr>
+            <tr>
+                <td>Email adres</td>
+                <th>
+                    <?php echo "<a href='mailto:$profiel->email'>$profiel->email</a>"; ?>
+                </th>
+            </tr>
+        <?php endif; ?>
         <tr>
             <th>Nickname</th>
             <td><?php echo $profiel->nickname; ?></td>
@@ -97,14 +109,19 @@
                     <button class="edit-button" id="editBrands">Edit</button>
                 </td><?php endif; ?>
         </tr>
+        <?php if ($like_status !== FALSE): ?>
+            <tr>
+                <th>Like status</th>
+                <td><?php echo htmlentities($like_status); ?></td>
+            </tr>
+        <?php endif; ?>
         </tbody>
     </table>
     <?php if ($isOwn && is_ingelogd()):
-        echo form_open(base_url() . 'index.php/profile/edit/delete/' . $profiel->pid);
+        echo form_open(base_url() . 'index.php/profile/edit/delete/' . $profiel->pid, array('class' => 'form-delete'));
         echo '<button type="submit" id="delete-profiel">Verwijder profiel</button>';
         echo form_close();
     endif;
     ?>
 </div>
-
-<?php if ($isOwn): ?><script src="<?php echo asset_url() . 'js/profiel.js' ?>"></script><?php endif; ?>
+<script src="<?php echo asset_url() . 'js/profiel.js' ?>"></script>

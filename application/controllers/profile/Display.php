@@ -5,6 +5,7 @@
  * @property Authentication authentication
  * @property Profiel profiel
  * @property Like like
+ * @property CI_DB_pdo_driver|CI_DB_query_builder db
  */
 class Display extends CI_Controller
 {
@@ -70,23 +71,34 @@ class Display extends CI_Controller
     {
         $this->load->view('profile/display', array(
             'profiel' => $profiel,
-            'mag_liken' => $this->mag_liken($profiel)));
+            'like_status' => $this->get_like_status($profiel)));
     }
 
-    private function mag_liken($profiel)
+    private function get_like_status($profiel)
     {
         $logged_in_profiel = current_profiel();
         if ($logged_in_profiel === NULL || $profiel->pid === $logged_in_profiel->pid) {
             return FALSE;
         }
-        $this->load->model('like');
-        $likes = $this->like->query_mijn_gegeven_likes();
-        foreach ($likes as $like) {
+        $gegeven_likes = $this->like->query_mijn_gegeven_likes();
+        foreach ($gegeven_likes as $like) {
             if ($like->pid === $profiel->pid) {
-                return FALSE;
+                return Like::GEGEVEN_LIKE;
+            }
+        }
+        $wederzijds = $this->like->query_wederzijdse_likes();
+        foreach ($wederzijds as $like) {
+            if ($like->pid === $profiel->pid) {
+                return Like::WEDERZIJDSE_LIKE;
+            }
+        }
+        $ontvangen = $this->like->query_mijn_ontvangen_likes();
+        foreach ($ontvangen as $like) {
+            if ($like->pid === $profiel->pid) {
+                return Like::ONTVANGEN_LIKE;
             }
         }
 
-        return TRUE;
+        return Like::GEEN_LIKE;
     }
 }

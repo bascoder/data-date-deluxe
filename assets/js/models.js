@@ -60,11 +60,37 @@ var Profiel = function (profiel) {
     }
 
     if (!this.profiel_foto) {
-        this.profiel_foto = base_url + 'assets/img/profiel_fotos/placeholder' + this.geslacht === 'man' ? 'male' : 'female';
+        this.profiel_foto = {
+            url: base_url + 'assets/img/profiel_fotos/placeholder' + this.geslacht === 'man' ? 'male' : 'female' + '.svg',
+            titel: 'Placeholder foto'
+        };
     }
 };
 
 var Merk = function (mid, naam) {
     this.naam = naam || null;
     this.mid = mid || null;
+};
+
+/**
+ * @param foto {object} json object
+ */
+var Foto = function (foto) {
+    this.fid = foto['fid'] || 0;
+    this.profiel_id = foto['profiel_id'] || 0;
+    this.url = foto['url'] || '';
+    this.titel = foto['titel'] || '';
+    this.beschrijving = foto['beschrijving'] || '';
+
+    this.getThumbnail = function () {
+        // clone URL
+        var url = this.url.slice(0);
+        var extension = url.split('.').pop();
+        if(extension === 'svg') {
+            // svg is scalable dus er is geen thumbnail
+            return url;
+        }
+        // replace extension met _small.extension
+        return url.replace('.' + extension, '_small.' + extension);
+    }
 };

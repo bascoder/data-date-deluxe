@@ -35,7 +35,9 @@
                 var container = $('<div class="profiel clickable" data-pid="' + profiel.pid + '"></div>');
                 var table = $('<table></table>');
 
-                $('<img class="profiel-foto-home" src="' + base_url + profiel.profiel_foto.url + '" alt="' + profiel.profiel_foto.titel + '" />').appendTo(container);
+                var profielFoto = new Foto(profiel.profiel_foto);
+                $('<img class="profiel-foto-thumb" src="' + base_url + profielFoto.getThumbnail() + '" alt="' + profielFoto.titel + '" />')
+                    .appendTo(container);
                 $('<tr><td>Nickname</td><td>' + profiel.nickname + '</td></tr>').appendTo(table);
                 $('<tr><td>Geslacht</td><td>' + profiel.geslacht + '</td></tr>').appendTo(table);
                 $('<tr><td>Leeftijd</td><td>' + profiel.age() + '</td></tr>').appendTo(table);

@@ -6,6 +6,17 @@
  */
 class Foto extends CI_Model
 {
+
+
+    /**
+     * Foto constructor.
+     */
+    public function __construct()
+    {
+        parent::__construct();
+        $this->load->library('image_lib');
+    }
+
     public function insert_foto($url, $profielId)
     {
 
@@ -31,6 +42,9 @@ class Foto extends CI_Model
         $new_path = 'assets/img/profiel_fotos/' . $new_file;
 
         if (rename($current_path, $new_path)) {
+
+            // also create thumbnail
+            $this->create_thumbnail($new_path);
 
             // alles in 1 transactie
             $this->db->trans_start();
@@ -77,7 +91,30 @@ class Foto extends CI_Model
         $config['width'] = 500;
         $config['height'] = 500;
 
-        $this->load->library('image_lib', $config);
+        $this->image_lib->initialize($config);
+        if ($this->image_lib->resize()) {
+            return TRUE;
+        } else {
+            throw new Exception($this->image_lib->display_errors());
+        }
+    }
+
+    /**
+     * @param $path string path to foto
+     * @return bool true on success
+     * @throws Exception if foto resize fails
+     */
+    private function create_thumbnail($path)
+    {
+        $config['image_library'] = 'gd2';
+        $config['source_image'] = $path;
+        $config['create_thumb'] = TRUE;
+        $config['thumb_marker'] = '_small';
+        $config['maintain_ratio'] = TRUE;
+        $config['width'] = 200;
+        $config['height'] = 200;
+
+        $this->image_lib->initialize($config);
         if ($this->image_lib->resize()) {
             return TRUE;
         } else {
