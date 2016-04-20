@@ -71,29 +71,34 @@ class Display extends CI_Controller
     {
         $this->load->view('profile/display', array(
             'profiel' => $profiel,
-            'mag_liken' => $this->mag_liken($profiel)));
+            'like_status' => $this->get_like_status($profiel)));
     }
 
-    private function mag_liken($profiel)
+    private function get_like_status($profiel)
     {
         $logged_in_profiel = current_profiel();
         if ($logged_in_profiel === NULL || $profiel->pid === $logged_in_profiel->pid) {
             return FALSE;
         }
         $gegeven_likes = $this->like->query_mijn_gegeven_likes();
-        $wederzijds = $this->like->query_wederzijdse_likes();
-        if(is_array($wederzijds) && is_array($gegeven_likes)) {
-            $likes = array_merge($gegeven_likes, $wederzijds);
-            foreach ($likes as $like) {
-                if ($like->pid === $profiel->pid) {
-                    return FALSE;
-                }
+        foreach ($gegeven_likes as $like) {
+            if ($like->pid === $profiel->pid) {
+                return Like::GEGEVEN_LIKE;
             }
-
-            return TRUE;
-        } else {
-            log_message('error', 'Kon like statuses niet ophalen ' . $this->db->error());
-            throw new Exception($this->db->error());
         }
+        $wederzijds = $this->like->query_wederzijdse_likes();
+        foreach ($wederzijds as $like) {
+            if ($like->pid === $profiel->pid) {
+                return Like::WEDERZIJDSE_LIKE;
+            }
+        }
+        $ontvangen = $this->like->query_mijn_ontvangen_likes();
+        foreach ($ontvangen as $like) {
+            if ($like->pid === $profiel->pid) {
+                return Like::ONTVANGEN_LIKE;
+            }
+        }
+
+        return Like::GEEN_LIKE;
     }
 }

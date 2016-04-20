@@ -6,9 +6,10 @@
  */
 class Like extends CI_Model
 {
-    const GEGEVEN_LIKE = 'crushes';
-    const ONTVANGEN_LIKE = 'volgers';
-    const WEDERZIJDSE_LIKE = 'matches';
+    const GEGEVEN_LIKE = 'Crush 😍';
+    const ONTVANGEN_LIKE = 'Volger 💐';
+    const WEDERZIJDSE_LIKE = "Match 💑";
+    const GEEN_LIKE = 'Nog niet ontdekt 👀';
 
     private $query_mapping = array(
         self::GEGEVEN_LIKE => 'query_mijn_gegeven_likes',
