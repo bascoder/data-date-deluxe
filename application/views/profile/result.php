@@ -5,7 +5,7 @@
 
     if (isset($profielen) && is_array($profielen) && !empty($profielen)):
         foreach ($profielen as $profiel):
-            echo "<div class='profiel'>";
+            echo "<div class='profiel clickable' data-pid='$profiel->pid'>";
             $geslacht = $profiel->geslacht->geslacht;
             if (current_privileges() === Authentication::ANONYMOUS):
                 echo img(placeholder_url($geslacht), FALSE, 'class="profiel-foto-thumb" alt="log in om een profiel foto te bekijken"');
@@ -33,3 +33,4 @@
 
     ?>
 </div>
+<script src="<?php echo asset_url() . 'js/result.js'?>"></script>
