@@ -101,7 +101,6 @@ class Lookup extends CI_Controller
         $view_params = array(
             'profielen' => $profielen,
             'page_links' => $page_links);
-        $this->output->enable_profiler(TRUE);
         $this->load->view('profile/result', $view_params);
     }
 
