@@ -8,9 +8,9 @@
             echo "<div class='profiel'>";
             $geslacht = $profiel->geslacht->geslacht;
             if (current_privileges() === Authentication::ANONYMOUS):
-                echo img(placeholder_url($geslacht), FALSE, 'class="profiel-foto" alt="log in om een profiel foto te bekijken"');
+                echo img(placeholder_url($geslacht), FALSE, 'class="profiel-foto-thumb" alt="log in om een profiel foto te bekijken"');
             else:
-                echo img($profiel->profiel_foto->url, FALSE, 'class="profiel-foto" alt="profiel foto"');
+                echo img($profiel->profiel_foto->url, FALSE, 'class="profiel-foto-thumb" alt="profiel foto"');
             endif;
             echo '<table>';
             echo "<tr><td>Nickname</td><td>$profiel->nickname</td></tr>";

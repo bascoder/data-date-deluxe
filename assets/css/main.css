@@ -104,8 +104,7 @@ input, label {
 
 /* Profiel */
 img.profiel-foto {
-    min-width: 20%;
-    width: 200px;
+    max-width: 500px;
 }
 
 table.table-profiel th {
@@ -148,8 +147,10 @@ article.readable {
     height: 20em;
 }
 
-.profiel .profiel-foto-home {
+.profiel .profiel-foto-thumb {
     height: 40%;
+    /* scale svg naar thumb size (kost geen extra bandwidth) */
+    max-width: 200px;
 }
 
 .profiel.clickable:active, .profiel.clickable:target {
