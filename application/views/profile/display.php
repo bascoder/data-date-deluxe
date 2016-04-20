@@ -118,12 +118,10 @@
         </tbody>
     </table>
     <?php if ($isOwn && is_ingelogd()):
-        echo form_open(base_url() . 'index.php/profile/edit/delete/' . $profiel->pid);
+        echo form_open(base_url() . 'index.php/profile/edit/delete/' . $profiel->pid, array('class' => 'form-delete'));
         echo '<button type="submit" id="delete-profiel">Verwijder profiel</button>';
         echo form_close();
     endif;
     ?>
 </div>
-
-<?php if ($isOwn): ?>
-    <script src="<?php echo asset_url() . 'js/profiel.js' ?>"></script><?php endif; ?>
+<script src="<?php echo asset_url() . 'js/profiel.js' ?>"></script>
