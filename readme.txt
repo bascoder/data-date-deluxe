@@ -28,3 +28,4 @@ wachtwoord: *** TODO verander voor inleveren
 # SQL definitie
 Path: db/dml.sql
 Of web URL: https://www.students.science.uu.nl/~5836530/data-date-deluxe/db/dml.sql
+Model: db/model.png
