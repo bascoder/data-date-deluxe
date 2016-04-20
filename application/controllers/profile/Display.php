@@ -5,6 +5,7 @@
  * @property Authentication authentication
  * @property Profiel profiel
  * @property Like like
+ * @property CI_DB_pdo_driver|CI_DB_query_builder db
  */
 class Display extends CI_Controller
 {
@@ -79,14 +80,20 @@ class Display extends CI_Controller
         if ($logged_in_profiel === NULL || $profiel->pid === $logged_in_profiel->pid) {
             return FALSE;
         }
-        $this->load->model('like');
-        $likes = $this->like->query_mijn_gegeven_likes();
-        foreach ($likes as $like) {
-            if ($like->pid === $profiel->pid) {
-                return FALSE;
+        $gegeven_likes = $this->like->query_mijn_gegeven_likes();
+        $wederzijds = $this->like->query_wederzijdse_likes();
+        if(is_array($wederzijds) && is_array($gegeven_likes)) {
+            $likes = array_merge($gegeven_likes, $wederzijds);
+            foreach ($likes as $like) {
+                if ($like->pid === $profiel->pid) {
+                    return FALSE;
+                }
             }
-        }
 
-        return TRUE;
+            return TRUE;
+        } else {
+            log_message('error', 'Kon like statuses niet ophalen ' . $this->db->error());
+            throw new Exception($this->db->error());
+        }
     }
 }
