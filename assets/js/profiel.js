@@ -56,6 +56,20 @@
         } else if (that.id === "editSexPref") {
             var preference = $("#sex-preference").val();
             doAjaxUpdate('sex_preference', preference, $('#SexPref'));
+            var newPref = 0;
+            switch (preference) {
+                case "m":
+                    newPref = 1;
+                    break;
+                case "v":
+                    newPref = 2;
+                    break;
+                case "bi":
+                    newPref = 3
+                    break;
+            }
+            $('#SexPref').attr('editval',newPref);
+        } else {
         }
     }
 
