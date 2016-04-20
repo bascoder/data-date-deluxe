@@ -18,12 +18,15 @@
             $leeftijd = floor((time() - ($profiel->geboorte_datum)) / 31556926);
             echo "<tr><td>Leeftijd</td><td>$leeftijd</td></tr>";
             echo "<tr><td>Beschrijving</td><td>$profiel->beschrijving</td></tr>";
-            if (isset($profiel->perssonlijkheids_type)):
+            if (isset($profiel->persoonlijkheids_type)):
                 $type = $profiel->persoonlijkheids_type->name;
             else:
                 $type = 'Niet bekend';
             endif;
             echo "<tr><td>Persoonlijkheids type</td><td>$type</td></tr>";
+            if (isset($profiel->aantrekkelijkheid)):
+                echo "<tr><td>Aantrekkelijkheid</td><td>$profiel->aantrekkelijkheid&percnt;</td></tr>";
+            endif;
             echo '</table>';
             echo '</div>';
         endforeach;
@@ -33,4 +36,4 @@
 
     ?>
 </div>
-<script src="<?php echo asset_url() . 'js/result.js'?>"></script>
+<script src="<?php echo asset_url() . 'js/result.js' ?>"></script>

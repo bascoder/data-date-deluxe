@@ -3,6 +3,8 @@
 /**
  * @property CI_DB_query_builder|CI_DB_pdo_driver db
  * @property Foto foto
+ * @property MatchMaker matchmaker
+ * @property CI_Loader load
  */
 class Profiel extends CI_Model
 {
@@ -175,6 +177,53 @@ class Profiel extends CI_Model
         } else {
             throw new Exception('Invalid credentials');
         }
+    }
+
+    public function query_matches()
+    {
+        $profiel = current_profiel();
+        if ($profiel === NULL) {
+            throw new Exception('De gebruiker moet authenticated zijn');
+        }
+
+        $this->load->library('matchmaker');
+        $sql = $this->matchmaker->make_query($profiel);
+
+        $query = $this->db->query($sql);
+        if ($query === FALSE) {
+            throw new Exception($this->db->display_error());
+        }
+
+        $row = $query->row();
+        $profielen = array();
+        while (isset($row)) {
+            $this->add_alles($row);
+            array_push($profielen, $row);
+
+            $row = $query->next_row();
+        }
+        $this->matchmaker->bepaal_aantrekkelijkheid($profiel, $profielen);
+        $this->matchmaker->order_by_aantrekkelijkheid($profielen);
+
+        return $profielen;
+    }
+
+    public function count_matches()
+    {
+        $profiel = current_profiel();
+        if ($profiel === NULL) {
+            throw new Exception('De gebruiker moet authenticated zijn');
+        }
+
+        $this->load->library('matchmaker');
+        $sql = $this->matchmaker->make_query($profiel, TRUE);
+
+        $query = $this->db->query($sql);
+        if ($query === FALSE) {
+            throw new Exception($this->db->display_error());
+        }
+
+        return intval($query->first_row()->cnt);
     }
 
     /**

@@ -76,6 +76,24 @@ class Lookup extends CI_Controller
         $this->load->view('profile/result', $view_params);
     }
 
+    public function auto_match($page = 0)
+    {
+        $page = intval($page);
+
+        $profielen = $this->profiel->query_matches();
+        // moet de gehele array slicen want sorteren gebeurt niet in SQL (misschien cachen?)
+        $profielen = array_slice($profielen, $page, self::PER_PAGE);
+
+        $count = $this->profiel->count_matches();
+
+        $page_links = $this->calc_page_links($count, 'auto_match');
+
+        $view_params = array(
+            'profielen' => $profielen,
+            'page_links' => $page_links);
+        $this->load->view('profile/result', $view_params);
+    }
+
     public function like_relatie($page = 0)
     {
         $like_relatie_type = $this->input->get('like_relatie_type', TRUE);

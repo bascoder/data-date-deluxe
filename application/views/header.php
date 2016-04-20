@@ -35,6 +35,10 @@
         </li>
         <?php if ($is_auth): ?>
             <li>
+                <?php echo anchor('/profile/lookup/auto_match/0',
+                    'Magische search &#x1f47b');?>
+            </li>
+            <li>
                 <?php echo anchor('/profile/lookup/like_relatie/0?like_relatie_type=' . urlencode(Like::GEGEVEN_LIKE),
                     'Crushes &#x1f60d;');?>
             </li>
