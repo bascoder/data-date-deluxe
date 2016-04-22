@@ -8,6 +8,7 @@
  * @property Like like_model
  * @property Authentication authentication
  * @property CI_Input input
+ * @property Merk merk
  */
 class Edit extends CI_Controller
 {
@@ -63,6 +64,29 @@ class Edit extends CI_Controller
             }
             $this->db->query($sql, array($likesM, $likesF, $profiel->pid));
             echo seksuele_voorkeur_display($likesM, $likesF);
+        }
+    }
+
+    public function update_brand_preference()
+    {
+        if (!$this->authentication->is_authenticated()) {
+            show_error('Moet ingelogd zijn', 401);
+        } else {
+            $merken = json_decode($this->input->post('value', FALSE));
+            if(!$merken) {
+                echo 'Invalid input';
+                echo json_last_error_msg();
+            }
+            try {
+                if(!$this->merk->replace_all_merk_voorkeuren($merken)) {
+                    log_message('error', $this->db->show_error());
+                    echo 'Er ging iets mis';
+                }
+                echo json_encode($merken);
+            } catch (Exception $e) {
+                log_message('error', $e->getMessage());
+                echo $e->getMessage();
+            }
         }
     }
 

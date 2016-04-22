@@ -95,14 +95,19 @@
         </tr>
         <tr>
             <th>Merk voorkeuren</th>
-            <td>
+            <td id="merken-td" data-merken='<?php echo json_encode($profiel->merken); ?>'>
+                <span id="merken-spans">
                 <?php
                 if (isset($profiel->merken)):
                     foreach ($profiel->merken as $merk):
-                        echo ' ' . $merk->naam;
+                        echo ' <span class="merk-label"> ' . $merk->naam . '</span>';
                     endforeach;
                 endif;
-                ?>
+                echo '</span>';
+                if ($isOwn): ?>
+                    <input type="text" id="new-merk" placeholder="een nieuw merk" style="display: none;"/>
+                    <button type="button" id="new-merk-button" style="display: none;">Voeg toe</button>
+                <?php endif; ?>
             </td>
             <?php if ($isOwn): ?>
                 <td>
@@ -124,4 +129,5 @@
     endif;
     ?>
 </div>
+<script src="<?php echo asset_url() . 'js/merkenUtil.js' ?>"></script>
 <script src="<?php echo asset_url() . 'js/profiel.js' ?>"></script>

@@ -19,6 +19,7 @@
         } else {
             $('button.edit-button').click(buttonHandler);
             deleteProfielConfirm();
+            fetchMerken();
         }
     }
 
@@ -58,7 +59,40 @@
                     break;
             }
         } else if (that.id === "editBrands") {
+            var td = $('#merken-td');
 
+            var merkInput = $('#new-merk');
+            merkInput.show('fade');
+            $('#new-merk-button').show('fade').click(merkenUtil.onAdd);
+        }
+    }
+
+    function getHuidigeMerkVoorkeuren() {
+        return $('#merken-td').data('merken') || [];
+    }
+
+    function fetchMerken() {
+        merkenUtil.init('#new-merk');
+        merkenUtil.load();
+        merkenUtil.onAdd = function () {
+            var merk_voorkeur_input = merkenUtil.input;
+            var merk = merk_voorkeur_input.val();
+            if (!merk || merk === '') {
+                merkenUtil.onError();
+            } else {
+                var fields = merk.split(merkenUtil.fieldSeparater);
+                if (fields.length !== 2) {
+                    merkenUtil.onError();
+                }
+                var merkInstance = new Merk(fields[1], fields[0]);
+                var merken_array = getHuidigeMerkVoorkeuren();
+                merken_array.push(merkInstance);
+                $('#merken-td').data('merken', merken_array);
+                $(' <span class="merk-label"> ' + fields[0] + '</span>')
+                    .appendTo($('#merken-spans'));
+
+                merk_voorkeur_input.val('');
+            }
         }
     }
 
@@ -78,11 +112,12 @@
                     newPref = 2;
                     break;
                 case "bi":
-                    newPref = 3
+                    newPref = 3;
                     break;
             }
             $('#SexPref').attr('editval', newPref);
-        } else {
+        } else if (that.id === "editBrands") {
+            doAjaxUpdate('brand_preference', JSON.stringify(getHuidigeMerkVoorkeuren()), null);
         }
     }
 
@@ -92,7 +127,8 @@
                 type: 'POST',
                 data: {'ci_session': document.cookie, value: value, plain: 1},
                 success: function (response) {
-                    elem.html(response);
+                    if (!!elem)
+                        elem.html(response);
                 }
             })
             .done(function () {
