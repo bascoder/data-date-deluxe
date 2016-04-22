@@ -7,6 +7,7 @@
  * @property CI_Session session
  * @property Like like_model
  * @property Authentication authentication
+ * @property CI_Input input
  */
 class Edit extends CI_Controller
 {
@@ -33,28 +34,36 @@ class Edit extends CI_Controller
 
     public function update_beschrijving()
     {
-        $sql = "UPDATE Profiel SET beschrijving=? WHERE pid=?";
-        $newVal = $this->input->post('value');
-        $profiel = $this->authentication->get_current_profiel();
-        $this->db->query($sql, array($newVal, $profiel->pid));
-        echo $newVal;
+        if (!$this->authentication->is_authenticated()) {
+            show_error('Moet ingelogd zijn', 401);
+        } else {
+            $sql = "UPDATE Profiel SET beschrijving=? WHERE pid=?";
+            $newVal = $this->input->post('value');
+            $profiel = $this->authentication->get_current_profiel();
+            $this->db->query($sql, array($newVal, $profiel->pid));
+            echo $newVal;
+        }
     }
 
     public function update_sex_preference()
     {
-        $sql = "UPDATE Profiel SET valt_op_man=?, valt_op_vrouw=? WHERE pid=?";
-        $newVal = $this->input->post('value');
-        $profiel = $this->authentication->get_current_profiel();
-        $likesM = false;
-        $likesF = false;
-        if ($newVal == 'm' || $newVal == 'bi') {
-            $likesM = true;
+        if (!$this->authentication->is_authenticated()) {
+            show_error('Moet ingelogd zijn', 401);
+        } else {
+            $sql = "UPDATE Profiel SET valt_op_man=?, valt_op_vrouw=? WHERE pid=?";
+            $newVal = $this->input->post('value');
+            $profiel = $this->authentication->get_current_profiel();
+            $likesM = false;
+            $likesF = false;
+            if ($newVal == 'm' || $newVal == 'bi') {
+                $likesM = true;
+            }
+            if ($newVal == 'v' || $newVal == 'bi') {
+                $likesF = true;
+            }
+            $this->db->query($sql, array($likesM, $likesF, $profiel->pid));
+            echo seksuele_voorkeur_display($likesM, $likesF);
         }
-        if ($newVal == 'v' || $newVal == 'bi') {
-            $likesF = true;
-        }
-        $this->db->query($sql, array($likesM, $likesF, $profiel->pid));
-        echo seksuele_voorkeur_display($likesM, $likesF);
     }
 
     public function like($who)
@@ -77,7 +86,7 @@ class Edit extends CI_Controller
         }
 
         // obtain liker (huidige user)
-        $liker = current_profiel();
+        $liker = $this->authentication->get_current_profiel();
         if ($liker === NULL) {
             $this->session->set_flashdata('message',
                 array('message' => 'Authentication required',
