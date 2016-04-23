@@ -34,6 +34,33 @@ class Foto extends CI_Model
         return NULL;
     }
 
+    public function set_to_placeholder($profiel)
+    {
+        if (isset($profiel) && isset($profiel->geslacht_id) && isset($profiel->pid)) {
+            $this->db->update('Profiel', array(
+                'profiel_foto_id' => $profiel->geslacht_id
+            ), 'pid = ' . $profiel->pid);
+        } else {
+            throw new InvalidArgumentException('Je moet ingelogd zijn.');
+        }
+    }
+
+    public function delete_profiel_foto($profiel)
+    {
+        if (isset($profiel) && isset($profiel->profiel_foto_id) && isset($profiel->geslacht_id)) {
+            $profiel_foto_id = $profiel->profiel_foto_id;
+            $geslacht = $profiel->geslacht_id;
+            if ($profiel_foto_id == $geslacht) {
+                throw new InvalidArgumentException('Je mag je placeholder foto niet verwijderen');
+            }
+
+            log_message('info', 'Foto verwijderen: ' . $this->delete_from_file_path($profiel_foto_id));
+            $this->db->delete('Foto', 'fid = ' . $profiel_foto_id);
+        } else {
+            throw new InvalidArgumentException('Je moet al een profiel foto hebben.');
+        }
+    }
+
     public function insert_profiel_foto($file, $profiel_id)
     {
         $current_path = $file['full_path'];
@@ -75,6 +102,23 @@ class Foto extends CI_Model
         } else {
             throw new Exception('Kon foto niet verplaatsen');
         }
+    }
+
+    /**
+     * @param $foto_id int
+     * @return bool TRUE on success otherwise FALSE
+     */
+    private function delete_from_file_path($foto_id)
+    {
+        $query = $this->db->get_where('Foto', 'fid = ' . intval($foto_id));
+        if (!$query) return FALSE;
+
+        $path = $query->row()->url;
+        // unlink is delete file functie in PHP
+        $main = unlink($path);
+        $thumb = unlink(str_replace('.jpg', '_small.jpg', $path));
+
+        return $main && $thumb;
     }
 
     /**

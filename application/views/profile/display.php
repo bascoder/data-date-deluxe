@@ -2,12 +2,21 @@
     <?php /** @var stdClass $profiel */
     /** @var string|bool $like_status */
     $geslacht = $profiel->geslacht->geslacht;
+    $is_ingelogd = is_ingelogd();
+    $is_own = $is_ingelogd && $this->authentication->get_current_profiel()->pid == $profiel->pid;
     if (is_ingelogd()):
+        if ($is_own):
+            $url = base_url() . 'index.php/profile/fototool';
+            echo "<a href='$url'>";
+        endif;
         echo img(array(
             'src' => $profiel->profiel_foto->url,
             'alt' => 'Profiel foto: ' . $profiel->nickname . ' ' . $profiel->profiel_foto->titel,
             'class' => 'profiel-foto responsive'
         ));
+        if ($is_own):
+            echo "<br />Verander foto</a>";
+        endif;
         if ($like_status === Like::GEEN_LIKE || $like_status === Like::ONTVANGEN_LIKE):
             echo form_open(base_url() . 'index.php/profile/edit/like/' . $profiel->pid, 'class="form-inline"');
             ?>
@@ -28,7 +37,7 @@
     endif;
     ?>
     <?php
-    $isOwn = is_ingelogd() && $this->authentication->get_current_profiel()->pid == $profiel->pid;
+    $is_own = is_ingelogd() && $this->authentication->get_current_profiel()->pid == $profiel->pid;
     $pref = seksuele_voorkeur_display($profiel->valt_op_man, $profiel->valt_op_vrouw);
     $prefNum = $profiel->valt_op_man + (2 * $profiel->valt_op_vrouw);
     ?>
@@ -61,7 +70,7 @@
         <tr>
             <th>Beschrijving</th>
             <td id="Description"><?php echo $profiel->beschrijving; ?></td>
-            <?php if ($isOwn): ?>
+            <?php if ($is_own): ?>
                 <td>
                     <button class="edit-button" id="editDescription">Edit</button>
                 </td><?php endif; ?>
@@ -69,7 +78,7 @@
         <tr>
             <th>Seksuele voorkeur</th>
             <td id="SexPref" editVal="<?php echo $prefNum; ?>"><?php echo $pref ?></td>
-            <?php if ($isOwn): ?>
+            <?php if ($is_own): ?>
                 <td>
                     <button class="edit-button" id="editSexPref">Edit</button>
                 </td><?php endif; ?>
@@ -104,12 +113,12 @@
                     endforeach;
                 endif;
                 echo '</span>';
-                if ($isOwn): ?>
+                if ($is_own): ?>
                     <input type="text" id="new-merk" placeholder="een nieuw merk" style="display: none;"/>
                     <button type="button" id="new-merk-button" style="display: none;">Voeg toe</button>
                 <?php endif; ?>
             </td>
-            <?php if ($isOwn): ?>
+            <?php if ($is_own): ?>
                 <td>
                     <button class="edit-button" id="editBrands">Edit</button>
                 </td><?php endif; ?>
@@ -122,7 +131,7 @@
         <?php endif; ?>
         </tbody>
     </table>
-    <?php if ($isOwn && is_ingelogd()):
+    <?php if ($is_own && is_ingelogd()):
         echo form_open(base_url() . 'index.php/profile/edit/delete/' . $profiel->pid, array('class' => 'form-delete'));
         echo '<button type="submit" id="delete-profiel">Verwijder profiel</button>';
         echo form_close();
