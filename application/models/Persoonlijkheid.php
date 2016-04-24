@@ -63,4 +63,18 @@ class Persoonlijkheid extends CI_Model
 
         return $start
     }
+
+    public function distanceOrderdPersons($eVal, $nVal, $tVal, $jVal){
+        $profiles = $this->dbx_query("SELECT * FROM Persoonlijkheids_type");
+        $result = array();
+        while ($row = $profiles->next_row()) {
+            $temp = pow(doubleval($row->eType) - $eVal,2);
+            $temp += pow(doubleval($row->nType) - $nVal,2);
+            $temp += pow(doubleval($row->tType) - $tVal,2);
+            $temp += pow(doubleval($row->jType) - $jVal,2);
+            $temp = sqrt($temp);
+            $result[$profiles->ptid] = $temp;
+        }
+        return asort($result);
+    }
 }
