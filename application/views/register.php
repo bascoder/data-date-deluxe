@@ -35,6 +35,7 @@
     <input type="text" name="nickname" id="nickname" placeholder="Make it sexy..." required/><br/>
     <label for="password">Wachtwoord</label><br/>
     <input type="password" name="password" id="password" placeholder="St3rKW@cHTW0oRD" minlength="8" required/><br/>
+    <input type="hidden" name="hash" />
     <input type="submit" value="Registreer"/>
 </form>
 <script src="<?php echo asset_url() . 'js/register.js' ?>"></script>

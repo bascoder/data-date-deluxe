@@ -3,6 +3,8 @@
 /**
  *
  * @property Authentication authentication
+ * @property CI_Input input
+ * @property CI_Session session
  */
 class Login extends CI_Controller
 {
@@ -14,7 +16,7 @@ class Login extends CI_Controller
     public function submit()
     {
         $email = $this->input->post('email');
-        $password = $this->input->post('password');
+        $password = $this->input->post('hash');
         if ($this->authentication->authenticate($email, $password)) {
             $this->session->set_flashdata('message',
                 array('message' => 'Succesvol ingelogd!',
