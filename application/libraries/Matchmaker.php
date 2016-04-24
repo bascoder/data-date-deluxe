@@ -132,7 +132,8 @@ class MatchMaker
         } else {
             $veld = 'valt_op_vrouw';
         }
-        $where .= " \n P.$veld = 1";
+        $where .= " \nAND P.$veld = 1";
+
         return $where;
     }
 
@@ -149,7 +150,7 @@ class MatchMaker
             $where = "G.geslacht = 'vrouw'";
             return $where;
         }
-        return '';
+        return '1=1';
     }
 
     /**
@@ -220,7 +221,7 @@ class MatchMaker
         return $merken_gewicht;
     }
 
-    
+
     public function distanceOrderdPersons($eVal, $nVal, $tVal, $jVal){
         $profiles = $this->dbx_query("SELECT * FROM Persoonlijkheids_type");
         $result = array();
