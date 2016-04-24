@@ -23,7 +23,7 @@ class Profiel extends CI_Model
                 VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         $result = $this->db->query($sql,
             array(
-                $fields['voornaam'], $fields['achternaam'], $fields['email'], $fields['password'],
+                $fields['voornaam'], $fields['achternaam'], $fields['email'], $fields['hash'],
                 $fields['is_admin'], $fields['nickname'], $fields['beschrijving'], $fields['geboorte_datum'],
                 $fields['leeftijd_voorkeur_min'], $fields['leeftijd_voorkeur_max'],
                 $fields['valt_op_man'], $fields['valt_op_vrouw'],
@@ -305,9 +305,9 @@ class Profiel extends CI_Model
         $fields['valt_op_man'] = $this->valt_op_man($pref, $geslachtId);
         $fields['valt_op_vrouw'] = $this->valt_op_vrouw($pref, $geslachtId);
         $fields['nickname'] = $post['nickname'];
-        if ($this->is_password_valid($post)) {
+        if (isset($post['hash'])) {
             try {
-                $fields['password'] = $this->hash_password($post['password']);
+                $fields['hash'] = $this->hash_password($post['hash']);
             } catch (Exception $e) {
                 log_message('error', 'password_hash failed');
                 show_error('Er ging iets mis met het verwerken van uw gegevens', 500);

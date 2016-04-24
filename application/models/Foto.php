@@ -133,7 +133,12 @@ class Foto extends CI_Model
      */
     private function delete_from_file_path($foto_id)
     {
-        $query = $this->db->get_where('Foto', 'fid = ' . intval($foto_id));
+        $foto_id = intval($foto_id);
+        // geen placeholders deleten
+        if($foto_id === 1 || $foto_id === 2) {
+            return FALSE;
+        }
+        $query = $this->db->get_where('Foto', 'fid = ' . ($foto_id));
         if (!$query) return FALSE;
 
         $path = $query->row()->url;

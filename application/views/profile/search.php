@@ -5,6 +5,7 @@ echo form_open(base_url() . 'index.php/profile/lookup/search', array(
 ?>
 <label for="geslacht-voorkeur">Geslacht voorkeur</label>
 <select id="geslacht-voorkeur" name="geslacht_voorkeur" required>
+    <option label="empty"></option>
     <option>Mannen</option>
     <option>Vrouwen</option>
     <option>Beide</option>
@@ -12,9 +13,10 @@ echo form_open(base_url() . 'index.php/profile/lookup/search', array(
 <br/>
 <label>
     Leeftijd voorkeur
-    <input type="number" name="leeftijd_min" id="leeftijd-min" min="18" max="99" required placeholder="min"/>
-    <input type="number" name="leeftijd_max" id="leeftijd-max" min="18" max="99" required placeholder="max"/>
 </label>
+<input type="number" name="leeftijd_min" id="leeftijd-min" min="18" max="99" required placeholder="min"/>
+<input type="number" name="leeftijd_max" id="leeftijd-max" min="18" max="99" required placeholder="max"/>
+
 <br/>
 <label>
     Persoonlijkheids voorkeur
@@ -24,12 +26,12 @@ echo form_open(base_url() . 'index.php/profile/lookup/search', array(
            required/>
 </label>
 <br/>
-<label id="merk-voorkeuren">
-    Merk voorkeuren
+<div id="merk-voorkeuren">
+    <label>Merk voorkeuren</label>
     <input type="text" placeholder="Apple" id="merk-voorkeur"/>
     <button type="button" id="btn-add-merk">Voeg toe</button>
     <input type="hidden" id="merken" name="merken"/>
-</label>
+</div>
 <br/>
 <?php
 echo form_submit('', 'Zoek');
