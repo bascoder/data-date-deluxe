@@ -32,7 +32,7 @@ if (stristr($_SERVER['SERVER_NAME'], 'science.uu.nl')) {
     $config['base_url'] = 'https://localhost/data-date-deluxe/';
 } else {
     $GLOBALS['ander'] = TRUE;
-    $config['base_url'] = 'http://localhost/data-date-deluxe/';
+    $config['base_url'] = 'http://localhost:8080/data-date-deluxe/';
 }
 
 /*
@@ -380,7 +380,7 @@ $config['encryption_key'] = '';
 $config['sess_driver'] = 'files';
 $config['sess_cookie_name'] = 'ci_session';
 $config['sess_expiration'] = 7200;
-$config['sess_save_path'] = NULL;
+$config['sess_save_path'] = 'C:/sessions/';
 $config['sess_match_ip'] = FALSE;
 $config['sess_time_to_update'] = 300;
 $config['sess_regenerate_destroy'] = FALSE;
@@ -421,7 +421,7 @@ $config['cookie_httponly'] = FALSE;
 | (usually \n) and Windows (\r\n).
 |
 */
-$config['standardize_newlines'] = FALSE;
+$config['standardize_newlines'] = TRUE;
 
 /*
 |--------------------------------------------------------------------------

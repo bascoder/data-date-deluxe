@@ -24,6 +24,7 @@ class Lookup extends CI_Controller
      */
     public function random()
     {
+        //$this->output->enable_profiler(TRUE);
         $this->load->model('profiel');
 
         $this->output->set_content_type('application/json');

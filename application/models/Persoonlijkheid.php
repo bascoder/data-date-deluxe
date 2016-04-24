@@ -18,4 +18,26 @@ class Persoonlijkheid extends CI_Model
 
         return $typen;
     }
+
+    public function add_personality($answers)
+    {
+        $characteristics = array('E' => 50, 'N' => 50, 'T' => 50, 'J' => 50);
+        foreach ($answers as $key => $value) {
+            $characteristics[$key[0]] += $value;
+        }
+        foreach ($characteristics as $key => $value) {
+            if($value > 100 || $value < 0){
+                return FALSE;
+            }
+        }
+        $sql = "INSERT INTO Persoonlijkheids_type(ptid,pcid,eType, nType, tType, jType) VALUES (?,?,?,?,?,?)";
+        $pid = $this->authentication->get_current_profiel()->pid;
+        try {
+            $this->db->query($sql, array($pid,1,$characteristics['E'],$characteristics['N'],$characteristics['T'],$characteristics['J']));
+            return TRUE;
+        } catch (Exception $e) {
+            return FALSE;
+        }
+        return FALSE;
+    }
 }

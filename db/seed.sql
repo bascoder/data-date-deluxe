@@ -9,7 +9,7 @@ INSERT INTO `Foto` (fid, url, titel, beschrijving)
 VALUES (1, 'assets/img/profiel_fotos/placeholder_male.svg', 'placeholder man', 'Ik heb nog geen profiel foto'),
   (2, 'assets/img/profiel_fotos/placeholder_female.svg', 'placeholder vrouw', 'Ik heb nog geen profiel foto');
 
-INSERT INTO Persoonlijkheids_type (ptid, type, name)
+INSERT INTO Persoonlijkheids_categorie (pcid, type, name)
 VALUES (1, 'ISTJ', 'Inspector'),
   (2, 'ISFJ', 'Protector'),
   (3, 'INFJ', 'Counselor'),
@@ -91,7 +91,7 @@ INSERT INTO "Merk" (mid, naam) VALUES (5, 'IBM');
 INSERT INTO "Merk" (mid, naam) VALUES (6, 'McDonald''s');
 INSERT INTO "Merk" (mid, naam) VALUES (7, 'Samsung');
 INSERT INTO "Merk" (mid, naam) VALUES (8, 'Toyota');
-INSERT INTO "Merk" (mid, naam) VALUES (9, 'General Electric');
+INSERT INTO "Merk" (mid, naam) VALUES (9, 'Trojan');
 INSERT INTO "Merk" (mid, naam) VALUES (10, 'Facebook');
 INSERT INTO "Merk" (mid, naam) VALUES (11, 'Disney');
 INSERT INTO "Merk" (mid, naam) VALUES (12, 'AT&T');
@@ -99,7 +99,7 @@ INSERT INTO "Merk" (mid, naam) VALUES (13, 'Amazon.com');
 INSERT INTO "Merk" (mid, naam) VALUES (14, 'Louis Vuitton');
 INSERT INTO "Merk" (mid, naam) VALUES (15, 'Cisco');
 INSERT INTO "Merk" (mid, naam) VALUES (16, 'BMW');
-INSERT INTO "Merk" (mid, naam) VALUES (17, 'Oracle');
+INSERT INTO "Merk" (mid, naam) VALUES (17, 'Durex');
 INSERT INTO "Merk" (mid, naam) VALUES (18, 'NIKE');
 INSERT INTO "Merk" (mid, naam) VALUES (19, 'Intel');
 INSERT INTO "Merk" (mid, naam) VALUES (20, 'Wal-Mart');
@@ -161,10 +161,10 @@ VALUES (4, 5), (1, 5),
   (ABS(RANDOM() % 49) + 1, ABS(RANDOM() % 18) + 1);
 
 UPDATE OR IGNORE Profiel
-SET persoonlijkheids_type_id = ABS(RANDOM() % 15) + 1;
+SET persoonlijkheids_type_id = NULL;
 
 UPDATE OR IGNORE Profiel
-SET persoonlijkheids_type_voorkeur_id = ABS(RANDOM() % 15) + 1;
+SET persoonlijkheids_type_voorkeur_id = NULL;
 
 INSERT OR IGNORE INTO Like (liker_id, liked_id)
 VALUES ((ABS(RANDOM() % 18) + 1), (ABS(RANDOM() % 18) + 1)),
