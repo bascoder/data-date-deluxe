@@ -8,6 +8,7 @@
  * @property CI_Pagination pagination
  * @property Like like
  * @property CI_Session session
+ * @property CI_Config config
  */
 class Lookup extends CI_Controller
 {
@@ -203,13 +204,15 @@ class Lookup extends CI_Controller
     private function make_joins()
     {
         $joins = [];
-        $merken_string = $this->input->get('merken');
+        // decode html entities zodat JSON decoder de input snapt
+        $merken_string = html_entity_decode($this->input->get('merken'),
+            ENT_QUOTES, $this->config->item('charset'));
         if ($merken_string !== NULL && !empty($merken_string)) {
             $merken = json_decode($merken_string);
 
             // check json parse error
             if (json_last_error() !== JSON_ERROR_NONE) {
-                log_message('error', 'invalid json: ' . json_last_error_msg());
+                log_message('error', 'invalid json: ' . json_last_error() . ' ' . json_last_error_msg());
                 show_error('Invalid json passed voor merken parameter', 400);
             }
 
