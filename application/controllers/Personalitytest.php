@@ -11,6 +11,13 @@ class Personalitytest extends CI_Controller
             $this->sessie_verlopen();
         }
     }
+
+
+    public function submit()
+    {
+        redirect('/profile/fototool'); 
+    }
+
     private function sessie_verlopen()
     {
         sessie_verlopen_redirect();

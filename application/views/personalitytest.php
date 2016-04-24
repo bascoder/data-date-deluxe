@@ -1,6 +1,7 @@
 <div>
     <b>Vragenlijst MBTI persoonlijkheidstest</b>
-    <form>
+    <hr/>
+    <form id="persontest" class="center auth auth-container" action="personalitytest/submit" method="post">
 <?php 
 $neutral = "Ik zit er eigenlijk tussenin.";
 $categorys = array('E5', 'N4', 'T4','J6');
@@ -85,9 +86,9 @@ $questions = array(
 
 for ($i=0; $i < count($categorys); $i++) { 
     $cat = $categorys[$i];
-    for ($isis=1; $isis < $cat[1]; $isis++) { 
+    for ($isis=1; $isis < $cat[1] +1; $isis++) { 
         printQuestion($cat[0].$isis,50/$cat[1],$questions,$neutral);
-        if($i < count($categorys) - 1 || $isis < $cat[1] -1){
+        if($i < count($categorys) - 1 || $isis < $cat[1]){
              echo "<hr/>";
          }
     }
@@ -112,5 +113,6 @@ function printQuestionLine($text, $valuechange, $name){
 }
 
 ?>
+<input type="submit"/>
 </form>
 </div>

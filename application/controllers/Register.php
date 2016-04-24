@@ -29,7 +29,7 @@ class Register extends CI_Controller
                     $this->handle_db_error();
                 } else {
                     $this->authentication->login($profiel);
-                    redirect('/profile/fototool');
+                    redirect('/personalitytest');
                 }
             }
         } catch (InvalidArgumentException $e) {
