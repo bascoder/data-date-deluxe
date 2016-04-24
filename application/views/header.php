@@ -24,7 +24,6 @@
 </head>
 <body>
 <nav>
-    <div id="progressbar-ajax"></div>
     <a class="toggle-nav active" href="#">&#9776;</a>
     <ul class="nav xs-invisible">
         <li><a href="<?php echo base_url() ?>">Home</a></li>
@@ -68,4 +67,5 @@
         <?php endif; ?>
     </ul>
 </nav>
+<div id="progressbar-ajax"></div>
 <div class="content">
