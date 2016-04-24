@@ -14,7 +14,7 @@ class ProfielAjax extends CI_Controller
 
     public function email($email)
     {
-        $profiel = $this->profiel->query_by_email($email);
+        $profiel = $this->profiel->query_by_email(urldecode($email));
         $this->do_output($profiel);
     }
 
