@@ -1,3 +1,4 @@
+<div style="display: none" class="message message-error" id="error"></div>
 <form id="register-form" class="center auth auth-container" action="register/submit" method="post">
     <label for="voornaam">Voornaam</label><br/>
     <input required id="voornaam" name="voornaam" placeholder="Jan" type="text"/><br/>
@@ -22,7 +23,7 @@
                max="99" class="short-field" placeholder="max" required/>
     </label>
     <br/>
-    <label for="sex-preference">Geintreseerd in</label>
+    <label for="sex-preference">Geïnteresseerd in</label>
     <select id="sex-preference" name="sex_preference" required>
         <option value ="m">mannen</option>
         <option value ="v">vrouwen</option>
@@ -36,5 +37,6 @@
     <input type="password" name="password" id="password" placeholder="St3rKW@cHTW0oRD" minlength="8" required/><br/>
     <input type="submit" value="Registreer"/>
 </form>
+<script src="<?php echo asset_url() . 'js/register.js' ?>"></script>
 <script src="<?php echo asset_url() . 'js/sha1.js' ?>"></script>
 <script src="<?php echo asset_url() . 'js/auth.js' ?>"></script>
