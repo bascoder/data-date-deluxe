@@ -2,29 +2,29 @@
     <b>Vragenlijst MBTI persoonlijkheidstest</b>
     <hr/>
     <form id="persontest" class="center auth auth-container" action="personalitytest/submit" method="post">
-<?php 
+<?php
 $neutral = "Ik zit er eigenlijk tussenin.";
 $categorys = array('E5', 'N4', 'T4','J6');
 $questions = array(
     'E1' =>array(
         'Ik geef de voorkeur aan grote groepen mensen, met een grote diversiteit.',
-        'Ik geef de voorkeur aan intieme bijeenkomsten met uitsluitend goede vrienden.', 
+        'Ik geef de voorkeur aan intieme bijeenkomsten met uitsluitend goede vrienden.',
         ),
     'E2' =>array(
         'Ik doe eerst, en dan denk ik.',
-        'Ik denk eerst, en dan doe ik.', 
+        'Ik denk eerst, en dan doe ik.',
         ),
     'E3' =>array(
         'Ik ben makkelijk afgeleid, met minder aandacht voor een enkele specifieke taak.',
-        'Ik kan me goed focussen, met minder aandacht voor het grote geheel.', 
+        'Ik kan me goed focussen, met minder aandacht voor het grote geheel.',
         ),
     'E4' =>array(
         'Ik ben een makkelijke prater en ga graag uit.',
-        'Ik ben een goede luisteraar en meer een privé-persoon.', 
+        'Ik ben een goede luisteraar en meer een privé-persoon.',
         ),
     'E5' =>array(
         'Als gastheer/-vrouw ben ik altijd het centrum van de belangstelling.',
-        'Als gastheer/-vrouw ben altijd achter de schermen bezig om te zorgen dat alles soepeltjes verloopt.', 
+        'Als gastheer/-vrouw ben altijd achter de schermen bezig om te zorgen dat alles soepeltjes verloopt.',
         ),
     'N1' =>array(
         'Ik geef de voorkeur aan concepten en het leren op basis van associaties.',
@@ -84,9 +84,9 @@ $questions = array(
         ),
     );
 
-for ($i=0; $i < count($categorys); $i++) { 
+for ($i=0; $i < count($categorys); $i++) {
     $cat = $categorys[$i];
-    for ($isis=1; $isis < $cat[1] +1; $isis++) { 
+    for ($isis=1; $isis < $cat[1] +1; $isis++) {
         printQuestion($cat[0].$isis,50/$cat[1],$questions,$neutral);
         if($i < count($categorys) - 1 || $isis < $cat[1]){
              echo "<hr/>";
@@ -94,22 +94,24 @@ for ($i=0; $i < count($categorys); $i++) {
     }
 }
 
-function printQuestion($questionCode, $valCange, $questions, $neutral){
+function printQuestion($questionCode, $valueChange, $questions, $neutral){
     $thisQuestion = $questions[$questionCode];
-    echo "<label class='PQ'>";
+    echo "<div class='PQ'>";
     if(rand(0,1) < 1){
-        printQuestionLine($thisQuestion[0],$valCange,$questionCode);
-        printQuestionLine($thisQuestion[1],-$valCange,$questionCode);
+        printQuestionLine($thisQuestion[0],$valueChange,$questionCode);
+        printQuestionLine($thisQuestion[1],-$valueChange,$questionCode);
     } else {
-        printQuestionLine($thisQuestion[1],-$valCange,$questionCode);
-        printQuestionLine($thisQuestion[0],$valCange,$questionCode);
+        printQuestionLine($thisQuestion[1],-$valueChange,$questionCode);
+        printQuestionLine($thisQuestion[0],$valueChange,$questionCode);
     }
     printQuestionLine($neutral, 0,$questionCode);
-    echo "</label>";
+    echo "</div>";
 }
 
 function printQuestionLine($text, $valuechange, $name){
- echo "<input required type='radio' value='".$valuechange."' name='".$name."'>".$text . "<br/>";
+    echo "<label class='PQ'>";
+    echo "<input required type='radio' value='".$valuechange."' name='".$name."'>".$text . "<br/>";
+    echo "</label>";
 }
 
 ?>
