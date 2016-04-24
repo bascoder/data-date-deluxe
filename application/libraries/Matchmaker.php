@@ -217,6 +217,9 @@ class MatchMaker
                 $merken_overeenkomsten++;
             }
         }
+        if($mijn_merken_count == 0){
+            return 0;
+        }
         $merken_gewicht = round((floatval($merken_overeenkomsten) / floatval($mijn_merken_count)) * 50.0);
         return $merken_gewicht;
     }
