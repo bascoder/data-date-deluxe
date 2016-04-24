@@ -25,7 +25,8 @@
 <body>
 <nav>
     <div id="progressbar-ajax"></div>
-    <ul class="nav">
+    <a class="toggle-nav active" href="#">&#9776;</a>
+    <ul class="nav xs-invisible">
         <li><a href="<?php echo base_url() ?>">Home</a></li>
         <li>
             <a href="<?php echo base_url() . 'index.php/profile/lookup/page' ?>">

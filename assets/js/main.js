@@ -39,7 +39,7 @@
         updateProgressbar: function () {
             var isLoading = !!ajaxTool.loadingCount;
             console.log('Update progressbar: ' + isLoading);
-            if(isLoading) {
+            if (isLoading) {
                 ajaxTool.progressbar.show('fade');
             } else {
                 ajaxTool.progressbar.hide('fade');
@@ -47,9 +47,31 @@
         }
     };
 
+    var responsiveMenu = {
+        ul: null,
+        init: function (ul, toggleAnchor) {
+            $(toggleAnchor).click(responsiveMenu.onClick);
+            responsiveMenu.ul = $(ul);
+        },
+        onClick: function (e) {
+            var that = this;
+            $(responsiveMenu.ul).toggle({
+                effect: 'blind',
+                complete: function () {
+                    console.log('complete');
+                    $(that).toggleClass('active');
+                }
+            });
+
+
+            e.preventDefault();
+        }
+    };
+
     $(document).ready(function () {
         messages.hideEmptyMessages();
         ajaxTool.init('#progressbar-ajax');
+        responsiveMenu.init('ul.nav', '.toggle-nav');
     });
 })();
 
