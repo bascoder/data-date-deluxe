@@ -5,6 +5,7 @@
  * @property Foto foto
  * @property MatchMaker matchmaker
  * @property CI_Loader load
+ * @property Authentication authentication
  */
 class Profiel extends CI_Model
 {
@@ -406,9 +407,20 @@ class Profiel extends CI_Model
      */
     private function add_profiel_foto($profiel)
     {
+        $current_profiel = $this->authentication->get_current_profiel(FALSE);
+        $pid = $profiel->pid;
+
         $query = $this->db->get_where('Foto', array('fid' => $profiel->profiel_foto_id));
         $foto = $query->row();
         if (isset($foto)) {
+            // als ingelogd en het ingelogde profiel is niet het gezochte profiel
+            if (isset($current_profiel) && $current_profiel->pid != $pid) {
+                // image lib support geen svg
+                if(!stristr($foto->url, 'svg')) {
+                    // anders overlay creation url
+                    $foto->url = 'index.php/profile/fototool/overlay/' . $pid;
+                }
+            }
             $profiel->profiel_foto = $foto;
         }
     }

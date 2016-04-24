@@ -6,6 +6,11 @@
  * @property  Foto foto
  * @property Authentication authentication
  * @property CI_Session session
+ * @property  Like like
+ * @property Profiel profiel
+ * @property CI_Image_lib image_lib
+ * @property CI_Config config
+ * @property CI_Input input
  */
 class FotoTool extends CI_Controller
 {
@@ -48,6 +53,74 @@ class FotoTool extends CI_Controller
         } else {
             $this->try_delete_profiel_foto($profiel);
             redirect('profile/display/mijn');
+        }
+    }
+
+    /**
+     * Overlay foto op basis van Like status
+     * @param int $pid
+     */
+    public function overlay($pid)
+    {
+        $is_thumbnail = $this->input->get('thumb');
+        $this->load->library('image_lib');
+        if (!isset($pid) || intval($pid) === 0) {
+            show_error('Parameter pid is verplicht', 400);
+        }
+
+        $profiel = $this->profiel->query_by_id($pid);
+        $foto = $this->foto->query_by_profiel($profiel);
+        try {
+
+            $like_status = $this->like->get_like_status($pid);
+
+            $url = $foto->url;
+            if ($is_thumbnail) {
+                $url = $this->small_url($url);
+            }
+
+            $config['source_image'] = $url;
+            $config['wm_text'] = $this->like->get_status_overlay_text($like_status);
+            $config['wm_type'] = 'text';
+            $config['wm_font_size'] = '32';
+            $config['wm_font_path'] = 'assets/fonts/roboto/roboto-black.ttf';
+            $config['wm_font_color'] = 'fa0000';
+            $config['wm_shadow_color'] = 'ff9933';
+            $config['wm_vrt_alignment'] = 'bottom';
+            $config['wm_hor_alignment'] = 'center';
+            $config['wm_padding'] = '0';
+            $config['dynamic_output'] = TRUE;
+
+            $this->image_lib->initialize($config);
+            //log_message('debug', 'Start watermerk: ' . var_dump_to_string($config));
+            if (!$this->image_lib->watermark()) {
+                log_message('debug', 'Image lib errors: ' . $this->image_lib->display_errors());
+            }
+
+        } catch (Exception $e) {
+            // bij een exception return de profiel foto
+            log_message('error', 'Exception in fototool/overlay so fallback on profiel foto: ' . var_dump_to_string($e));
+            $config['dynamic_output'] = TRUE;
+            $this->image_lib->initialize($config);
+            $this->image_lib->resize();
+            $this->foto->query_by_profiel($profiel);
+        }
+        //log_message('debug', 'Image lib errors: ' . $this->image_lib->display_errors());
+    }
+
+    private function small_url($url)
+    {
+        $orig_url = $url;
+        $exploded = explode($url, '.');
+        if (count($exploded) > 0) {
+            $extension = $exploded[count($exploded) - 1];
+            $url = str_replace($extension, '_small' . $extension, $url);
+        }
+
+        if (is_string($url))
+            return $url;
+        else {
+            return $orig_url;
         }
     }
 

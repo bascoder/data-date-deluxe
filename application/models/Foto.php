@@ -3,6 +3,7 @@
 /**
  * @property CI_DB_query_builder|CI_DB_pdo_driver db
  * @property CI_Image_lib image_lib
+ * @property CI_Input input
  */
 class Foto extends CI_Model
 {
@@ -34,12 +35,34 @@ class Foto extends CI_Model
         return NULL;
     }
 
+    public function query_by_profiel($profiel)
+    {
+        if (!isset($profiel)) {
+            throw new InvalidArgumentException('Fid moet nummer zijn');
+        }
+        $pid = $profiel->pid;
+
+        $result = $this->db->select('Foto.*')
+            ->from('Foto')
+            ->join('Profiel', 'Profiel.profiel_foto_id=Foto.fid')
+            ->where('pid', $pid)
+            ->get()
+            ->first_row();
+        if (isset($result)) {
+            return $result;
+        } else {
+            $this->set_to_placeholder($profiel);
+        }
+        return NULL;
+    }
+
     public function set_to_placeholder($profiel)
     {
         if (isset($profiel) && isset($profiel->geslacht_id) && isset($profiel->pid)) {
             $this->db->update('Profiel', array(
                 'profiel_foto_id' => $profiel->geslacht_id
             ), 'pid = ' . $profiel->pid);
+            return $this->query_by_id($profiel->geslacht_id);
         } else {
             throw new InvalidArgumentException('Je moet ingelogd zijn.');
         }

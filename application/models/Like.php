@@ -11,11 +11,28 @@ class Like extends CI_Model
     const WEDERZIJDSE_LIKE = "Match 💑";
     const GEEN_LIKE = 'Nog niet ontdekt 👀';
 
+    // image lib ondersteund alleen ASCII
+    private $status_overlay_mapping = array(
+        self::GEEN_LIKE => 'New',
+        self::GEGEVEN_LIKE => 'Crush',
+        self::ONTVANGEN_LIKE => 'Volger',
+        self::WEDERZIJDSE_LIKE => 'Match <3'
+    );
+
     private $query_mapping = array(
         self::GEGEVEN_LIKE => 'query_mijn_gegeven_likes',
         self::ONTVANGEN_LIKE => 'query_mijn_ontvangen_likes',
         self::WEDERZIJDSE_LIKE => 'query_wederzijdse_likes'
     );
+
+    /**
+     * @param $status string
+     * @return array
+     */
+    public function get_status_overlay_text($status)
+    {
+        return $this->status_overlay_mapping[$status];
+    }
 
     public function insert($liker, $liked)
     {
@@ -55,6 +72,58 @@ class Like extends CI_Model
         }
 
         return $results;
+    }
+
+    public function get_like_status($pid_other)
+    {
+        $profiel = $this->get_profiel_or_throw();
+        $pid_mine = intval($profiel->pid);
+        $pid_other = intval($pid_other);
+
+        //wederzijds
+        $sql = "SELECT COUNT(*) as num_count
+                FROM Like my_like
+                  INNER JOIN `Like` other_like ON other_like.liked_id = my_like.liker_id
+                                                  AND other_like.liker_id = my_like.liked_id
+                WHERE my_like.liker_id = ?
+                  AND other_like.liker_id = ?;";
+
+        $result = $this->db->query($sql, array($pid_mine, $pid_other));
+        if (!$result) return FALSE;
+        $count = $result->row()->num_count;
+
+        if ($count != 0) {
+            return self::WEDERZIJDSE_LIKE;
+        }
+
+        //gegeven
+        $sql = "SELECT COUNT(*) AS num_count
+                FROM `Like` L
+                WHERE L.liker_id = ?
+                  AND L.liked_id = ?;";
+        $result = $this->db->query($sql, array($pid_mine, $pid_other));
+        if (!$result) return FALSE;
+        $count = $result->row()->num_count;
+
+        if ($count != 0) {
+            return self::GEGEVEN_LIKE;
+        }
+
+        //ontvangen
+        $sql = "SELECT COUNT(*) AS num_count
+                FROM `Like` L
+                WHERE L.liked_id = ?
+                  AND L.liker_id = ?;";
+        $result = $this->db->query($sql, array($pid_mine, $pid_other));
+        if (!$result) return FALSE;
+        $count = $result->row()->num_count;
+
+        if ($count != 0) {
+            return self::ONTVANGEN_LIKE;
+        }
+
+        // anders niks
+        return self::GEEN_LIKE;
     }
 
     public function query_mijn_gegeven_likes($limit = PHP_INT_MAX, $offset = 0)
