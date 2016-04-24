@@ -467,9 +467,10 @@ class Profiel extends CI_Model
 
     private function add_persoonlijkheids_type($profiel)
     {
-        $query = $this->db->get_where('Persoonlijkheids_type', array('ptid' => $profiel->persoonlijkheids_type_id));
+        $megaQ ="SELECT * FROM Persoonlijkheids_type LEFT OUTER JOIN Persoonlijkheids_categorie ON Persoonlijkheids_type.pcid=Persoonlijkheids_categorie.pcid WHERE ptid=".intval($profiel->pid);
+        $query = $this->db->query($megaQ);
         $type = $query->row();
-        if (isset($type)) {
+        if (isset($type) || TRUE) {
             $profiel->persoonlijkheids_type = $type;
         }
     }
