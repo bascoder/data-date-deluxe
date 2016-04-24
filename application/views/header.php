@@ -24,7 +24,7 @@
 </head>
 <body>
 <nav>
-    <a class="toggle-nav active" href="#">&nbsp;	&#x2630;</a>
+    <a class="toggle-nav active" href="#">&nbsp;<img src="<?php echo asset_url() . 'img/site_images/nav-icon.svg'?>" /></a>
     <ul class="nav xs-invisible">
         <li><a href="<?php echo base_url() ?>">Home</a></li>
         <li>

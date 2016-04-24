@@ -95,7 +95,6 @@ ul.nav li a:hover {
 }
 
 .toggle-nav {
-    padding: 20px 0;
     width: 100%;
 
     display: inline-block;
@@ -114,12 +113,16 @@ ul.nav li a:hover {
 }
 
 .toggle-nav.active {
-    color: #fff;
     background: #ff626c;
 }
 
-.toggle-nav.hover {
-    color: white;
+.toggle-nav img:hover {
+    background-color: #d25b65;
+}
+
+.toggle-nav img {
+    margin-left: 0.5em;
+    padding: 1em;
 }
 
 .svg-nav {
