@@ -1,6 +1,6 @@
-<h1>Data Date Deluxe</h1>
 <div>
     <article class="readable">
+        <h1>Data Date Deluxe</h1>
         <?php if (!is_ingelogd()): ?>
             <p>Toe aan een relatie? Een vaste? Of juist
                 casual? <strong><?php echo anchor('register', 'Meldt u nu aan voor Data Date Deluxe!') ?></strong></p>
@@ -12,7 +12,7 @@
                 <strong>daten</strong>
                 beginnen!
             </p>
-            <img class="responsive" src="<?php echo asset_url() . 'img/site_images/happy.jpg' ?>"
+            <img alt="blije mensen die onze website gebruiken" class="responsive" src="<?php echo asset_url() . 'img/site_images/happy.jpg' ?>" />
         <?php endif; ?>
     </article>
 </div>
