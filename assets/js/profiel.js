@@ -44,7 +44,7 @@
             elem.html(newFilling);
         } else if (that.id === "editSexPref") {
             var elem = $('#SexPref');
-            var oldPref = elem.attr('editval');
+            var oldPref = elem.data('editval');
             var newFilling = "<select id='sex-preference' name='sex_preference' required><option value ='m'>mannen</option><option value ='v'>vrouwen</option><option value ='bi'>mannen en vrouwen</option></select>"
             elem.html(newFilling);
             switch (oldPref) {
@@ -115,7 +115,7 @@
                     newPref = 3;
                     break;
             }
-            $('#SexPref').attr('editval', newPref);
+            $('#SexPref').data('editval', newPref);
         } else if (that.id === "editBrands") {
             doAjaxUpdate('brand_preference', JSON.stringify(getHuidigeMerkVoorkeuren()), null);
         }

@@ -37,7 +37,7 @@
         <?php if ($is_auth): ?>
             <li>
                 <?php echo anchor('/profile/lookup/auto_match/0',
-                    'Magische search &#x1f47b'); ?>
+                    'Magische search &#x1f47b;'); ?>
             </li>
             <li>
                 <?php echo anchor('/profile/lookup/like_relatie/0?like_relatie_type=' . urlencode(Like::GEGEVEN_LIKE),
@@ -45,11 +45,11 @@
             </li>
             <li>
                 <?php echo anchor('/profile/lookup/like_relatie/0?like_relatie_type=' . urlencode(Like::ONTVANGEN_LIKE),
-                    'Volgers &#x1f490'); ?>
+                    'Volgers &#x1f490;'); ?>
             </li>
             <li>
                 <?php echo anchor('/profile/lookup/like_relatie/0?like_relatie_type=' . urlencode(Like::WEDERZIJDSE_LIKE),
-                    'Matches &#x1f491'); ?>
+                    'Matches &#x1f491;'); ?>
             </li>
             <?php // conditioneel login/log uit knopje ?>
             <li id="logout" class="right"><a href="<?php echo base_url() . "index.php/login/logout" ?>">Log uit</a></li>

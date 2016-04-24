@@ -47,29 +47,38 @@
             <tr>
                 <td>Naam</td>
                 <th><?php echo $profiel->voornaam . ' ' . $profiel->achternaam; ?></th>
+                <?php if ($is_own): echo '<td></td>'; endif; ?>
             </tr>
             <tr>
                 <td>Email adres</td>
                 <th>
                     <?php echo "<a href='mailto:$profiel->email'>$profiel->email</a>"; ?>
                 </th>
+                <?php if ($is_own): echo '<td></td>'; endif; ?>
             </tr>
         <?php endif; ?>
         <tr>
             <th>Nickname</th>
             <td><?php echo $profiel->nickname; ?></td>
+            <?php if ($is_own): echo '<td></td>'; endif; ?>
         </tr>
         <tr>
             <th>Geslacht</th>
             <td><?php echo $profiel->geslacht->geslacht; ?></td>
+            <?php if ($is_own): echo '<td></td>'; endif; ?>
         </tr>
         <tr>
             <th>Geboortedatum</th>
             <td><?php echo date('d F Y', $profiel->geboorte_datum); ?></td>
+            <?php if ($is_own): echo '<td></td>'; endif; ?>
         </tr>
         <tr>
             <th>Beschrijving</th>
-            <td id="Description"><?php echo $profiel->beschrijving; ?></td>
+            <td id="Description">
+                <?php
+                $beschrijving = htmlentities($profiel->beschrijving, ENT_QUOTES);
+                echo $beschrijving;
+                ?></td>
             <?php if ($is_own): ?>
                 <td>
                     <button class="edit-button" id="editDescription">Edit</button>
@@ -77,7 +86,7 @@
         </tr>
         <tr>
             <th>Seksuele voorkeur</th>
-            <td id="SexPref" editVal="<?php echo $prefNum; ?>"><?php echo $pref ?></td>
+            <td id="SexPref" data-editVal="<?php echo $prefNum; ?>"><?php echo $pref ?></td>
             <?php if ($is_own): ?>
                 <td>
                     <button class="edit-button" id="editSexPref">Edit</button>
@@ -91,6 +100,7 @@
                     echo $profiel->persoonlijkheids_type->name;
                 ?>
             </td>
+            <?php if ($is_own): echo '<td></td>'; endif; ?>
         </tr>
         <tr>
             <th>Persoonlijkheids voorkeur</th>
@@ -101,10 +111,11 @@
                 endif;
                 ?>
             </td>
+            <?php if ($is_own): echo '<td></td>'; endif; ?>
         </tr>
         <tr>
             <th>Merk voorkeuren</th>
-            <td id="merken-td" data-merken='<?php echo json_encode($profiel->merken); ?>'>
+            <td id="merken-td" data-merken='<?php echo html_escape(json_encode($profiel->merken, JSON_HEX_QUOT)); ?>'>
                 <span id="merken-spans">
                 <?php
                 if (isset($profiel->merken)):
