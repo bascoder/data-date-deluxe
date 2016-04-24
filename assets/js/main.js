@@ -51,6 +51,7 @@
         ul: null,
         init: function (ul, toggleAnchor) {
             $(toggleAnchor).click(responsiveMenu.onClick);
+            $(window).resize(responsiveMenu.onResize);
             responsiveMenu.ul = $(ul);
         },
         onClick: function (e) {
@@ -65,6 +66,11 @@
 
 
             e.preventDefault();
+        },
+        onResize: function () {
+            if (window.innerWidth >= 1080) {
+                $(responsiveMenu.ul).show('blind');
+            }
         }
     };
 
