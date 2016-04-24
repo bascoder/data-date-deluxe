@@ -1,5 +1,6 @@
 <div>
     <b>Vragenlijst MBTI persoonlijkheidstest</b>
+    <form id="Test">
 <?php 
 $neutral = "Ik zit er eigenlijk tussenin.";
 $categorys = array('E5', 'N4', 'T4','J6');
@@ -9,8 +10,8 @@ $questions = array(
         'Ik geef de voorkeur aan intieme bijeenkomsten met uitsluitend goede vrienden.', 
         );,
     'E2' =>array(
-        'Ik doe eerst, en dan denk ik.' =>,
-        'Ik denk eerst, en dan doe ik.' =>, 
+        'Ik doe eerst, en dan denk ik.' ,
+        'Ik denk eerst, en dan doe ik.' , 
         );,
     'E3' =>array(
         'Ik ben makkelijk afgeleid, met minder aandacht voor een enkele specifieke taak.',
@@ -91,7 +92,7 @@ for ($i=0; $i < count($categorys); $i++) {
 
 function printQuestion($questionCode,$valCange){
     $thisQuestion = $questions[$questionCode];
-
+    echo "<label id='".$questionCode."'";
     if(rand(0,1) < 0){
         $this->printQuestionLine($thisQuestion[0],$valCange);
         $this->printQuestionLine($thisQuestion[1],-$valCange);
@@ -100,12 +101,14 @@ function printQuestion($questionCode,$valCange){
         $this->printQuestionLine($thisQuestion[0],$valCange);
     }
     $this->printQuestionLine($neutral, 0);
+    echo "</label>";
 
 }
 
 function printQuestionLine($text, $valuechange){
- echo "<input type='radiobutton' value='".$valuechange."'>".$text;
+ echo "<input type='radiobutton' value='".$valuechange."titel='".$text"'/>";
 }
 
 ?>
+</form>
 </div>
