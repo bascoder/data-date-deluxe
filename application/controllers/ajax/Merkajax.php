@@ -4,7 +4,7 @@
  * @property Merk merk
  * @property CI_Output output
  */
-class MerkAjax extends CI_Controller
+class Merkajax extends CI_Controller
 {
 
     public function all()

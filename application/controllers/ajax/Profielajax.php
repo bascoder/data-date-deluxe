@@ -4,7 +4,7 @@
  * @property Profiel profiel
  * @property CI_Output output
  */
-class ProfielAjax extends CI_Controller
+class Profielajax extends CI_Controller
 {
     public function nickname($nickname)
     {

@@ -5,7 +5,7 @@
  * @property CI_Output output
  * @property Persoonlijkheid persoonlijkheid
  */
-class PersoonlijkheidAjax extends CI_Controller
+class Persoonlijkheidajax extends CI_Controller
 {
     public function all()
     {
