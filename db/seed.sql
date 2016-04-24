@@ -121,7 +121,7 @@ INSERT INTO "Merk" (mid, naam) VALUES (29, 'Visa');
 INSERT INTO "Merk" (mid, naam) VALUES (30, 'Nescafe');
 INSERT INTO "Merk" (mid, naam) VALUES (31, 'ESPN');
 INSERT INTO "Merk" (mid, naam) VALUES (32, 'H&M');
-INSERT INTO "Merk" (mid, naam) VALUES (33, 'L''Or├®al');
+INSERT INTO "Merk" (mid, naam) VALUES (33, 'L''Oreal');
 INSERT INTO "Merk" (mid, naam) VALUES (34, 'Hewlett-Packard');
 INSERT INTO "Merk" (mid, naam) VALUES (35, 'HSBC');
 INSERT INTO "Merk" (mid, naam) VALUES (36, 'Home Depot');
