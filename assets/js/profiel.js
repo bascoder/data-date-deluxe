@@ -40,7 +40,7 @@
         if (that.id === "editDescription") {
             var elem = $("#Description");
             var oldDescript = elem.html();
-            var newFilling = "<textarea rows='4' cols='60' id='DescriptionBox'>" + oldDescript + "</textarea>";
+            var newFilling = "<textarea rows='4' id='DescriptionBox'>" + oldDescript + "</textarea>";
             elem.html(newFilling);
         } else if (that.id === "editSexPref") {
             var elem = $('#SexPref');

@@ -104,7 +104,7 @@ input, label {
 
 /* Profiel */
 img.profiel-foto {
-    max-width: 500px;
+    width: 500px;
 }
 
 table.table-profiel th {
