@@ -34,7 +34,7 @@ img.responsive {
 
 .content {
     max-width: 90%;
-    margin: 1em auto auto 2em;
+    margin: auto auto 2em;
     border-radius: 12px;
     border: 10px solid #77C1E6;
     background: #77C1E6;
@@ -47,6 +47,10 @@ img.responsive {
 }
 
 /* Navbar */
+nav {
+    margin-bottom: 1em;
+}
+
 ul.nav {
     list-style-type: none;
     margin: 0 0 1em;
@@ -91,7 +95,7 @@ ul.nav li a:hover {
 }
 
 .toggle-nav {
-    padding: 20px;
+    padding: 20px 0;
     width: 100%;
 
     display: inline-block;
@@ -102,6 +106,8 @@ ul.nav li a:hover {
     text-shadow: 0 1px 0 rgba(0, 0, 0, 0.5);
 
     color: #777;
+
+    text-decoration: none;
 
     font-size: 1.2em;
     transition: color linear 0.15s;

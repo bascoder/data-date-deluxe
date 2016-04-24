@@ -24,7 +24,7 @@
 </head>
 <body>
 <nav>
-    <a class="toggle-nav active" href="#">&#9776;</a>
+    <a class="toggle-nav active" href="#">&nbsp;	&#x2630;</a>
     <ul class="nav xs-invisible">
         <li><a href="<?php echo base_url() ?>">Home</a></li>
         <li>
