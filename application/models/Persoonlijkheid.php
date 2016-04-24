@@ -32,6 +32,9 @@ class Persoonlijkheid extends CI_Model
         }
         $sql = "INSERT INTO Persoonlijkheids_type(ptid,pcid,eType, nType, tType, jType) VALUES (?,?,?,?,?,?)";
         $pid = $this->authentication->get_current_profiel()->pid;
+        if(count($this->db->query("SELECT pid FROM Profiel WHERE pid =".intval($pid))) > 0){
+            return "Retake";
+        }
         try {
             $this->db->query($sql, array($pid,1,$characteristics['E'],$characteristics['N'],$characteristics['T'],$characteristics['J']));
             return TRUE;
