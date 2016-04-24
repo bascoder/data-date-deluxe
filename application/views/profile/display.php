@@ -98,6 +98,9 @@
                 <?php
                 if (isset($profiel->persoonlijkheids_type))
                     echo $profiel->persoonlijkheids_type->name;
+                else if($is_own){
+                    echo "<a href='".base_url()."index.php/personalitytest' class='buttonLink'>Doe de test!</a>";
+                }
                 ?>
             </td>
             <?php if ($is_own): echo '<td></td>'; endif; ?>

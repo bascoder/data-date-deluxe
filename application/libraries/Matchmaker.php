@@ -133,6 +133,7 @@ class MatchMaker
             $veld = 'valt_op_vrouw';
         }
         $where .= " \nAND P.$veld = 1";
+
         return $where;
     }
 
@@ -149,7 +150,7 @@ class MatchMaker
             $where = "G.geslacht = 'vrouw'";
             return $where;
         }
-        return '';
+        return '1=1';
     }
 
     /**
@@ -216,7 +217,25 @@ class MatchMaker
                 $merken_overeenkomsten++;
             }
         }
+        if($mijn_merken_count == 0){
+            return 0;
+        }
         $merken_gewicht = round((floatval($merken_overeenkomsten) / floatval($mijn_merken_count)) * 50.0);
         return $merken_gewicht;
+    }
+
+
+    public function distanceOrderdPersons($eVal, $nVal, $tVal, $jVal){
+        $profiles = $this->dbx_query("SELECT * FROM Persoonlijkheids_type");
+        $result = array();
+        while ($row = $profiles->next_row()) {
+            $temp = pow(doubleval($row->eType) - $eVal,2);
+            $temp += pow(doubleval($row->nType) - $nVal,2);
+            $temp += pow(doubleval($row->tType) - $tVal,2);
+            $temp += pow(doubleval($row->jType) - $jVal,2);
+            $temp = sqrt($temp);
+            $result[$profiles->ptid] = $temp;
+        }
+        return asort($result);
     }
 }

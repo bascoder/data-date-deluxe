@@ -21,6 +21,7 @@ class Persoonlijkheid extends CI_Model
 
     public function add_personality($answers)
     {
+        //$this->output->enable_profiler(TRUE);
         $characteristics = array('E' => 50, 'N' => 50, 'T' => 50, 'J' => 50);
         foreach ($answers as $key => $value) {
             $characteristics[$key[0]] += $value;
@@ -33,12 +34,14 @@ class Persoonlijkheid extends CI_Model
         $sql = "INSERT INTO Persoonlijkheids_type(ptid,pcid,eType, nType, tType, jType) VALUES (?,?,?,?,?,?)";
         $pid = $this->authentication->get_current_profiel()->pid;
         $pcidText = $this->makePersonalityString($characteristics);
-        $pcid = $this->db->query("SELECT pcid FROM Persoonlijkheids_categorie WHERE type=?", array($pcidText));
-        if(count($this->db->query("SELECT pid FROM Profiel WHERE pid =".intval($pid))) > 0){
+        $pcid = $this->db->query("SELECT pcid FROM Persoonlijkheids_categorie WHERE type=?", array($pcidText))->row()->pcid;
+        $isRetake = $this->db->query("SELECT * FROM Profiel WHERE persoonlijkheids_type_id=".intval($pid));
+        if(null!== $this->db->query("SELECT * FROM Profiel WHERE persoonlijkheids_type_id=".intval($pid))->row()){
             return "Retake";
         }
         try {
-            $this->db->query($sql, array($pid,$pcid,$characteristics['E'],$characteristics['N'],$characteristics['T'],$characteristics['J']));
+            $this->db->query($sql, array(intval($pid),$pcid,$characteristics['E'],$characteristics['N'],$characteristics['T'],$characteristics['J']));
+            $this->db->query("UPDATE Profiel SET persoonlijkheids_type_id=? WHERE pid=?",array(intval($pid),intval($pid)));
             return TRUE;
         } catch (Exception $e) {
             return FALSE;
@@ -47,34 +50,20 @@ class Persoonlijkheid extends CI_Model
     }
 
     function makePersonalityString($characteristics){
-        $start = ""
+        $start = "";
         if($characteristics['E'] > 50){
-            $start .= 'E'
-        } else { $start .= 'I'}
+            $start .= 'E';
+        } else { $start .= 'I';}
         if($characteristics['N'] > 50){
-            $start .= 'N'
-        } else { $start .= 'S'}
+            $start .= 'N';
+        } else { $start .= 'S';}
         if($characteristics['T'] > 50){
-            $start .= 'T'
-        } else { $start .= 'F'}
+            $start .= 'T';
+        } else { $start .= 'F';}
         if($characteristics['J'] > 50){
-            $start .= 'J'
-        } else { $start .= 'P'}
+            $start .= 'J';
+        } else { $start .= 'P';}
 
-        return $start
-    }
-
-    public function distanceOrderdPersons($eVal, $nVal, $tVal, $jVal){
-        $profiles = $this->dbx_query("SELECT * FROM Persoonlijkheids_type");
-        $result = array();
-        while ($row = $profiles->next_row()) {
-            $temp = pow(doubleval($row->eType) - $eVal,2);
-            $temp += pow(doubleval($row->nType) - $nVal,2);
-            $temp += pow(doubleval($row->tType) - $tVal,2);
-            $temp += pow(doubleval($row->jType) - $jVal,2);
-            $temp = sqrt($temp);
-            $result[$profiles->ptid] = $temp;
-        }
-        return asort($result);
+        return $start;
     }
 }
