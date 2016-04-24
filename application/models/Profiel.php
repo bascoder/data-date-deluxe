@@ -97,7 +97,7 @@ class Profiel extends CI_Model
         $profielen = [];
         while ($row = $query->next_row()) {
             $this->add_geslacht($row);
-            $this->add_persoonlijkheids_type($row);
+            //$this->add_persoonlijkheids_type($row);
             $this->add_merk_array($row);
             $this->add_profiel_foto($row);
             if (current_privileges() === Authentication::ANONYMOUS) {

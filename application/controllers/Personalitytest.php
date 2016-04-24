@@ -15,7 +15,13 @@ class Personalitytest extends CI_Controller
 
     public function submit()
     {
-        redirect('/profile/fototool'); 
+        $this->load->model('persoonlijkheid');
+        $answers = $this->input->post();
+        if($this->persoonlijkheid->add_personality($answers)){
+            redirect('/profile/fototool');
+        } else {
+            redirect('personalitytest');
+        }
     }
 
     private function sessie_verlopen()

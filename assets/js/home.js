@@ -42,7 +42,7 @@
                 $('<tr><td>Geslacht</td><td>' + profiel.geslacht + '</td></tr>').appendTo(table);
                 $('<tr><td>Leeftijd</td><td>' + profiel.age() + '</td></tr>').appendTo(table);
                 $('<tr><td>Beschrijving</td><td>' + profiel.beschrijving + '</td></tr>').appendTo(table);
-                $('<tr><td>Persoonlijkheid</td><td>' + profiel.persoonlijkheids_type + '</td></tr>').appendTo(table);
+                //$('<tr><td>Persoonlijkheid</td><td>' + profiel.persoonlijkheids_type + '</td></tr>').appendTo(table);
                 $('<tr><td>Merken</td><td>' + profiel.merkenToString(5) + '</td></tr>').appendTo(table);
                 table.appendTo(container);
                 container.appendTo(randomProfielen.element);
