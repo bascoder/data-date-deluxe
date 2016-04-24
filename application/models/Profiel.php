@@ -97,7 +97,7 @@ class Profiel extends CI_Model
         $profielen = [];
         while ($row = $query->next_row()) {
             $this->add_geslacht($row);
-            $this->add_persoonlijkheids_type($row);
+            //$this->add_persoonlijkheids_type($row);
             $this->add_merk_array($row);
             $this->add_profiel_foto($row);
             if (current_privileges() === Authentication::ANONYMOUS) {
@@ -467,7 +467,8 @@ class Profiel extends CI_Model
 
     private function add_persoonlijkheids_type($profiel)
     {
-        $query = $this->db->get_where('Persoonlijkheids_type', array('ptid' => $profiel->persoonlijkheids_type_id));
+        $megaQ ="SELECT * FROM Persoonlijkheids_type LEFT OUTER JOIN Persoonlijkheids_categorie ON Persoonlijkheids_type.pcid=Persoonlijkheids_categorie.pcid WHERE ptid=".intval($profiel->pid);
+        $query = $this->db->query($megaQ);
         $type = $query->row();
         if (isset($type)) {
             $profiel->persoonlijkheids_type = $type;

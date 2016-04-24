@@ -32,7 +32,7 @@ if (stristr($_SERVER['SERVER_NAME'], 'science.uu.nl')) {
     $config['base_url'] = 'https://localhost/data-date-deluxe/';
 } else {
     $GLOBALS['ander'] = TRUE;
-    $config['base_url'] = 'http://localhost/data-date-deluxe/';
+    $config['base_url'] = 'http://localhost:8080/data-date-deluxe/';
 }
 
 /*
@@ -421,7 +421,7 @@ $config['cookie_httponly'] = FALSE;
 | (usually \n) and Windows (\r\n).
 |
 */
-$config['standardize_newlines'] = FALSE;
+$config['standardize_newlines'] = TRUE;
 
 /*
 |--------------------------------------------------------------------------
