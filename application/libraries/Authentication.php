@@ -100,7 +100,7 @@ class Authentication
         if (!$this->is_authenticated()) {
             return self::ANONYMOUS;
         }
-        if ($profiel->is_admin === TRUE) {
+        if ((bool) intval($profiel->is_admin) === TRUE) {
             return self::ADMIN;
         }
         return self::USER;

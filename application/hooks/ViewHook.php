@@ -57,11 +57,15 @@ class ViewHook extends CI_Hooks
      */
     private function is_html_output($ci)
     {
-        return $ci->output->get_content_type() === 'text/html';
+        if (isset($ci->output)) {
+            return $ci->output->get_content_type() === 'text/html';
+        }
+        return FALSE;
     }
 
-    private function isPlain($ci){
-        if($ci->input->post('plain') != NULL){
+    private function isPlain($ci)
+    {
+        if ($ci->input->post('plain') != NULL) {
             return $ci->input->post('plain') == 1;
         }
     }

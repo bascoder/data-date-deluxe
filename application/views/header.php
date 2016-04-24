@@ -36,25 +36,30 @@
         <?php if ($is_auth): ?>
             <li>
                 <?php echo anchor('/profile/lookup/auto_match/0',
-                    'Magische search &#x1f47b');?>
+                    'Magische search &#x1f47b'); ?>
             </li>
             <li>
                 <?php echo anchor('/profile/lookup/like_relatie/0?like_relatie_type=' . urlencode(Like::GEGEVEN_LIKE),
-                    'Crushes &#x1f60d;');?>
+                    'Crushes &#x1f60d;'); ?>
             </li>
             <li>
                 <?php echo anchor('/profile/lookup/like_relatie/0?like_relatie_type=' . urlencode(Like::ONTVANGEN_LIKE),
-                    'Volgers &#x1f490');?>
+                    'Volgers &#x1f490'); ?>
             </li>
             <li>
                 <?php echo anchor('/profile/lookup/like_relatie/0?like_relatie_type=' . urlencode(Like::WEDERZIJDSE_LIKE),
-                    'Matches &#x1f491');?>
+                    'Matches &#x1f491'); ?>
             </li>
             <?php // conditioneel login/log uit knopje ?>
             <li id="logout" class="right"><a href="<?php echo base_url() . "index.php/login/logout" ?>">Log uit</a></li>
             <li id="my-profile" class="right">
                 <?php echo anchor('profile/display/mijn', current_profiel()->voornaam) ?>
             </li>
+            <?php if (current_privileges() === Authentication::ADMIN): ?>
+                <li id="back-office" class="right">
+                    <?php echo anchor('admin/backoffice', 'Configuratie') ?>
+                </li>
+            <?php endif; ?>
         <?php else: ?>
             <li id="login" class="right"><a href="<?php echo base_url() . "index.php/login" ?>">Log in</a></li>
             <li id="registreren" class="right"><?php echo anchor('register', 'Registreren') ?></li>
