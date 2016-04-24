@@ -82,10 +82,18 @@ var Foto = function (foto) {
     this.titel = foto['titel'] || '';
     this.beschrijving = foto['beschrijving'] || '';
 
+    function isOverlay(url) {
+        return url.indexOf('profile/fototool/overlay/') !== -1;
+    }
+
     this.getThumbnail = function () {
         // clone URL
         var url = this.url.slice(0);
         var extension = url.split('.').pop();
+        // overlay url is dynamisch
+        if(isOverlay(url)) {
+            return url + '?thumb=1';
+        }
         if(extension === 'svg') {
             // svg is scalable dus er is geen thumbnail
             return url;
