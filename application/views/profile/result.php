@@ -27,6 +27,11 @@
             if (isset($profiel->aantrekkelijkheid)):
                 echo "<tr><td>Aantrekkelijkheid</td><td>$profiel->aantrekkelijkheid&percnt;</td></tr>";
             endif;
+            if (isset($profiel->like_status)):
+                echo "<tr><td>Like status</td>";
+                $like_status = htmlentities($profiel->like_status);
+                echo "<td>$like_status</td></tr>";
+            endif;
             echo '</table>';
             echo '</div>';
         endforeach;

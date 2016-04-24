@@ -55,6 +55,9 @@ class MatchMaker
     public function bepaal_aantrekkelijkheid($current_profiel, &$profielen)
     {
         $mijn = $current_profiel;
+        if(!isset($mijn->persoonlijkheids_type)) {
+            throw new Exception('Je moet een persoonlijkheids voorkeur hebben');
+        }
         $mijn_type = $mijn->persoonlijkheids_type->type;
         $mijn_merken = $mijn->merken;
         $mijn_merken_count = count($mijn_merken);
