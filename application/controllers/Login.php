@@ -24,7 +24,7 @@ class Login extends CI_Controller
             $this->session->set_flashdata('message',
                 array('message' => 'De gebruikersnaam en/of wachtwoord komen niet overeen.',
                     'level' => 'error'));
-            //redirect('login');
+            redirect('login');
         }
     }
 
