@@ -470,7 +470,7 @@ class Profiel extends CI_Model
         $megaQ ="SELECT * FROM Persoonlijkheids_type LEFT OUTER JOIN Persoonlijkheids_categorie ON Persoonlijkheids_type.pcid=Persoonlijkheids_categorie.pcid WHERE ptid=".intval($profiel->pid);
         $query = $this->db->query($megaQ);
         $type = $query->row();
-        if (isset($type) || TRUE) {
+        if (isset($type)) {
             $profiel->persoonlijkheids_type = $type;
         }
     }
