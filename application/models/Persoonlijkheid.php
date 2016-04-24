@@ -30,8 +30,8 @@ class Persoonlijkheid extends CI_Model
                 return FALSE;
             }
         }
-        $sql = "INSERT INTO Persoonlijkheids_type(pid,pcid,eType, nType, tType, jType) VALUES (?,?,?,?,?,?)";
-        $pid = $this->profile->pid;
+        $sql = "INSERT INTO Persoonlijkheids_type(ptid,pcid,eType, nType, tType, jType) VALUES (?,?,?,?,?,?)";
+        $pid = $this->authentication->get_current_profiel()->pid;
         try {
             $this->db->query($sql, array($pid,1,$characteristics['E'],$characteristics['N'],$characteristics['T'],$characteristics['J']));
             return TRUE;
