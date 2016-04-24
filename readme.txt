@@ -25,8 +25,18 @@ https://www.students.science.uu.nl/~5836530/data-date-deluxe/
 - core/DD_Security extend de Security class van CodeIgniter.
 
 # Login
+## Admin
+
 email: bas@example.com
 wachtwoord: *** TODO verander voor inleveren
+
+## Users
+
+email: fryslan@gmail
+password: jaapdeaap
+
+email: fauke@mensenteam.nl
+password: faukelove
 
 # SQL definitie
 Path: db/dml.sql

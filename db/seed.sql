@@ -33,6 +33,12 @@ INSERT OR IGNORE INTO `Profiel` (pid, voornaam, achternaam, email, password, is_
                                  leeftijd_voorkeur_min, leeftijd_voorkeur_max, valt_op_man, valt_op_vrouw, geslacht_id)
 VALUES (1, 'Bas', 'van Marwijk', 'bas@example.com', '$2y$10$hL0wVNcja/nS3us93I4fau/4RKiL6whA7P73Uny6HRNESEP3odRBK', 1,
            'bas1994', 'Pro admin', 782694000, 18, 25, 0, 1, 1),
+  -- email: bas@example.com password: ***
+  (39, 'Jaap', 'Boersma', 'fryslan@gmail.com', '$2y$10$3uiEVN51Bk5NArXR3nunQe2YKQyVZngznZQEm5iG1F5m2kgiis.CC',
+       0, 'jaapfryslan', '', '631148400', 18, 40, 0, 1, 1),
+  -- email: fryslan@gmail, password: jaapdeaap
+  (40, 'Fauke', 'Smith', 'fauke@mensenteam.nl', '$2y$10$mdxZy67oN4ScO7xAgCPqAeeEhkM0ixPGqbnApxhgrn1m.Wb92Tt8S', 0, 'faukie', '', '797032800', 18, 30, 1, 0, 2),
+  -- email: fauke@mensenteam.nl, password: faukelove
   (2, 'Henk', 'de Jong', 'henk@example.com', '$2y$10$LyzwMXTyXdRO7.9jTOlcaegIlZQuN5pqrAn4X9oNi4mV8rn0NauMq', 0,
       'henkie', '', 792694000, 18, 25, 0, 1, 1),
   (3, 'Harry', 'de Witte', 'harry@example.com', '$2y$10$LyzwMXTyXdRO7.9jTOlcaegIlZQuN5pqrAn4X9oNi4mV8rn0NauMq', 0,
