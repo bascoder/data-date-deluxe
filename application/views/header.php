@@ -24,6 +24,7 @@
 </head>
 <body>
 <nav>
+    <div id="progressbar-ajax"></div>
     <ul class="nav">
         <li><a href="<?php echo base_url() ?>">Home</a></li>
         <li>
