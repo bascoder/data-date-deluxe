@@ -58,12 +58,9 @@ class MatchMaker
         if(!isset($mijn->persoonlijkheids_type)) {
             throw new Exception('Je moet een persoonlijkheids voorkeur hebben');
         }
-        $mijn_type = $mijn->persoonlijkheids_type->type;
+        $mijn_type = $mijn->persoonlijkheids_type;
         $mijn_merken = $mijn->merken;
         $mijn_merken_count = count($mijn_merken);
-        if (strlen($mijn_type) !== self::TYPE_CHARACTERS) {
-            throw new Exception('Persoonlijkheids type moet 4 characters zijn');
-        }
 
         // iterate over profielen om aantrekkelijkheid per persoon te bepalen
         foreach ($profielen as $ander) {
@@ -163,14 +160,17 @@ class MatchMaker
     private function bepaal_gewicht($ander, $mijn_type, $mijn_merken, $mijn_merken_count)
     {
         $gewicht = 0;
-
-        $type_ander = $ander->persoonlijkheids_type->type;
-        if (strlen($type_ander) !== self::TYPE_CHARACTERS) {
+        if(!isset($ander->persoonlijkheids_type))
             return 0;
-        }
+        $anderP = $ander->persoonlijkheids_type;
+        $temp =  pow(doubleval($anderP->eType) - $mijn_type->eType,2);
+        $temp += pow(doubleval($anderP->nType) - $mijn_type->nType,2);
+        $temp += pow(doubleval($anderP->tType) - $mijn_type->tType,2);
+        $temp += pow(doubleval($anderP->jType) - $mijn_type->jType,2);
+        $distance = sqrt($temp);
 
         // check tegengestelde persoonlijkheid waarbij max 50 punten te behalen zijn
-        $gewicht = $this->bepaal_type_gewicht($mijn_type, $type_ander, $gewicht);
+        $gewicht = $distance/4;
 
         // gewicht = percentage overeenkomsten / 2 (max 50)
         $merken_gewicht = $this->bepaal_merken_gewicht($ander, $mijn_merken, $mijn_merken_count);
@@ -187,6 +187,7 @@ class MatchMaker
      */
     private function bepaal_type_gewicht($mijn_type, $type_ander, $gewicht)
     {
+        $maxDistance = 200;
         if ($type_ander === $mijn_type) {
             // 40 punten + 10 bonus
             $gewicht = 50;
