@@ -30,64 +30,64 @@ VALUES (1, 'ISTJ', 'Inspector'),
 -- test data
 -- OR IGNORE clause zorgt ervoor dat rows die niet aan constraints voldoen (door random) overgeslagen worden
 INSERT OR IGNORE INTO `Profiel` (pid, voornaam, achternaam, email, password, is_admin, nickname, beschrijving, geboorte_datum,
-                                 leeftijd_voorkeur_min, leeftijd_voorkeur_max, valt_op_man, valt_op_vrouw, geslacht_id)
+                                 leeftijd_voorkeur_min, leeftijd_voorkeur_max, valt_op_man, valt_op_vrouw, geslacht_id, pers,persoonlijkheids_type_id)
 VALUES (1, 'Bas', 'van Marwijk', 'bas@example.com', '$2y$10$hL0wVNcja/nS3us93I4fau/4RKiL6whA7P73Uny6HRNESEP3odRBK', 1,
-           'bas1994', 'Pro admin', 782694000, 18, 25, 0, 1, 1),
+           'bas1994', 'Pro admin', 782694000, 18, 25, 0, 1, 1,1),
   -- email: bas@example.com password: ***
   (39, 'Jaap', 'Boersma', 'fryslan@gmail.com', '$2y$10$3uiEVN51Bk5NArXR3nunQe2YKQyVZngznZQEm5iG1F5m2kgiis.CC',
-       0, 'jaapfryslan', '', '631148400', 18, 40, 0, 1, 1),
+       0, 'jaapfryslan', '', '631148400', 18, 40, 0, 1, 1,39),
   -- email: fryslan@gmail, password: jaapdeaap
-  (40, 'Fauke', 'Smith', 'fauke@mensenteam.nl', '$2y$10$mdxZy67oN4ScO7xAgCPqAeeEhkM0ixPGqbnApxhgrn1m.Wb92Tt8S', 0, 'faukie', '', '797032800', 18, 30, 1, 0, 2),
+  (40, 'Fauke', 'Smith', 'fauke@mensenteam.nl', '$2y$10$mdxZy67oN4ScO7xAgCPqAeeEhkM0ixPGqbnApxhgrn1m.Wb92Tt8S', 0, 'faukie', '', '797032800', 18, 30, 1, 0, 2,40),
   -- email: fauke@mensenteam.nl, password: faukelove
   (2, 'Henk', 'de Jong', 'henk@example.com', '$2y$10$LyzwMXTyXdRO7.9jTOlcaegIlZQuN5pqrAn4X9oNi4mV8rn0NauMq', 0,
-      'henkie', '', 792694000, 18, 25, 0, 1, 1),
+      'henkie', '', 792694000, 18, 25, 0, 1, 1,2),
   (3, 'Harry', 'de Witte', 'harry@example.com', '$2y$10$LyzwMXTyXdRO7.9jTOlcaegIlZQuN5pqrAn4X9oNi4mV8rn0NauMq', 0,
-      'harry_ado', '', 785694000, 18, 25, 0, 1, 1),
+      'harry_ado', '', 785694000, 18, 25, 0, 1, 1,3),
   (4, 'Gerrit', 'van Achter', 'gerrit@example.com', '$2y$10$LyzwMXTyXdRO7.9jTOlcaegIlZQuN5pqrAn4X9oNi4mV8rn0NauMq', 0,
-      'gerrit_de_gekke', '', 682694000, 18, 25, 0, 1, 1),
+      'gerrit_de_gekke', '', 682694000, 18, 25, 0, 1, 1,4),
   (5, 'Tanja', 'de Rooije', 'tanja@gmail.com', '$2y$10$LyzwMXTyXdRO7.9jTOlcaegIlZQuN5pqrAn4X9oNi4mV8rn0NauMq', 0,
-      'tanja', 'Hello you', 782594000, 18, 30, 1, 0, 2),
+      'tanja', 'Hello you', 782594000, 18, 30, 1, 0, 2,5),
   (6, 'Anita', 'Klein', 'anita1@hotmail.com', '$2y$10$LyzwMXTyXdRO7.9jTOlcaegIlZQuN5pqrAn4X9oNi4mV8rn0NauMq', 0,
-      'anita_xxx', 'xxx', 752594000, 18, 55, 1, 0, 2),
+      'anita_xxx', 'xxx', 752594000, 18, 55, 1, 0, 2,6),
   (7, 'Fred', 'De Gekke', 'freddie@hotmail.com', '$2y$10$LyzwMXTyXdRO7.9jTOlcaegIlZQuN5pqrAn4X9oNi4mV8rn0NauMq', 0,
-      'freddiegek', '<3', 752594000, 23, 50, 1, 1, 1),
+      'freddiegek', '<3', 752594000, 23, 50, 1, 1, 1,7),
   (8, 'Anita', 'uit Fryslan', 'anita@hotmail.com', '$2y$10$LyzwMXTyXdRO7.9jTOlcaegIlZQuN5pqrAn4X9oNi4mV8rn0NauMq', 0,
-      'anitatjee', '<3', 753594000, 20, 50, 1, 1, 1),
+      'anitatjee', '<3', 753594000, 20, 50, 1, 1, 1,8),
   (9, 'Ton', 'uit Soest', 'tonsoest@hotmail.com', '$2y$10$LyzwMXTyXdRO7.9jTOlcaegIlZQuN5pqrAn4X9oNi4mV8rn0NauMq', 0,
-      'tonnie', '<3', 752694000, 18, 30, 1, 1, 1),
+      'tonnie', '<3', 752694000, 18, 30, 1, 1, 1,9),
   (10, 'Timmie', 'Hengel', 'timmie@hotmail.com', '$2y$10$LyzwMXTyXdRO7.9jTOlcaegIlZQuN5pqrAn4X9oNi4mV8rn0NauMq', 0,
        'tim3', '<3', 732694000, ABS(RANDOM() % 5) + 18, ABS(RANDOM() % 5) + 27, ABS(RANDOM() % 1), 1,
-   ABS(random() % 2) + 1),
+   ABS(random() % 2) + 1,10),
   (11, 'Tijs', 'Hengel', 'tijs@hotmail.com', '$2y$10$LyzwMXTyXdRO7.9jTOlcaegIlZQuN5pqrAn4X9oNi4mV8rn0NauMq', 0,
        'tisjeboy', '<3', 732694000, ABS(RANDOM() % 5) + 18, ABS(RANDOM() % 5) + 27, ABS(RANDOM() % 1), 1,
-   ABS(random() % 2) + 1),
+   ABS(random() % 2) + 1,11),
   (12, 'Eva', 'Hengel', 'eva@hotmail.com', '$2y$10$LyzwMXTyXdRO7.9jTOlcaegIlZQuN5pqrAn4X9oNi4mV8rn0NauMq', 0,
        'evie', '<3', 732694000, ABS(RANDOM() % 5) + 18, ABS(RANDOM() % 5) + 27, ABS(RANDOM() % 1), 1,
-   ABS(random() % 2) + 1),
+   ABS(random() % 2) + 1,12),
   (13, 'Jarry', 'De Jong', 'jarry@hotmail.com', '$2y$10$LyzwMXTyXdRO7.9jTOlcaegIlZQuN5pqrAn4X9oNi4mV8rn0NauMq', 0,
        'jarryjong', '<3', 732694000, ABS(RANDOM() % 5) + 18, ABS(RANDOM() % 5) + 27, 1,
    1,
-   ABS(random() % 2) + 1),
+   ABS(random() % 2) + 1,13),
   (14, 'Rosanna', 'Hengel', 'rosanna@hotmail.com', '$2y$10$LyzwMXTyXdRO7.9jTOlcaegIlZQuN5pqrAn4X9oNi4mV8rn0NauMq', 0,
        'roos<3', '<3', 732694000, ABS(RANDOM() % 5) + 18, ABS(RANDOM() % 5) + 27, 1, 1,
-   ABS(random() % 2) + 1),
+   ABS(random() % 2) + 1,14),
   (15, 'Loes', 'de Poes', 'loes@hotmail.com', '$2y$10$LyzwMXTyXdRO7.9jTOlcaegIlZQuN5pqrAn4X9oNi4mV8rn0NauMq', 0,
        'LoesPoes', '<3', 732694000, ABS(RANDOM() % 5) + 18, ABS(RANDOM() % 5) + 27, 1,
    ABS(RANDOM() % 1),
-   ABS(random() % 2) + 1),
+   ABS(random() % 2) + 1,15),
   (16, 'Minoes', 'het Hengel', 'minoes@hotmail.com', '$2y$10$LyzwMXTyXdRO7.9jTOlcaegIlZQuN5pqrAn4X9oNi4mV8rn0NauMq', 0,
        'freddie', '<3', 732694000, ABS(RANDOM() % 5) + 18, ABS(RANDOM() % 5) + 27, 1, ABS(RANDOM() % 1),
-   ABS(random() % 2) + 1),
+   ABS(random() % 2) + 1,16),
   (17, 'Anna', 'uit Hogeveen', 'anna@hotmail.com', '$2y$10$LyzwMXTyXdRO7.9jTOlcaegIlZQuN5pqrAn4X9oNi4mV8rn0NauMq', 0,
        'an', '<3', 732694000, ABS(RANDOM() % 5) + 18, ABS(RANDOM() % 5) + 27, ABS(RANDOM() % 1), 1,
-   ABS(random() % 2) + 1),
+   ABS(random() % 2) + 1,17),
   (18, 'Tim', 'Hengel', 'tim@gmail.com', '$2y$10$LyzwMXTyXdRO7.9jTOlcaegIlZQuN5pqrAn4X9oNi4mV8rn0NauMq', 0,
        'timmetje', '<3', 732694000, ABS(RANDOM() % 5) + 18, ABS(RANDOM() % 5) + 27, 1,
    ABS(RANDOM() % 1),
-   ABS(random() % 2) + 1),
+   ABS(random() % 2) + 1,18),
   (19, 'Nadia', 'Iets', 'nadia@hotmail.com', '$2y$10$LyzwMXTyXdRO7.9jTOlcaegIlZQuN5pqrAn4X9oNi4mV8rn0NauMq', 0,
        'nadia', '<3', 732694000, ABS(RANDOM() % 5) + 18, ABS(RANDOM() % 5) + 27, 1, ABS(RANDOM() % 1),
-   ABS(random() % 2) + 1);
+   ABS(random() % 2) + 1,19);
 
 INSERT INTO "Merk" (mid, naam) VALUES (1, 'Apple');
 INSERT INTO "Merk" (mid, naam) VALUES (2, 'Microsoft');
@@ -167,9 +167,6 @@ VALUES (4, 5), (1, 5),
   (ABS(RANDOM() % 49) + 1, ABS(RANDOM() % 18) + 1);
 
 UPDATE OR IGNORE Profiel
-SET persoonlijkheids_type_id = NULL;
-
-UPDATE OR IGNORE Profiel
 SET persoonlijkheids_type_voorkeur_id = NULL;
 
 INSERT OR IGNORE INTO Like (liker_id, liked_id)
@@ -186,5 +183,28 @@ VALUES ((ABS(RANDOM() % 18) + 1), (ABS(RANDOM() % 18) + 1)),
   ((ABS(RANDOM() % 18) + 1), (ABS(RANDOM() % 18) + 1)),
   ((ABS(RANDOM() % 18) + 1), (ABS(RANDOM() % 18) + 1)),
   ((ABS(RANDOM() % 18) + 1), (ABS(RANDOM() % 18) + 1));
+
+INSERT OR IGNORE INTO Persoonlijkheids_type (ptid, pcid,eType,nType,tType,jType)
+VALUES (1,1,(ABS(RANDOM() % 100)),(ABS(RANDOM() % 100)),(ABS(RANDOM() % 100)),(ABS(RANDOM() % 100))),
+(2,1,(ABS(RANDOM() % 100)),(ABS(RANDOM() % 100)),(ABS(RANDOM() % 100)),(ABS(RANDOM() % 100))),
+(3,1,(ABS(RANDOM() % 100)),(ABS(RANDOM() % 100)),(ABS(RANDOM() % 100)),(ABS(RANDOM() % 100))),
+(4,1,(ABS(RANDOM() % 100)),(ABS(RANDOM() % 100)),(ABS(RANDOM() % 100)),(ABS(RANDOM() % 100))),
+(5,1,(ABS(RANDOM() % 100)),(ABS(RANDOM() % 100)),(ABS(RANDOM() % 100)),(ABS(RANDOM() % 100))),
+(6,1,(ABS(RANDOM() % 100)),(ABS(RANDOM() % 100)),(ABS(RANDOM() % 100)),(ABS(RANDOM() % 100))),
+(7,1,(ABS(RANDOM() % 100)),(ABS(RANDOM() % 100)),(ABS(RANDOM() % 100)),(ABS(RANDOM() % 100))),
+(8,1,(ABS(RANDOM() % 100)),(ABS(RANDOM() % 100)),(ABS(RANDOM() % 100)),(ABS(RANDOM() % 100))),
+(9,1,(ABS(RANDOM() % 100)),(ABS(RANDOM() % 100)),(ABS(RANDOM() % 100)),(ABS(RANDOM() % 100))),
+(10,1,(ABS(RANDOM() % 100)),(ABS(RANDOM() % 100)),(ABS(RANDOM() % 100)),(ABS(RANDOM() % 100))),
+(11,1,(ABS(RANDOM() % 100)),(ABS(RANDOM() % 100)),(ABS(RANDOM() % 100)),(ABS(RANDOM() % 100))),
+(12,1,(ABS(RANDOM() % 100)),(ABS(RANDOM() % 100)),(ABS(RANDOM() % 100)),(ABS(RANDOM() % 100))),
+(13,1,(ABS(RANDOM() % 100)),(ABS(RANDOM() % 100)),(ABS(RANDOM() % 100)),(ABS(RANDOM() % 100))),
+(14,1,(ABS(RANDOM() % 100)),(ABS(RANDOM() % 100)),(ABS(RANDOM() % 100)),(ABS(RANDOM() % 100))),
+(15,1,(ABS(RANDOM() % 100)),(ABS(RANDOM() % 100)),(ABS(RANDOM() % 100)),(ABS(RANDOM() % 100))),
+(16,1,(ABS(RANDOM() % 100)),(ABS(RANDOM() % 100)),(ABS(RANDOM() % 100)),(ABS(RANDOM() % 100))),
+(17,1,(ABS(RANDOM() % 100)),(ABS(RANDOM() % 100)),(ABS(RANDOM() % 100)),(ABS(RANDOM() % 100))),
+(18,1,(ABS(RANDOM() % 100)),(ABS(RANDOM() % 100)),(ABS(RANDOM() % 100)),(ABS(RANDOM() % 100))),
+(19,1,(ABS(RANDOM() % 100)),(ABS(RANDOM() % 100)),(ABS(RANDOM() % 100)),(ABS(RANDOM() % 100))),
+(39,1,(ABS(RANDOM() % 100)),(ABS(RANDOM() % 100)),(ABS(RANDOM() % 100)),(ABS(RANDOM() % 100))),
+(40,1,(ABS(RANDOM() % 100)),(ABS(RANDOM() % 100)),(ABS(RANDOM() % 100)),(ABS(RANDOM() % 100))),
 
 COMMIT;
